@@ -286,35 +286,35 @@ tr:hover td{background:var(--bg3)}
   </div>
   <nav class="sb-nav">
     <div class="sb-section">Overview</div>
-    <button class="nav-item active" onclick=\"nav('dashboard',this)\">
+    <button class="nav-item active" onclick="nav('dashboard',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
       <span>Dashboard</span>
     </button>
 
     <div class="sb-section">Stock Control</div>
-    <button class="nav-item" onclick=\"nav('variance',this)\">
+    <button class="nav-item" onclick="nav('variance',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M9 3h10a2 2 0 0 1 2 2v4"/><path d="M3 9v10a2 2 0 0 0 2 2h4"/><path d="M21 9v10a2 2 0 0 1-2 2h-4"/><path d="m9 15 2 2 4-4"/></svg>
       <span>Variance Check</span>
     </button>
-    <button class="nav-item" onclick=\"nav('cycle',this)\">
+    <button class="nav-item" onclick="nav('cycle',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
       <span>Cycle Counts</span>
     </button>
-    <button class="nav-item" onclick=\"nav('stocktake',this)\">
+    <button class="nav-item" onclick="nav('stocktake',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       <span>Bulk Stocktake</span>
     </button>
-    <button class="nav-item" onclick=\"nav('movements',this)\">
+    <button class="nav-item" onclick="nav('movements',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       <span>Bulk Movements</span>
     </button>
 
     <div class="sb-section">Sales</div>
-    <button class="nav-item" onclick=\"nav('shipments',this)\">
+    <button class="nav-item" onclick="nav('shipments',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="20" r="1"/><circle cx="20" cy="20" r="1"/></svg>
       <span>Shipments</span>
     </button>
-    <button class="nav-item" onclick=\"nav('fastmovers',this)\">
+    <button class="nav-item" onclick="nav('fastmovers',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
       <span>Fast Movers</span>
     </button>
@@ -327,11 +327,11 @@ tr:hover td{background:var(--bg3)}
     </button>
 
     <div class="sb-section">Reports</div>
-    <button class="nav-item" onclick=\"nav('history',this)\">
+    <button class="nav-item" onclick="nav('history',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       <span>Run History</span>
     </button>
-    <button class="nav-item" onclick=\"nav('audit',this)\">
+    <button class="nav-item" onclick="nav('audit',this)">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <span>Audit Report</span>
     </button>
@@ -1139,7 +1139,9 @@ function setDb(cls,lbl){
 function nav(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-  document.getElementById('page-'+id).classList.add('active');
+  const pg=document.getElementById('page-'+id);
+  if(!pg){console.warn('Page not found:',id);return;}
+  pg.classList.add('active');
   if(el)el.classList.add('active');
   if(id==='fastmovers')renderFastMovers();
   if(id==='audit')loadAudit();
@@ -1148,12 +1150,7 @@ function nav(id,el){
   if(id==='sqlconsole'){loadSchema();}
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('.nav-item').forEach(btn=>{
-    const orig=btn.getAttribute('onclick')||'';
-    const m=orig.match(/nav\('([^']+)'\)/);
-    if(m){btn.removeAttribute('onclick');btn.addEventListener('click',()=>nav(m[1],btn));}
-  });
+
 });
 
 function parseCSV(text){
@@ -1958,10 +1955,23 @@ function toast(msg){
 // ═══════════════════════════════════════
 S.pp={dbRows:[],parsedUpload:null,activeTab:'log',sortCol:'session_date',sortDir:-1};
 
-// Set today's date on load
-document.addEventListener('DOMContentLoaded',()=>{
+// One consolidated init on page load
+window.addEventListener('load',()=>{
+  // Set today's date in PP form
   const d=document.getElementById('ppDate');
   if(d)d.value=new Date().toISOString().split('T')[0];
+  // PP live calc listeners
+  ['ppStart','ppEnd','ppUnits','ppOrders'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',updatePPCalc);
+  });
+  // SQL Ctrl+Enter shortcut
+  const inp=document.getElementById('sqlInput');
+  if(inp){
+    inp.addEventListener('keydown',e=>{
+      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL();}
+    });
+  }
 });
 
 function ppTab(tab,el){
@@ -2118,7 +2128,7 @@ async function loadPPData(){
 function populatePPFilters(){
   const packers=[...new Set(S.pp.dbRows.map(r=>r.packer_name).filter(Boolean))].sort();
   const stores=[...new Set(S.pp.dbRows.map(r=>r.store_channel).filter(Boolean))].sort();
-  ['ppHPacker','ppLBPacker'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<option value="">All packers</option>'+packers.map(p=>`<option value="${escAttr(p)}">${escHtml(p)}</option>`).join('');});
+  ['ppHPacker'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<option value="">All packers</option>'+packers.map(p=>`<option value="${escAttr(p)}">${escHtml(p)}</option>`).join('');});
   ['ppHStore','ppLBStore'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<option value="">All stores</option>'+stores.map(s=>`<option value="${escAttr(s)}">${escHtml(s)}</option>`).join('');});
 }
 
@@ -2259,15 +2269,7 @@ function exportPP(){
 S.sql = { lastResult: [] };
 
 // Keyboard shortcut: Ctrl+Enter to run
-document.addEventListener('DOMContentLoaded', () => {
-  const inp = document.getElementById('sqlInput');
-  if (inp) {
-    inp.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-        e.preventDefault();
-        runSQL();
-      }
-    });
+
   }
 });
 
