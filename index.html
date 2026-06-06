@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warehouse Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#0a0a0a;--bg2:#111111;--bg3:#1a1a1a;--bg4:#222222;--bg5:#2a2a2a;
+  --border:#1e1e1e;--border2:#2e2e2e;--border3:#3d3d3d;
+  --text:#f2ede6;--text2:#9a9288;--text3:#4e4a45;
+  --gold:#c9a84c;--gold2:#e8c96a;--gold-bg:#1a1408;
+  --green:#3d9970;--green-bg:#0a1f14;
+  --red:#c0392b;--red-bg:#1f0a0a;
+  --amber:#d4840a;--amber-bg:#1f1205;
+  --blue:#2980b9;--blue-bg:#0a1520;
+  --purple:#8e44ad;--purple-bg:#150a1f;
+  --radius:5px;--radius-lg:8px;--radius-xl:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-size:13px;display:flex;flex-direction:column;min-height:100vh}
+
+/* ── Sidebar layout ── */
+.app{display:flex;flex:1;min-height:0}
+.sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.content{flex:1;overflow-y:auto;min-width:0}
+
+/* ── Sidebar header ── */
+.sb-header{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.sb-logo{font-size:16px;font-weight:800;letter-spacing:.02em;color:var(--text)}
+.sb-logo span{color:var(--gold)}
+.sb-sub{font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace;letter-spacing:.06em}
+
+/* ── Nav ── */
+.sb-nav{flex:1;padding:10px 8px;overflow-y:auto}
+.sb-section{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:14px 10px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius);cursor:pointer;color:var(--text2);font-size:12px;font-weight:500;transition:all .15s;margin-bottom:1px;border:none;background:transparent;width:100%;text-align:left}
+.nav-item svg{opacity:.6;flex-shrink:0}
+.nav-item:hover{background:var(--bg3);color:var(--text)}
+.nav-item.active{background:var(--gold-bg);color:var(--gold);border:1px solid #2a2008}
+.nav-item.active svg{opacity:1}
+
+/* ── DB status ── */
+.sb-footer{padding:12px 18px;border-top:1px solid var(--border)}
+.db-pill{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.db-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);transition:background .3s}
+.db-dot.ok{background:var(--green)}
+.db-dot.err{background:var(--red)}
+
+/* ── Pages ── */
+.page{display:none;padding:28px 32px;animation:fadeIn .2s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── Page header ── */
+.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
+.page-title{font-size:22px;font-weight:800;letter-spacing:-.01em}
+.page-sub{font-size:12px;color:var(--text3);margin-top:4px}
+.page-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+
+/* ── Stat cards ── */
+.stat-grid{display:grid;gap:12px;margin-bottom:24px}
+.stat-grid.cols2{grid-template-columns:repeat(2,1fr)}
+.stat-grid.cols3{grid-template-columns:repeat(3,1fr)}
+.stat-grid.cols4{grid-template-columns:repeat(4,1fr)}
+.stat-grid.cols5{grid-template-columns:repeat(5,1fr)}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 18px}
+.stat-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.stat-val{font-family:'DM Mono',monospace;font-size:28px;font-weight:400;color:var(--text);line-height:1}
+.stat-val.gold{color:var(--gold)}
+.stat-val.green{color:var(--green)}
+.stat-val.red{color:var(--red)}
+.stat-val.amber{color:var(--amber)}
+.stat-val.blue{color:var(--blue)}
+.stat-delta{font-size:11px;color:var(--text3);margin-top:6px;font-family:'DM Mono',monospace}
+
+/* ── Chart cards ── */
+.chart-grid{display:grid;gap:16px;margin-bottom:24px}
+.chart-grid.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.chart-grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
+.chart-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.chart-wrap{position:relative}
+
+/* ── Buttons ── */
+.btn{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:8px 16px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.btn:hover{background:var(--bg4);border-color:var(--border3)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none}
+.btn-gold{background:var(--gold);border-color:var(--gold);color:#0a0a0a;font-weight:700}
+.btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn-sm{padding:5px 11px;font-size:11px}
+.btn-danger{border-color:var(--red);color:var(--red)}
+.btn-danger:hover{background:var(--red-bg)}
+
+/* ── Upload zones ── */
+.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.upload-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+.upload-head{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.upload-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
+.file-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-tag.loaded{color:var(--green)}
+.upload-zone{padding:22px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:background .15s;min-height:100px;justify-content:center}
+.upload-zone:hover,.upload-zone.over{background:var(--bg3)}
+.upload-icon{font-size:22px;opacity:.3}
+.upload-hint{font-size:11px;color:var(--text3);text-align:center;line-height:1.7}
+.upload-hint strong{color:var(--text2)}
+input[type=file]{display:none}
+
+/* ── Column mapper ── */
+.col-mapper{padding:10px 14px;border-top:1px solid var(--border);display:none;gap:8px;flex-wrap:wrap}
+.col-mapper.show{display:flex}
+.map-field{flex:1;min-width:120px}
+.map-field label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:4px}
+.map-field select{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:5px 8px;outline:none;cursor:pointer}
+.map-field select:focus{border-color:var(--gold)}
+
+/* ── Toolbar ── */
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.filter-pills{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:3px}
+.fp{background:transparent;border:none;border-radius:3px;color:var(--text3);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;padding:4px 10px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px}
+.fp:hover{color:var(--text)}
+.fp.active{background:var(--bg5);color:var(--text)}
+.fp-dot{width:5px;height:5px;border-radius:50%}
+.search-box{flex:1;min-width:160px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:7px 12px;outline:none}
+.search-box:focus{border-color:var(--gold)}
+.search-box::placeholder{color:var(--text3)}
+select.filter-sel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:'DM Mono',monospace;font-size:11px;padding:6px 10px;outline:none;cursor:pointer}
+select.filter-sel:focus{border-color:var(--gold)}
+
+/* ── Tables ── */
+.table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
+thead tr{background:var(--bg3);border-bottom:1px solid var(--border)}
+th{padding:9px 12px;text-align:left;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);cursor:pointer;user-select:none;white-space:nowrap;transition:color .15s}
+th:hover{color:var(--text2)}
+th.sorted{color:var(--gold)}
+td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--bg3)}
+.mono{font-family:'DM Mono',monospace;font-size:11px}
+
+/* ── Badges ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.04em;font-family:'Syne',sans-serif}
+.badge.match{background:var(--green-bg);color:var(--green)}
+.badge.short{background:var(--red-bg);color:var(--red)}
+.badge.over{background:var(--amber-bg);color:var(--amber)}
+.badge.missing{background:var(--red-bg);color:var(--red);opacity:.8}
+.badge.extra{background:var(--blue-bg);color:var(--blue)}
+.badge.resolved{background:var(--bg3);color:var(--text3)}
+.badge.transfer{background:var(--blue-bg);color:var(--blue)}
+.badge.return{background:var(--purple-bg);color:var(--purple)}
+.badge.receipt{background:var(--green-bg);color:var(--green)}
+.badge.write_off{background:var(--red-bg);color:var(--red)}
+.badge.adjustment{background:var(--amber-bg);color:var(--amber)}
+
+/* diff colours */
+.dn{color:var(--red);font-family:'DM Mono',monospace}
+.dp{color:var(--amber);font-family:'DM Mono',monospace}
+.dz{color:var(--text3);font-family:'DM Mono',monospace}
+
+/* ── Notes input ── */
+.note-inp{background:transparent;border:none;border-bottom:1px solid transparent;color:var(--text2);font-family:'Syne',monospace;font-size:11px;padding:2px 4px;width:100%;outline:none;transition:border .15s}
+.note-inp:focus{border-bottom-color:var(--gold);background:var(--bg3);border-radius:3px}
+.note-inp::placeholder{color:var(--text3);font-style:italic}
+
+/* ── Empty state ── */
+.empty{text-align:center;padding:60px 20px;color:var(--text3)}
+.empty-icon{font-size:32px;margin-bottom:12px;opacity:.25}
+
+/* ── Section dividers ── */
+.section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.section-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
+
+/* ── Input ── */
+.text-inp{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Syne',sans-serif;font-size:13px;padding:8px 12px;outline:none;transition:border .15s}
+.text-inp:focus{border-color:var(--gold)}
+.text-inp::placeholder{color:var(--text3)}
+
+/* ── Toast ── */
+#toast{position:fixed;bottom:22px;right:22px;background:var(--bg4);border:1px solid var(--border3);border-radius:var(--radius);padding:10px 16px;font-size:12px;color:var(--text);display:none;z-index:9999;max-width:300px;animation:slideUp .2s ease}
+@keyframes slideUp{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+/* ── Loader ── */
+.spin{display:inline-block;width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Run options bar ── */
+.run-bar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.run-bar .text-inp{flex:1}
+
+/* ── History cards ── */
+.history-list{display:flex;flex-direction:column;gap:10px}
+.hist-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;cursor:pointer;transition:all .15s}
+.hist-card:hover{border-color:var(--border3);background:var(--bg3)}
+.hist-label{font-size:13px;font-weight:600;margin-bottom:3px}
+.hist-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
+.hist-pills{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.pill{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:3px;font-weight:500}
+.pill.ok{background:var(--green-bg);color:var(--green)}
+.pill.bad{background:var(--red-bg);color:var(--red)}
+.pill.warn{background:var(--amber-bg);color:var(--amber)}
+.pill.info{background:var(--blue-bg);color:var(--blue)}
+
+/* ── Fast movers table colouring ── */
+.rank-1{color:var(--gold)}
+.rank-2{color:var(--text)}
+.rank-3{color:var(--text2)}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .sidebar{width:52px;min-width:52px}
+  .sb-logo,.sb-sub,.sb-section,.nav-item span,.db-pill span{display:none}
+  .nav-item{justify-content:center;padding:10px}
+  .page{padding:16px}
+  .upload-grid{grid-template-columns:1fr}
+  .stat-grid.cols5{grid-template-columns:repeat(3,1fr)}
+  .chart-grid.cols2,.chart-grid.cols3{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══ SIDEBAR ═══ -->
+<div class="sidebar">
+  <div class="sb-header">
+    <div class="sb-logo">WH<span>IP</span></div>
+    <div class="sb-sub">WAREHOUSE INTELLIGENCE</div>
+  </div>
+  <nav class="sb-nav">
+    <div class="sb-section">Overview</div>
+    <button class="nav-item active" onclick="nav('dashboard')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Dashboard</span>
+    </button>
+
+    <div class="sb-section">Stock Control</div>
+    <button class="nav-item" onclick="nav('variance')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4"/><path d="M9 3h10a2 2 0 0 1 2 2v4"/><path d="M3 9v10a2 2 0 0 0 2 2h4"/><path d="M21 9v10a2 2 0 0 1-2 2h-4"/><path d="m9 15 2 2 4-4"/></svg>
+      <span>Variance Check</span>
+    </button>
+    <button class="nav-item" onclick="nav('cycle')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+      <span>Cycle Counts</span>
+    </button>
+    <button class="nav-item" onclick="nav('stocktake')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <span>Bulk Stocktake</span>
+    </button>
+    <button class="nav-item" onclick="nav('movements')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      <span>Bulk Movements</span>
+    </button>
+
+    <div class="sb-section">Sales</div>
+    <button class="nav-item" onclick="nav('shipments')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="20" r="1"/><circle cx="20" cy="20" r="1"/></svg>
+      <span>Shipments</span>
+    </button>
+    <button class="nav-item" onclick="nav('fastmovers')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      <span>Fast Movers</span>
+    </button>
+
+    <div class="sb-section">Reports</div>
+    <button class="nav-item" onclick="nav('history')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Run History</span>
+    </button>
+    <button class="nav-item" onclick="nav('audit')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Audit Report</span>
+    </button>
+  </nav>
+  <div class="sb-footer">
+    <div class="db-pill">
+      <div class="db-dot" id="dbDot"></div>
+      <span id="dbLabel">connecting…</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTENT ═══ -->
+<div class="content">
+
+<!-- ▸ DASHBOARD ─────────────────────────────────── -->
+<div class="page active" id="page-dashboard">
+  <div class="page-header">
+    <div><div class="page-title">Dashboard</div><div class="page-sub">Warehouse overview — all modules</div></div>
+    <div class="page-actions">
+      <button class="btn btn-sm" onclick="loadDashboard()">↻ Refresh</button>
+    </div>
+  </div>
+  <div class="stat-grid cols4" id="dash-stats">
+    <div class="stat-card"><div class="stat-label">Total Runs</div><div class="stat-val gold" id="ds-runs">—</div></div>
+    <div class="stat-card"><div class="stat-label">Shipment Lines</div><div class="stat-val blue" id="ds-ship">—</div></div>
+    <div class="stat-card"><div class="stat-label">Open Variances</div><div class="stat-val red" id="ds-var">—</div></div>
+    <div class="stat-card"><div class="stat-label">Bulk Movements</div><div class="stat-val amber" id="ds-bulk">—</div></div>
+  </div>
+  <div class="chart-grid cols2">
+    <div class="chart-card">
+      <div class="chart-title">Variance status — last run</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="c-varPie"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Shipments by month (units)</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="c-shipBar"></canvas></div>
+    </div>
+  </div>
+  <div class="chart-grid cols2">
+    <div class="chart-card">
+      <div class="chart-title">Top 10 fast-moving styles</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-fastBar"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Bulk movement types</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-bulkDough"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- ▸ VARIANCE CHECK ─────────────────────────────── -->
+<div class="page" id="page-variance">
+  <div class="page-header">
+    <div><div class="page-title">Variance Check</div><div class="page-sub">PO vs scan — Cin7 stock report vs warehouse scan</div></div>
+  </div>
+  <div id="var-upload">
+    <div class="upload-grid">
+      <div class="upload-card">
+        <div class="upload-head"><span class="upload-label">PO / Cin7 Stock Report</span><span class="file-tag" id="vPOTag">no file</span></div>
+        <div class="upload-zone" id="vPOZone" onclick="document.getElementById('vPOFile').click()" ondragover="dv(event,'vPOZone')" ondragleave="dl('vPOZone')" ondrop="dd(event,'vPOFile','po')">
+          <div class="upload-icon">📋</div>
+          <div class="upload-hint">Click or drag CSV/TSV<br><strong>Cin7 stock export</strong></div>
+        </div>
+        <input type="file" id="vPOFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','var')">
+        <div class="col-mapper" id="vPOMap">
+          <div class="map-field"><label>SKU</label><select id="vPoSku"></select></div>
+          <div class="map-field"><label>Qty</label><select id="vPoQty"></select></div>
+          <div class="map-field"><label>Name</label><select id="vPoName"></select></div>
+          <div class="map-field"><label>Style</label><select id="vPoStyle"></select></div>
+          <div class="map-field"><label>Colour</label><select id="vPoColour"></select></div>
+          <div class="map-field"><label>Size</label><select id="vPoSize"></select></div>
+          <div class="map-field"><label>Category</label><select id="vPoCat"></select></div>
+          <div class="map-field"><label>Barcode</label><select id="vPoBarcode"></select></div>
+        </div>
+      </div>
+      <div class="upload-card">
+        <div class="upload-head"><span class="upload-label">Scan / Count Sheet</span><span class="file-tag" id="vScanTag">no file</span></div>
+        <div class="upload-zone" id="vScanZone" onclick="document.getElementById('vScanFile').click()" ondragover="dv(event,'vScanZone')" ondragleave="dl('vScanZone')" ondrop="dd(event,'vScanFile','scan')">
+          <div class="upload-icon">🔍</div>
+          <div class="upload-hint">Click or drag CSV/TSV<br><strong>Warehouse scan export</strong></div>
+        </div>
+        <input type="file" id="vScanFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','var')">
+        <div class="col-mapper" id="vScanMap">
+          <div class="map-field"><label>SKU</label><select id="vScSku"></select></div>
+          <div class="map-field"><label>Qty</label><select id="vScQty"></select></div>
+        </div>
+      </div>
+    </div>
+    <div class="run-bar">
+      <input type="text" class="text-inp" id="vLabel" placeholder="Label this run — e.g. Snow colourway Jun 2025">
+      <select class="filter-sel" id="vRunType">
+        <option value="variance">Variance Check</option>
+        <option value="cycle_count">Cycle Count</option>
+        <option value="bulk_stocktake">Bulk Stocktake</option>
+      </select>
+      <button class="btn btn-gold" id="vRunBtn" onclick="runVariance()" disabled>Run check</button>
+      <button class="btn btn-sm" onclick="exportVar(false)">Export all</button>
+      <button class="btn btn-sm" onclick="exportVar(true)">Export variances</button>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:11px;color:var(--text3)">
+      <label>Noise filter — ignore ≤</label>
+      <input type="number" id="vThresh" value="0" min="0" style="width:58px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:4px 8px;outline:none">
+      <span>units</span>
+    </div>
+  </div>
+  <div id="var-results" style="display:none">
+    <div class="stat-grid cols5" id="vStats"></div>
+    <div class="toolbar" id="vToolbar">
+      <div class="filter-pills" id="vFilters">
+        <button class="fp active" onclick="vSetF('all',this)">All</button>
+        <button class="fp" onclick="vSetF('short',this)"><span class="fp-dot" style="background:var(--red)"></span>Short</button>
+        <button class="fp" onclick="vSetF('over',this)"><span class="fp-dot" style="background:var(--amber)"></span>Over</button>
+        <button class="fp" onclick="vSetF('missing',this)"><span class="fp-dot" style="background:var(--red);opacity:.5"></span>Missing</button>
+        <button class="fp" onclick="vSetF('extra',this)"><span class="fp-dot" style="background:var(--blue)"></span>Extra</button>
+        <button class="fp" onclick="vSetF('match',this)"><span class="fp-dot" style="background:var(--green)"></span>Match</button>
+      </div>
+      <input type="text" class="search-box" id="vSearch" placeholder="Search SKU / name / style…" oninput="renderVar()">
+      <select class="filter-sel" id="vStyleF" onchange="renderVar()"><option value="">All styles</option></select>
+      <select class="filter-sel" id="vColourF" onchange="renderVar()"><option value="">All colours</option></select>
+      <select class="filter-sel" id="vSizeF" onchange="renderVar()"><option value="">All sizes</option></select>
+      <select class="filter-sel" id="vCatF" onchange="renderVar()"><option value="">All categories</option></select>
+      <button class="btn btn-sm" id="vNotesBtn" onclick="saveVarNotes()">Save notes</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th onclick="vSort('sku')">SKU</th>
+          <th onclick="vSort('name')">Name</th>
+          <th onclick="vSort('style')">Style</th>
+          <th onclick="vSort('colour')">Colour</th>
+          <th onclick="vSort('size')">Size</th>
+          <th onclick="vSort('po_qty')" style="text-align:right">PO Qty</th>
+          <th onclick="vSort('scan_qty')" style="text-align:right">Scan Qty</th>
+          <th onclick="vSort('variance')" style="text-align:right">Variance</th>
+          <th onclick="vSort('status')">Status</th>
+          <th>Notes</th>
+        </tr></thead>
+        <tbody id="vBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="empty" id="vEmpty" style="display:none"><div class="empty-icon">📦</div><div>No SKUs match this filter.</div></div>
+</div>
+
+<!-- ▸ CYCLE COUNTS ───────────────────────────────── -->
+<div class="page" id="page-cycle">
+  <div class="page-header">
+    <div><div class="page-title">Cycle Counts</div><div class="page-sub">Upload cycle count scan vs Cin7 live stock levels</div></div>
+  </div>
+  <div class="upload-grid">
+    <div class="upload-card">
+      <div class="upload-head"><span class="upload-label">Cin7 Stock Level</span><span class="file-tag" id="ccETag">no file</span></div>
+      <div class="upload-zone" onclick="document.getElementById('ccEFile').click()">
+        <div class="upload-icon">📊</div>
+        <div class="upload-hint">Cin7 stock on hand report<br><strong>CSV export</strong></div>
+      </div>
+      <input type="file" id="ccEFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','cc')">
+      <div class="col-mapper" id="ccEMap">
+        <div class="map-field"><label>SKU</label><select id="ccESku"></select></div>
+        <div class="map-field"><label>Qty</label><select id="ccEQty"></select></div>
+        <div class="map-field"><label>Name</label><select id="ccEName"></select></div>
+        <div class="map-field"><label>Style</label><select id="ccEStyle"></select></div>
+        <div class="map-field"><label>Colour</label><select id="ccEColour"></select></div>
+        <div class="map-field"><label>Size</label><select id="ccESize"></select></div>
+      </div>
+    </div>
+    <div class="upload-card">
+      <div class="upload-head"><span class="upload-label">Cycle Count Scan</span><span class="file-tag" id="ccSTag">no file</span></div>
+      <div class="upload-zone" onclick="document.getElementById('ccSFile').click()">
+        <div class="upload-icon">🔄</div>
+        <div class="upload-hint">Scanned cycle count sheet<br><strong>CSV export</strong></div>
+      </div>
+      <input type="file" id="ccSFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','cc')">
+      <div class="col-mapper" id="ccSMap">
+        <div class="map-field"><label>SKU</label><select id="ccSSku"></select></div>
+        <div class="map-field"><label>Qty</label><select id="ccSQty"></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="run-bar">
+    <input type="text" class="text-inp" id="ccLabel" placeholder="Cycle count label — e.g. Warehouse A, Section 3, Jun 2025">
+    <button class="btn btn-gold" id="ccRunBtn" onclick="runCC()" disabled>Run cycle count</button>
+    <button class="btn btn-sm" onclick="exportCC()">Export</button>
+  </div>
+  <div id="cc-results" style="display:none">
+    <div class="stat-grid cols5" id="ccStats"></div>
+    <div class="toolbar">
+      <div class="filter-pills" id="ccFilters">
+        <button class="fp active" onclick="ccSetF('all',this)">All</button>
+        <button class="fp" onclick="ccSetF('short',this)"><span class="fp-dot" style="background:var(--red)"></span>Short</button>
+        <button class="fp" onclick="ccSetF('over',this)"><span class="fp-dot" style="background:var(--amber)"></span>Over</button>
+        <button class="fp" onclick="ccSetF('missing',this)">Missing</button>
+        <button class="fp" onclick="ccSetF('match',this)"><span class="fp-dot" style="background:var(--green)"></span>Match</button>
+      </div>
+      <input type="text" class="search-box" id="ccSearch" placeholder="Search…" oninput="renderCC()">
+      <select class="filter-sel" id="ccStyleF" onchange="renderCC()"><option value="">All styles</option></select>
+      <select class="filter-sel" id="ccColourF" onchange="renderCC()"><option value="">All colours</option></select>
+      <select class="filter-sel" id="ccSizeF" onchange="renderCC()"><option value="">All sizes</option></select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th onclick="ccSort('sku')">SKU</th>
+          <th onclick="ccSort('name')">Name</th>
+          <th onclick="ccSort('style')">Style</th>
+          <th onclick="ccSort('colour')">Colour</th>
+          <th onclick="ccSort('size')">Size</th>
+          <th style="text-align:right">ERP Qty</th>
+          <th style="text-align:right">Count Qty</th>
+          <th style="text-align:right">Variance</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody id="ccBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ▸ BULK STOCKTAKE ─────────────────────────────── -->
+<div class="page" id="page-stocktake">
+  <div class="page-header">
+    <div><div class="page-title">Bulk Stocktake</div><div class="page-sub">Upload full stocktake sheets, compare year-over-year</div></div>
+  </div>
+  <div class="upload-grid">
+    <div class="upload-card">
+      <div class="upload-head"><span class="upload-label">ERP / Expected Stock</span><span class="file-tag" id="stETag">no file</span></div>
+      <div class="upload-zone" onclick="document.getElementById('stEFile').click()">
+        <div class="upload-icon">📋</div>
+        <div class="upload-hint">Cin7 full stock report<br><strong>CSV export</strong></div>
+      </div>
+      <input type="file" id="stEFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','st')">
+      <div class="col-mapper" id="stEMap">
+        <div class="map-field"><label>SKU</label><select id="stESku"></select></div>
+        <div class="map-field"><label>Qty</label><select id="stEQty"></select></div>
+        <div class="map-field"><label>Name</label><select id="stEName"></select></div>
+        <div class="map-field"><label>Style</label><select id="stEStyle"></select></div>
+        <div class="map-field"><label>Colour</label><select id="stEColour"></select></div>
+        <div class="map-field"><label>Size</label><select id="stESize"></select></div>
+        <div class="map-field"><label>Season</label><select id="stESeason"></select></div>
+        <div class="map-field"><label>Category</label><select id="stECat"></select></div>
+      </div>
+    </div>
+    <div class="upload-card">
+      <div class="upload-head"><span class="upload-label">Physical Count Sheet</span><span class="file-tag" id="stSTag">no file</span></div>
+      <div class="upload-zone" onclick="document.getElementById('stSFile').click()">
+        <div class="upload-icon">📦</div>
+        <div class="upload-hint">Physical count results<br><strong>CSV export</strong></div>
+      </div>
+      <input type="file" id="stSFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','st')">
+      <div class="col-mapper" id="stSMap">
+        <div class="map-field"><label>SKU</label><select id="stSSku"></select></div>
+        <div class="map-field"><label>Qty</label><select id="stSQty"></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="run-bar">
+    <input type="text" class="text-inp" id="stLabel" placeholder="Stocktake label — e.g. Annual stocktake FY2025">
+    <button class="btn btn-gold" id="stRunBtn" onclick="runST()" disabled>Run stocktake</button>
+    <button class="btn btn-sm" onclick="exportST()">Export</button>
+  </div>
+  <div id="st-results" style="display:none">
+    <div class="stat-grid cols5" id="stStats"></div>
+    <div class="toolbar">
+      <div class="filter-pills" id="stFilters">
+        <button class="fp active" onclick="stSetF('all',this)">All</button>
+        <button class="fp" onclick="stSetF('short',this)"><span class="fp-dot" style="background:var(--red)"></span>Short</button>
+        <button class="fp" onclick="stSetF('over',this)"><span class="fp-dot" style="background:var(--amber)"></span>Over</button>
+        <button class="fp" onclick="stSetF('missing',this)">Missing</button>
+        <button class="fp" onclick="stSetF('match',this)"><span class="fp-dot" style="background:var(--green)"></span>Match</button>
+      </div>
+      <input type="text" class="search-box" id="stSearch" placeholder="Search…" oninput="renderST()">
+      <select class="filter-sel" id="stStyleF" onchange="renderST()"><option value="">All styles</option></select>
+      <select class="filter-sel" id="stColourF" onchange="renderST()"><option value="">All colours</option></select>
+      <select class="filter-sel" id="stSizeF" onchange="renderST()"><option value="">All sizes</option></select>
+      <select class="filter-sel" id="stSeasonF" onchange="renderST()"><option value="">All seasons</option></select>
+      <select class="filter-sel" id="stCatF" onchange="renderST()"><option value="">All categories</option></select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>SKU</th><th>Name</th><th>Style</th><th>Colour</th><th>Size</th><th>Season</th>
+          <th style="text-align:right">ERP</th><th style="text-align:right">Count</th><th style="text-align:right">Variance</th><th>Status</th><th>Notes</th>
+        </tr></thead>
+        <tbody id="stBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ▸ BULK MOVEMENTS ─────────────────────────────── -->
+<div class="page" id="page-movements">
+  <div class="page-header">
+    <div><div class="page-title">Bulk Movements</div><div class="page-sub">Track transfers, returns, receipts, write-offs and adjustments</div></div>
+    <div class="page-actions">
+      <button class="btn btn-sm" onclick="loadMovements()">↻ Refresh</button>
+      <button class="btn btn-sm" onclick="exportMovements()">Export CSV</button>
+    </div>
+  </div>
+  <div class="upload-card" style="margin-bottom:16px">
+    <div class="upload-head"><span class="upload-label">Upload movement sheet</span><span class="file-tag" id="movTag">no file</span></div>
+    <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('movFile').click()">
+      <div class="upload-icon">↔️</div>
+      <div class="upload-hint">Warehouse movement export or custom CSV<br><strong>transfers · returns · receipts · write-offs</strong></div>
+    </div>
+    <input type="file" id="movFile" accept=".csv,.tsv,.txt" onchange="loadMovFile(event)">
+    <div class="col-mapper" id="movMap">
+      <div class="map-field"><label>SKU</label><select id="movSku"></select></div>
+      <div class="map-field"><label>Qty</label><select id="movQty"></select></div>
+      <div class="map-field"><label>Date</label><select id="movDate"></select></div>
+      <div class="map-field"><label>Type</label><select id="movType"></select></div>
+      <div class="map-field"><label>Name</label><select id="movName"></select></div>
+      <div class="map-field"><label>Reference</label><select id="movRef"></select></div>
+      <div class="map-field"><label>Style</label><select id="movStyle"></select></div>
+      <div class="map-field"><label>Colour</label><select id="movColour"></select></div>
+      <div class="map-field"><label>Size</label><select id="movSize"></select></div>
+    </div>
+  </div>
+  <div class="run-bar" id="movRunBar" style="display:none">
+    <input type="text" class="text-inp" id="movLabel" placeholder="Movement batch label — e.g. Transfer to CPT warehouse Jun 2025">
+    <button class="btn btn-gold" onclick="saveMovements()">Save to database</button>
+  </div>
+  <div class="section-row" style="margin-top:8px">
+    <div class="section-title">Movement log</div>
+    <div style="display:flex;gap:8px">
+      <select class="filter-sel" id="movTypeF" onchange="renderMovements()"><option value="">All types</option><option>transfer</option><option>return</option><option>receipt</option><option>write_off</option><option>adjustment</option></select>
+      <input type="text" class="search-box" style="width:160px" id="movSearch" placeholder="Search SKU…" oninput="renderMovements()">
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Date</th><th>SKU</th><th>Name</th><th>Style</th><th>Colour</th><th>Size</th>
+        <th style="text-align:right">Qty</th><th>Type</th><th>Reference</th><th>Notes</th>
+      </tr></thead>
+      <tbody id="movBody"><tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3)">No movements loaded yet.</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ▸ SHIPMENTS ──────────────────────────────────── -->
+<div class="page" id="page-shipments">
+  <div class="page-header">
+    <div><div class="page-title">Shipments</div><div class="page-sub">Upload Shopify orders CSV — track per day, per month</div></div>
+    <div class="page-actions">
+      <button class="btn btn-sm" onclick="exportShipments()">Export CSV</button>
+    </div>
+  </div>
+  <div class="upload-card" style="margin-bottom:16px">
+    <div class="upload-head"><span class="upload-label">Shopify Orders Export</span><span class="file-tag" id="shipTag">no file</span></div>
+    <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('shipFile').click()">
+      <div class="upload-icon">🛒</div>
+      <div class="upload-hint">Export from Shopify Admin → Orders → Export<br><strong>CSV format</strong></div>
+    </div>
+    <input type="file" id="shipFile" accept=".csv,.tsv,.txt" onchange="loadShipFile(event)">
+    <div class="col-mapper" id="shipMap">
+      <div class="map-field"><label>Order ID</label><select id="shipOrderId"></select></div>
+      <div class="map-field"><label>Date</label><select id="shipDate"></select></div>
+      <div class="map-field"><label>SKU</label><select id="shipSku"></select></div>
+      <div class="map-field"><label>Name / Product</label><select id="shipName"></select></div>
+      <div class="map-field"><label>Qty</label><select id="shipQty"></select></div>
+      <div class="map-field"><label>Revenue</label><select id="shipRev"></select></div>
+      <div class="map-field"><label>Style (optional)</label><select id="shipStyle"></select></div>
+      <div class="map-field"><label>Colour (optional)</label><select id="shipColour"></select></div>
+      <div class="map-field"><label>Size (optional)</label><select id="shipSize"></select></div>
+    </div>
+  </div>
+  <div class="run-bar" id="shipRunBar" style="display:none">
+    <input type="text" class="text-inp" id="shipLabel" placeholder="Import label — e.g. Shopify orders Jun 2025">
+    <button class="btn btn-gold" onclick="saveShipments()">Save to database</button>
+  </div>
+  <div class="stat-grid cols4" id="shipStats" style="display:none">
+    <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-val blue" id="ss-orders">—</div></div>
+    <div class="stat-card"><div class="stat-label">Total Units</div><div class="stat-val gold" id="ss-units">—</div></div>
+    <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-val green" id="ss-rev">—</div></div>
+    <div class="stat-card"><div class="stat-label">Unique SKUs</div><div class="stat-val" id="ss-skus">—</div></div>
+  </div>
+  <div class="chart-grid cols2" id="shipCharts" style="display:none">
+    <div class="chart-card">
+      <div class="chart-title">Units shipped by day</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="c-shipDay"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Revenue by month</div>
+      <div class="chart-wrap" style="height:200px"><canvas id="c-shipMonth"></canvas></div>
+    </div>
+  </div>
+  <div class="toolbar" style="margin-top:4px">
+    <input type="text" class="search-box" id="shipSearch" placeholder="Search SKU / product…" oninput="renderShipments()">
+    <select class="filter-sel" id="shipMonthF" onchange="renderShipments()"><option value="">All months</option></select>
+    <select class="filter-sel" id="shipStyleF" onchange="renderShipments()"><option value="">All styles</option></select>
+  </div>
+  <div class="table-wrap" id="shipTable" style="display:none">
+    <table>
+      <thead><tr>
+        <th onclick="shipSort('order_date')">Date</th>
+        <th onclick="shipSort('order_id')">Order ID</th>
+        <th onclick="shipSort('sku')">SKU</th>
+        <th onclick="shipSort('name')">Product</th>
+        <th onclick="shipSort('style')">Style</th>
+        <th onclick="shipSort('size')">Size</th>
+        <th onclick="shipSort('qty')" style="text-align:right">Qty</th>
+        <th onclick="shipSort('revenue')" style="text-align:right">Revenue</th>
+      </tr></thead>
+      <tbody id="shipBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ▸ FAST MOVERS ────────────────────────────────── -->
+<div class="page" id="page-fastmovers">
+  <div class="page-header">
+    <div><div class="page-title">Fast Movers</div><div class="page-sub">Top-selling SKUs and styles from shipment data</div></div>
+    <div class="page-actions">
+      <select class="filter-sel" id="fmPeriod" onchange="renderFastMovers()">
+        <option value="all">All time</option>
+        <option value="30">Last 30 days</option>
+        <option value="90">Last 90 days</option>
+        <option value="180">Last 180 days</option>
+        <option value="365">Last 365 days</option>
+      </select>
+      <button class="btn btn-sm" onclick="exportFastMovers()">Export CSV</button>
+    </div>
+  </div>
+  <div class="chart-grid cols2" style="margin-bottom:24px">
+    <div class="chart-card">
+      <div class="chart-title">Top 15 styles by units</div>
+      <div class="chart-wrap" style="height:260px"><canvas id="c-fmStyles"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Top 10 sizes by units</div>
+      <div class="chart-wrap" style="height:260px"><canvas id="c-fmSizes"></canvas></div>
+    </div>
+  </div>
+  <div class="toolbar">
+    <select class="filter-sel" id="fmGroupBy" onchange="renderFastMovers()">
+      <option value="sku">By SKU</option>
+      <option value="style">By Style</option>
+      <option value="colour">By Colour</option>
+      <option value="size">By Size</option>
+      <option value="category">By Category</option>
+    </select>
+    <input type="text" class="search-box" id="fmSearch" placeholder="Search…" oninput="renderFastMovers()">
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th style="width:40px">Rank</th>
+        <th id="fmGroupHeader">SKU</th>
+        <th style="text-align:right">Units Sold</th>
+        <th style="text-align:right">Orders</th>
+        <th style="text-align:right">Revenue</th>
+        <th style="text-align:right">Avg per Order</th>
+      </tr></thead>
+      <tbody id="fmBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ▸ RUN HISTORY ────────────────────────────────── -->
+<div class="page" id="page-history">
+  <div class="page-header">
+    <div><div class="page-title">Run History</div><div class="page-sub">All saved variance, cycle count and stocktake runs</div></div>
+    <div class="page-actions"><button class="btn btn-sm" onclick="loadHistory()">↻ Refresh</button></div>
+  </div>
+  <div class="toolbar" style="margin-bottom:16px">
+    <select class="filter-sel" id="histTypeF" onchange="renderHistory()"><option value="">All types</option><option value="variance">Variance</option><option value="cycle_count">Cycle Count</option><option value="bulk_stocktake">Bulk Stocktake</option></select>
+    <input type="text" class="search-box" id="histSearch" placeholder="Search label…" oninput="renderHistory()">
+  </div>
+  <div class="history-list" id="histList"><div class="empty"><div class="spin"></div></div></div>
+</div>
+
+<!-- ▸ AUDIT REPORT ───────────────────────────────── -->
+<div class="page" id="page-audit">
+  <div class="page-header">
+    <div><div class="page-title">Audit Report</div><div class="page-sub">Year-over-year variance comparison and trend analysis</div></div>
+    <div class="page-actions">
+      <button class="btn btn-sm" onclick="loadAudit()">↻ Refresh</button>
+      <button class="btn btn-sm" onclick="exportAudit()">Export PDF-ready CSV</button>
+    </div>
+  </div>
+  <div class="stat-grid cols3" id="auditStats">
+    <div class="stat-card"><div class="stat-label">Total runs recorded</div><div class="stat-val gold" id="au-runs">—</div></div>
+    <div class="stat-card"><div class="stat-label">Avg variance rate</div><div class="stat-val amber" id="au-rate">—</div></div>
+    <div class="stat-card"><div class="stat-label">Most problematic style</div><div class="stat-val red" id="au-style" style="font-size:16px;margin-top:4px">—</div></div>
+  </div>
+  <div class="chart-grid cols2">
+    <div class="chart-card">
+      <div class="chart-title">Variance rate per run</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-auditTrend"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Issues by style</div>
+      <div class="chart-wrap" style="height:220px"><canvas id="c-auditStyle"></canvas></div>
+    </div>
+  </div>
+  <div class="section-row"><div class="section-title">All variance issues — resolved &amp; open</div></div>
+  <div class="toolbar">
+    <select class="filter-sel" id="auStatusF" onchange="renderAudit()"><option value="">All statuses</option><option value="short">Short</option><option value="over">Over</option><option value="missing">Missing</option><option value="extra">Extra</option></select>
+    <select class="filter-sel" id="auResolvedF" onchange="renderAudit()"><option value="">All</option><option value="false">Open</option><option value="true">Resolved</option></select>
+    <input type="text" class="search-box" id="auSearch" placeholder="Search SKU / style…" oninput="renderAudit()">
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Run</th><th>Date</th><th>SKU</th><th>Style</th><th>Colour</th><th>Size</th>
+        <th style="text-align:right">Variance</th><th>Status</th><th>Resolved</th><th>Notes</th>
+      </tr></thead>
+      <tbody id="auBody"></tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- /content -->
+</div><!-- /app -->
+
+<div id="toast"></div>
+
+<script>
+const SB_URL='https://wqsibegaczuhgrcjwitl.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indxc2liZWdhY3p1aGdyY2p3aXRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2OTg2MzgsImV4cCI6MjA5NjI3NDYzOH0.IyXcvF3HbPqgdyl2vsFTzXUc8VuUWjgTnyYQMJomzkw';
+const SBH={'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'};
+
+async function sb(method,path,body){
+  const r=await fetch(SB_URL+'/rest/v1/'+path,{method,headers:SBH,body:body?JSON.stringify(body):undefined});
+  if(!r.ok){const t=await r.text();throw new Error(t);}
+  const ct=r.headers.get('content-type')||'';
+  if(ct.includes('json')&&r.status!==204)return r.json();
+  return null;
+}
+
+// ── App state ──────────────────────────────────────
+const S={
+  var:{po:null,scan:null,rows:[],runId:null,filter:'all',sortCol:'status',sortDir:1,notesMap:{}},
+  cc:{po:null,scan:null,rows:[],filter:'all',sortCol:'status',sortDir:1},
+  st:{po:null,scan:null,rows:[],filter:'all',sortCol:'status',sortDir:1,notesMap:{}},
+  mov:{rows:[],dbRows:[],parsed:null},
+  ship:{parsed:null,dbRows:[],sortCol:'order_date',sortDir:-1},
+  hist:{all:[]},
+  audit:{rows:[]},
+  charts:{}
+};
+
+// ── Init ───────────────────────────────────────────
+(async()=>{
+  try{
+    await sb('GET','variance_runs?limit=1');
+    setDb('ok','supabase live');
+    loadDashboard();
+    loadHistory();
+    loadMovements();
+    loadShipmentsDB();
+    loadAudit();
+  }catch(e){
+    setDb('err','db error');
+    toast('⚠ Supabase error — run schema_v2.sql first');
+  }
+})();
+
+function setDb(cls,lbl){
+  document.getElementById('dbDot').className='db-dot '+cls;
+  document.getElementById('dbLabel').textContent=lbl;
+}
+
+// ── Navigation ─────────────────────────────────────
+function nav(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(id==='fastmovers')renderFastMovers();
+  if(id==='audit')loadAudit();
+}
+
+// ── CSV Parser ─────────────────────────────────────
+function parseCSV(text){
+  const lines=text.trim().split(/\r?\n/);
+  if(!lines.length)return{headers:[],rows:[]};
+  const d=(lines[0].split(';').length>lines[0].split(',').length)?';':',';
+  const parse=line=>{
+    const r=[];let c='',q=false;
+    for(const ch of line){
+      if(ch==='"'){q=!q;continue;}
+      if(ch===d&&!q){r.push(c.trim());c='';}
+      else c+=ch;
+    }
+    r.push(c.trim());return r;
+  };
+  const h=parse(lines[0]);
+  const rows=lines.slice(1).filter(l=>l.trim()).map(l=>{
+    const v=parse(l);const o={};h.forEach((hh,i)=>o[hh]=v[i]||'');return o;
+  });
+  return{headers:h,rows};
+}
+
+function guess(headers,pats){
+  for(const p of pats){const h=headers.find(h=>h.toLowerCase().includes(p));if(h)return h;}
+  return '(none)';
+}
+
+function populateSel(selId,headers,guess_val){
+  const el=document.getElementById(selId);
+  el.innerHTML=['(none)',...headers].map(h=>`<option value="${h}">${h}</option>`).join('');
+  if(guess_val&&headers.includes(guess_val))el.value=guess_val;
+  else el.value=guess_val||'(none)';
+}
+
+// ── Drag/drop helpers ──────────────────────────────
+function dv(e,id){e.preventDefault();document.getElementById(id).classList.add('over');}
+function dl(id){document.getElementById(id).classList.remove('over');}
+function dd(e,inputId,type){
+  e.preventDefault();dl(e.currentTarget.id);
+  const file=e.dataTransfer.files[0];if(!file)return;
+  const fake={target:{files:[file]}};
+  document.getElementById(inputId).files=e.dataTransfer.files;
+  loadF(fake,type,'var');
+}
+
+// ── Generic file loader ────────────────────────────
+const FILE_DATA={};
+
+function loadF(event,role,module){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const parsed=parseCSV(ev.target.result);
+    FILE_DATA[module+'_'+role]=parsed;
+    setupMapper(module,role,parsed.headers,file.name);
+    checkRunReady(module);
+  };
+  reader.readAsText(file);
+}
+
+function setupMapper(mod,role,headers,fname){
+  const prefix={'var':{'po':'vPO','scan':'vScan'},'cc':{'po':'ccE','scan':'ccS'},'st':{'po':'stE','scan':'stS'}}[mod][role];
+  const tagId=prefix+'Tag';const mapId=prefix+'Map';
+  document.getElementById(tagId).textContent=fname;
+  document.getElementById(tagId).className='file-tag loaded';
+  document.getElementById(mapId).classList.add('show');
+
+  if(mod==='var'&&role==='po'){
+    populateSel('vPoSku',headers,guess(headers,['sku','barcode','code','item']));
+    populateSel('vPoQty',headers,guess(headers,['qty','quantity','stock','on hand','available']));
+    populateSel('vPoName',headers,guess(headers,['name','description','product','style','title']));
+    populateSel('vPoStyle',headers,guess(headers,['style','product name','range']));
+    populateSel('vPoColour',headers,guess(headers,['colour','color','colourway']));
+    populateSel('vPoSize',headers,guess(headers,['size','sz']));
+    populateSel('vPoCat',headers,guess(headers,['category','cat','type','department']));
+    populateSel('vPoBarcode',headers,guess(headers,['barcode','ean','upc']));
+  }else if(mod==='var'&&role==='scan'){
+    populateSel('vScSku',headers,guess(headers,['sku','barcode','code']));
+    populateSel('vScQty',headers,guess(headers,['qty','quantity','count']));
+  }else if(mod==='cc'&&role==='po'){
+    populateSel('ccESku',headers,guess(headers,['sku','barcode','code']));
+    populateSel('ccEQty',headers,guess(headers,['qty','quantity','stock','on hand']));
+    populateSel('ccEName',headers,guess(headers,['name','description','product']));
+    populateSel('ccEStyle',headers,guess(headers,['style','product name']));
+    populateSel('ccEColour',headers,guess(headers,['colour','color']));
+    populateSel('ccESize',headers,guess(headers,['size']));
+  }else if(mod==='cc'&&role==='scan'){
+    populateSel('ccSSku',headers,guess(headers,['sku','barcode','code']));
+    populateSel('ccSQty',headers,guess(headers,['qty','quantity','count']));
+  }else if(mod==='st'&&role==='po'){
+    populateSel('stESku',headers,guess(headers,['sku','barcode','code']));
+    populateSel('stEQty',headers,guess(headers,['qty','quantity','stock']));
+    populateSel('stEName',headers,guess(headers,['name','description','product']));
+    populateSel('stEStyle',headers,guess(headers,['style']));
+    populateSel('stEColour',headers,guess(headers,['colour','color']));
+    populateSel('stESize',headers,guess(headers,['size']));
+    populateSel('stESeason',headers,guess(headers,['season']));
+    populateSel('stECat',headers,guess(headers,['category','cat']));
+  }else if(mod==='st'&&role==='scan'){
+    populateSel('stSSku',headers,guess(headers,['sku','barcode','code']));
+    populateSel('stSQty',headers,guess(headers,['qty','quantity','count']));
+  }
+}
+
+function checkRunReady(mod){
+  const po=FILE_DATA[mod+'_po'];const scan=FILE_DATA[mod+'_scan'];
+  const btns={var:'vRunBtn',cc:'ccRunBtn',st:'stRunBtn'};
+  document.getElementById(btns[mod]).disabled=!(po&&scan);
+}
+
+// ── Core variance engine ───────────────────────────
+function buildRows(poData,scanData,cfg){
+  const poMap={};
+  poData.rows.forEach(r=>{
+    const sku=(r[cfg.poSku]||'').toString().trim().toUpperCase();if(!sku||sku==='(NONE)')return;
+    const qty=parseFloat(r[cfg.poQty])||0;
+    poMap[sku]={qty,name:r[cfg.poName]||'',style:r[cfg.poStyle]||'',colour:r[cfg.poColour]||'',size:r[cfg.poSize]||'',category:r[cfg.poCat]||'',season:r[cfg.poSeason]||'',barcode:r[cfg.poBarcode]||''};
+  });
+  const scanMap={};
+  scanData.rows.forEach(r=>{
+    const sku=(r[cfg.scSku]||'').toString().trim().toUpperCase();if(!sku||sku==='(NONE)')return;
+    const qty=parseFloat(r[cfg.scQty])||0;
+    scanMap[sku]=(scanMap[sku]||0)+qty;
+  });
+  const all=new Set([...Object.keys(poMap),...Object.keys(scanMap)]);
+  const rows=[];
+  all.forEach(sku=>{
+    const po=poMap[sku];
+    const scanQty=scanMap[sku]!==undefined?scanMap[sku]:null;
+    const poQty=po?po.qty:null;
+    let status;
+    if(poQty===null)status='extra';
+    else if(scanQty===null)status='missing';
+    else if(scanQty===poQty)status='match';
+    else if(scanQty<poQty)status='short';
+    else status='over';
+    const variance=(poQty!==null&&scanQty!==null)?scanQty-poQty:null;
+    rows.push({sku,name:po?.name||'',style:po?.style||'',colour:po?.colour||'',size:po?.size||'',category:po?.category||'',season:po?.season||'',barcode:po?.barcode||'',po_qty:poQty,scan_qty:scanQty,variance,status});
+  });
+  return rows;
+}
+
+function countS(rows){
+  const c={match:0,short:0,over:0,missing:0,extra:0};
+  rows.forEach(r=>{if(c[r.status]!==undefined)c[r.status]++;});
+  return c;
+}
+
+function buildStatHTML(rows,ids){
+  const c=countS(rows);
+  document.getElementById(ids[0]).innerHTML=`<div class="stat-label">Total SKUs</div><div class="stat-val blue">${rows.length}</div>`;
+  document.getElementById(ids[1]).innerHTML=`<div class="stat-label">Matched</div><div class="stat-val green">${c.match}</div>`;
+  document.getElementById(ids[2]).innerHTML=`<div class="stat-label">Short</div><div class="stat-val red">${c.short}</div>`;
+  document.getElementById(ids[3]).innerHTML=`<div class="stat-label">Over</div><div class="stat-val amber">${c.over}</div>`;
+  document.getElementById(ids[4]).innerHTML=`<div class="stat-label">Missing/Extra</div><div class="stat-val">${c.missing+c.extra}</div>`;
+}
+
+function populateFilters(rows,selIds){
+  const[styleId,colourId,sizeId,catId,seasonId]=selIds;
+  const uniq=(key)=>[...new Set(rows.map(r=>r[key]).filter(Boolean))].sort();
+  if(styleId){const el=document.getElementById(styleId);el.innerHTML='<option value="">All styles</option>'+uniq('style').map(v=>`<option>${v}</option>`).join('');}
+  if(colourId){const el=document.getElementById(colourId);el.innerHTML='<option value="">All colours</option>'+uniq('colour').map(v=>`<option>${v}</option>`).join('');}
+  if(sizeId){const el=document.getElementById(sizeId);el.innerHTML='<option value="">All sizes</option>'+uniq('size').map(v=>`<option>${v}</option>`).join('');}
+  if(catId){const el=document.getElementById(catId);el.innerHTML='<option value="">All categories</option>'+uniq('category').map(v=>`<option>${v}</option>`).join('');}
+  if(seasonId){const el=document.getElementById(seasonId);el.innerHTML='<option value="">All seasons</option>'+uniq('season').map(v=>`<option>${v}</option>`).join('');}
+}
+
+function filterRows(rows,filter,search,style,colour,size,cat,season,thresh){
+  const q=(search||'').toUpperCase();
+  const statusOrder={missing:0,short:1,over:2,extra:3,match:4};
+  return rows.filter(r=>{
+    if(filter!=='all'&&r.status!==filter)return false;
+    if(q&&!r.sku.includes(q)&&!(r.name||'').toUpperCase().includes(q)&&!(r.style||'').toUpperCase().includes(q))return false;
+    if(style&&r.style!==style)return false;
+    if(colour&&r.colour!==colour)return false;
+    if(size&&r.size!==size)return false;
+    if(cat&&r.category!==cat)return false;
+    if(season&&r.season!==season)return false;
+    if(thresh>0&&r.variance!==null&&Math.abs(r.variance)<=thresh&&r.status!=='missing'&&r.status!=='extra')return false;
+    return true;
+  });
+}
+
+const BADGES={
+  match:'<span class="badge match">Match</span>',
+  short:'<span class="badge short">↓ Short</span>',
+  over:'<span class="badge over">↑ Over</span>',
+  missing:'<span class="badge missing">Missing</span>',
+  extra:'<span class="badge extra">Extra</span>',
+};
+
+function varCell(v){
+  if(v===null)return '<span style="color:var(--text3)">—</span>';
+  if(v<0)return`<span class="dn">${v}</span>`;
+  if(v>0)return`<span class="dp">+${v}</span>`;
+  return'<span class="dz">0</span>';
+}
+
+function qCell(v){return v!==null?v:'<span style="color:var(--text3)">—</span>';}
+
+// ═══════════════════════════════════════
+// VARIANCE MODULE
+// ═══════════════════════════════════════
+function runVariance(){
+  const pd=FILE_DATA['var_po'],sd=FILE_DATA['var_scan'];if(!pd||!sd)return;
+  const cfg={
+    poSku:document.getElementById('vPoSku').value,poQty:document.getElementById('vPoQty').value,
+    poName:document.getElementById('vPoName').value,poStyle:document.getElementById('vPoStyle').value,
+    poColour:document.getElementById('vPoColour').value,poSize:document.getElementById('vPoSize').value,
+    poCat:document.getElementById('vPoCat').value,poBarcode:document.getElementById('vPoBarcode').value,poSeason:'(none)',
+    scSku:document.getElementById('vScSku').value,scQty:document.getElementById('vScQty').value
+  };
+  S.var.rows=buildRows(pd,sd,cfg);
+  S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;S.var.notesMap={};S.var.runId=null;
+  const sg=document.getElementById('vStats');
+  sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';
+  buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);
+  populateFilters(S.var.rows,['vStyleF','vColourF','vSizeF','vCatF',null]);
+  document.getElementById('var-results').style.display='block';
+  renderVar();
+  saveVarRun();
+}
+
+async function saveVarRun(){
+  const label=document.getElementById('vLabel').value.trim()||'Variance run '+new Date().toLocaleString('en-ZA');
+  const c=countS(S.var.rows);
+  const runType=document.getElementById('vRunType').value;
+  try{
+    const[run]=await sb('POST','variance_runs',{label,run_type:runType,total_skus:S.var.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});
+    S.var.runId=run.id;
+    const chunk=S.var.rows.map(r=>({run_id:run.id,...r}));
+    for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));
+    toast('✓ Saved to database');
+  }catch(e){toast('⚠ Save failed: '+e.message);}
+}
+
+function vSetF(f,el){
+  S.var.filter=f;
+  document.querySelectorAll('#vFilters .fp').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');renderVar();
+}
+
+function vSort(col){
+  if(S.var.sortCol===col)S.var.sortDir*=-1;else{S.var.sortCol=col;S.var.sortDir=1;}renderVar();
+}
+
+function renderVar(){
+  const thresh=parseInt(document.getElementById('vThresh').value)||0;
+  let rows=filterRows(S.var.rows,S.var.filter,
+    document.getElementById('vSearch').value,
+    document.getElementById('vStyleF').value,
+    document.getElementById('vColourF').value,
+    document.getElementById('vSizeF').value,
+    document.getElementById('vCatF').value,
+    null,thresh);
+  const sord={missing:0,short:1,over:2,extra:3,match:4};
+  rows.sort((a,b)=>{
+    let av=a[S.var.sortCol],bv=b[S.var.sortCol];
+    if(S.var.sortCol==='status'){av=sord[av]??9;bv=sord[bv]??9;}
+    if(av===null)return 1;if(bv===null)return-1;
+    return(av<bv?-1:av>bv?1:0)*S.var.sortDir;
+  });
+  const tbody=document.getElementById('vBody');
+  if(!rows.length){document.getElementById('vEmpty').style.display='block';document.querySelector('.table-wrap').style.display='none';return;}
+  document.getElementById('vEmpty').style.display='none';
+  tbody.innerHTML=rows.map(r=>`<tr>
+    <td class="mono">${r.sku}</td>
+    <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text2)">${r.name||'—'}</td>
+    <td style="color:var(--text2)">${r.style||'—'}</td>
+    <td style="color:var(--text2)">${r.colour||'—'}</td>
+    <td class="mono">${r.size||'—'}</td>
+    <td class="mono" style="text-align:right">${qCell(r.po_qty)}</td>
+    <td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td>
+    <td style="text-align:right">${varCell(r.variance)}</td>
+    <td>${BADGES[r.status]||r.status}</td>
+    <td><input class="note-inp" placeholder="Note…" value="${S.var.notesMap[r.sku]||''}" oninput="S.var.notesMap['${r.sku}']=this.value"></td>
+  </tr>`).join('');
+}
+
+async function saveVarNotes(){
+  if(!S.var.runId){toast('Run not saved yet.');return;}
+  const entries=Object.entries(S.var.notesMap).filter(([,v])=>v.trim());
+  if(!entries.length){toast('No notes to save.');return;}
+  try{
+    for(const[sku,notes]of entries){
+      await fetch(SB_URL+'/rest/v1/variance_rows?run_id=eq.'+S.var.runId+'&sku=eq.'+encodeURIComponent(sku),{method:'PATCH',headers:SBH,body:JSON.stringify({notes})});
+    }
+    toast('✓ Notes saved');
+  }catch(e){toast('⚠ '+e.message);}
+}
+
+function exportVar(varOnly){
+  let rows=varOnly?S.var.rows.filter(r=>r.status!=='match'):S.var.rows;
+  if(!rows.length){toast('No data.');return;}
+  const hdr='SKU,Name,Style,Colour,Size,PO Qty,Scan Qty,Variance,Status,Notes\n';
+  const csv=hdr+rows.map(r=>[r.sku,r.name,r.style,r.colour,r.size,r.po_qty??'',r.scan_qty??'',r.variance??'',r.status,S.var.notesMap[r.sku]||''].map(v=>`"${v}"`).join(',')).join('\n');
+  dl2(csv,'variance-export.csv');
+}
+
+// ═══════════════════════════════════════
+// CYCLE COUNT MODULE (reuses engine)
+// ═══════════════════════════════════════
+function runCC(){
+  const pd=FILE_DATA['cc_po'],sd=FILE_DATA['cc_scan'];if(!pd||!sd)return;
+  const cfg={
+    poSku:document.getElementById('ccESku').value,poQty:document.getElementById('ccEQty').value,
+    poName:document.getElementById('ccEName').value,poStyle:document.getElementById('ccEStyle').value,
+    poColour:document.getElementById('ccEColour').value,poSize:document.getElementById('ccESize').value,
+    poCat:'(none)',poBarcode:'(none)',poSeason:'(none)',
+    scSku:document.getElementById('ccSSku').value,scQty:document.getElementById('ccSQty').value
+  };
+  S.cc.rows=buildRows(pd,sd,cfg);
+  S.cc.filter='all';S.cc.sortCol='status';S.cc.sortDir=1;
+  const sg=document.getElementById('ccStats');
+  sg.innerHTML='<div class="stat-card" id="ccS0"></div><div class="stat-card" id="ccS1"></div><div class="stat-card" id="ccS2"></div><div class="stat-card" id="ccS3"></div><div class="stat-card" id="ccS4"></div>';
+  buildStatHTML(S.cc.rows,['ccS0','ccS1','ccS2','ccS3','ccS4']);
+  populateFilters(S.cc.rows,['ccStyleF','ccColourF','ccSizeF',null,null]);
+  document.getElementById('cc-results').style.display='block';
+  renderCC();
+  saveCCRun();
+}
+
+async function saveCCRun(){
+  const label=document.getElementById('ccLabel').value.trim()||'Cycle count '+new Date().toLocaleString('en-ZA');
+  const c=countS(S.cc.rows);
+  try{
+    const[run]=await sb('POST','variance_runs',{label,run_type:'cycle_count',total_skus:S.cc.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});
+    const chunk=S.cc.rows.map(r=>({run_id:run.id,...r}));
+    for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));
+    toast('✓ Cycle count saved');
+  }catch(e){toast('⚠ '+e.message);}
+}
+
+function ccSetF(f,el){S.cc.filter=f;document.querySelectorAll('#ccFilters .fp').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderCC();}
+function ccSort(col){if(S.cc.sortCol===col)S.cc.sortDir*=-1;else{S.cc.sortCol=col;S.cc.sortDir=1;}renderCC();}
+
+function renderCC(){
+  let rows=filterRows(S.cc.rows,S.cc.filter,document.getElementById('ccSearch').value,document.getElementById('ccStyleF').value,document.getElementById('ccColourF').value,document.getElementById('ccSizeF').value,null,null,0);
+  const sord={missing:0,short:1,over:2,extra:3,match:4};
+  rows.sort((a,b)=>{let av=a[S.cc.sortCol],bv=b[S.cc.sortCol];if(S.cc.sortCol==='status'){av=sord[av]??9;bv=sord[bv]??9;}if(av===null)return 1;if(bv===null)return-1;return(av<bv?-1:av>bv?1:0)*S.cc.sortDir;});
+  document.getElementById('ccBody').innerHTML=rows.length?rows.map(r=>`<tr>
+    <td class="mono">${r.sku}</td><td style="color:var(--text2)">${r.name||'—'}</td>
+    <td style="color:var(--text2)">${r.style||'—'}</td><td style="color:var(--text2)">${r.colour||'—'}</td>
+    <td class="mono">${r.size||'—'}</td>
+    <td class="mono" style="text-align:right">${qCell(r.po_qty)}</td>
+    <td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td>
+    <td style="text-align:right">${varCell(r.variance)}</td>
+    <td>${BADGES[r.status]||r.status}</td>
+  </tr>`).join(''):'<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text3)">No results.</td></tr>';
+}
+
+function exportCC(){dl2(toRowCSV(S.cc.rows),'cycle-count.csv');}
+
+// ═══════════════════════════════════════
+// BULK STOCKTAKE MODULE
+// ═══════════════════════════════════════
+function runST(){
+  const pd=FILE_DATA['st_po'],sd=FILE_DATA['st_scan'];if(!pd||!sd)return;
+  const cfg={
+    poSku:document.getElementById('stESku').value,poQty:document.getElementById('stEQty').value,
+    poName:document.getElementById('stEName').value,poStyle:document.getElementById('stEStyle').value,
+    poColour:document.getElementById('stEColour').value,poSize:document.getElementById('stESize').value,
+    poCat:document.getElementById('stECat').value,poSeason:document.getElementById('stESeason').value,poBarcode:'(none)',
+    scSku:document.getElementById('stSSku').value,scQty:document.getElementById('stSQty').value
+  };
+  S.st.rows=buildRows(pd,sd,cfg);S.st.filter='all';S.st.sortCol='status';S.st.sortDir=1;S.st.notesMap={};
+  const sg=document.getElementById('stStats');
+  sg.innerHTML='<div class="stat-card" id="stS0"></div><div class="stat-card" id="stS1"></div><div class="stat-card" id="stS2"></div><div class="stat-card" id="stS3"></div><div class="stat-card" id="stS4"></div>';
+  buildStatHTML(S.st.rows,['stS0','stS1','stS2','stS3','stS4']);
+  populateFilters(S.st.rows,['stStyleF','stColourF','stSizeF','stCatF','stSeasonF']);
+  document.getElementById('st-results').style.display='block';
+  renderST();
+  saveSTRun();
+}
+
+async function saveSTRun(){
+  const label=document.getElementById('stLabel').value.trim()||'Stocktake '+new Date().toLocaleString('en-ZA');
+  const c=countS(S.st.rows);
+  try{
+    const[run]=await sb('POST','variance_runs',{label,run_type:'bulk_stocktake',total_skus:S.st.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});
+    const chunk=S.st.rows.map(r=>({run_id:run.id,...r}));
+    for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));
+    toast('✓ Stocktake saved');
+  }catch(e){toast('⚠ '+e.message);}
+}
+
+function stSetF(f,el){S.st.filter=f;document.querySelectorAll('#stFilters .fp').forEach(b=>b.classList.remove('active'));el.classList.add('active');renderST();}
+function stSort(col){if(S.st.sortCol===col)S.st.sortDir*=-1;else{S.st.sortCol=col;S.st.sortDir=1;}renderST();}
+
+function renderST(){
+  let rows=filterRows(S.st.rows,S.st.filter,document.getElementById('stSearch').value,document.getElementById('stStyleF').value,document.getElementById('stColourF').value,document.getElementById('stSizeF').value,document.getElementById('stCatF').value,document.getElementById('stSeasonF').value,0);
+  document.getElementById('stBody').innerHTML=rows.length?rows.map(r=>`<tr>
+    <td class="mono">${r.sku}</td><td style="color:var(--text2)">${r.name||'—'}</td>
+    <td style="color:var(--text2)">${r.style||'—'}</td><td style="color:var(--text2)">${r.colour||'—'}</td>
+    <td class="mono">${r.size||'—'}</td><td style="color:var(--text3)">${r.season||'—'}</td>
+    <td class="mono" style="text-align:right">${qCell(r.po_qty)}</td>
+    <td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td>
+    <td style="text-align:right">${varCell(r.variance)}</td>
+    <td>${BADGES[r.status]||r.status}</td>
+    <td><input class="note-inp" placeholder="Note…" value="${S.st.notesMap[r.sku]||''}" oninput="S.st.notesMap['${r.sku}']=this.value"></td>
+  </tr>`).join(''):'<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text3)">No results.</td></tr>';
+}
+
+function exportST(){dl2(toRowCSV(S.st.rows),'stocktake.csv');}
+
+// ═══════════════════════════════════════
+// BULK MOVEMENTS MODULE
+// ═══════════════════════════════════════
+function loadMovFile(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const parsed=parseCSV(ev.target.result);
+    S.mov.parsed=parsed;
+    document.getElementById('movTag').textContent=file.name;
+    document.getElementById('movTag').className='file-tag loaded';
+    document.getElementById('movMap').classList.add('show');
+    document.getElementById('movRunBar').style.display='flex';
+    const h=parsed.headers;
+    const opts=['(none)',...h].map(hh=>`<option>${hh}</option>`).join('');
+    ['movSku','movQty','movDate','movType','movName','movRef','movStyle','movColour','movSize'].forEach(id=>{
+      document.getElementById(id).innerHTML=opts;
+    });
+    document.getElementById('movSku').value=guess(h,['sku','barcode','code']);
+    document.getElementById('movQty').value=guess(h,['qty','quantity','units']);
+    document.getElementById('movDate').value=guess(h,['date','movement date','created']);
+    document.getElementById('movType').value=guess(h,['type','movement type','reason']);
+    document.getElementById('movName').value=guess(h,['name','description','product']);
+    document.getElementById('movRef').value=guess(h,['ref','reference','order','po']);
+    document.getElementById('movStyle').value=guess(h,['style']);
+    document.getElementById('movColour').value=guess(h,['colour','color']);
+    document.getElementById('movSize').value=guess(h,['size']);
+  };
+  reader.readAsText(file);
+}
+
+async function saveMovements(){
+  if(!S.mov.parsed)return;
+  const skuC=document.getElementById('movSku').value;
+  const qtyC=document.getElementById('movQty').value;
+  const dateC=document.getElementById('movDate').value;
+  const typeC=document.getElementById('movType').value;
+  const nameC=document.getElementById('movName').value;
+  const refC=document.getElementById('movRef').value;
+  const styleC=document.getElementById('movStyle').value;
+  const colourC=document.getElementById('movColour').value;
+  const sizeC=document.getElementById('movSize').value;
+  const label=document.getElementById('movLabel').value.trim()||'Movement batch';
+  const rows=S.mov.parsed.rows.map(r=>({
+    sku:(r[skuC]||'').toUpperCase().trim(),
+    qty:parseFloat(r[qtyC])||0,
+    movement_date:r[dateC]||null,
+    movement_type:(r[typeC]||'transfer').toLowerCase().replace(' ','_'),
+    name:r[nameC]||'',
+    reference:r[refC]||'',
+    style:r[styleC]||'',
+    colour:r[colourC]||'',
+    size:r[sizeC]||'',
+    label
+  })).filter(r=>r.sku);
+  try{
+    for(let i=0;i<rows.length;i+=200)await sb('POST','bulk_movements',rows.slice(i,i+200));
+    toast('✓ '+rows.length+' movements saved');
+    loadMovements();
+  }catch(e){toast('⚠ '+e.message);}
+}
+
+async function loadMovements(){
+  try{
+    const rows=await sb('GET','bulk_movements?order=movement_date.desc,created_at.desc&limit=2000');
+    S.mov.dbRows=rows||[];
+    renderMovements();
+  }catch(e){}
+}
+
+function renderMovements(){
+  const typeF=document.getElementById('movTypeF').value;
+  const q=(document.getElementById('movSearch').value||'').toUpperCase();
+  let rows=S.mov.dbRows.filter(r=>{
+    if(typeF&&r.movement_type!==typeF)return false;
+    if(q&&!(r.sku||'').includes(q)&&!(r.name||'').toUpperCase().includes(q))return false;
+    return true;
+  });
+  document.getElementById('movBody').innerHTML=rows.length?rows.map(r=>`<tr>
+    <td class="mono">${r.movement_date||'—'}</td>
+    <td class="mono">${r.sku||'—'}</td>
+    <td style="color:var(--text2)">${r.name||'—'}</td>
+    <td style="color:var(--text2)">${r.style||'—'}</td>
+    <td style="color:var(--text2)">${r.colour||'—'}</td>
+    <td class="mono">${r.size||'—'}</td>
+    <td class="mono" style="text-align:right">${r.qty}</td>
+    <td>${BADGES[r.movement_type]||`<span class="badge">${r.movement_type||'—'}</span>`}</td>
+    <td class="mono" style="color:var(--text3)">${r.reference||'—'}</td>
+    <td style="color:var(--text3);font-size:11px">${r.notes||''}</td>
+  </tr>`).join(''):'<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3)">No movements.</td></tr>';
+}
+
+function exportMovements(){
+  const hdr='Date,SKU,Name,Style,Colour,Size,Qty,Type,Reference,Notes\n';
+  const csv=hdr+S.mov.dbRows.map(r=>[r.movement_date,r.sku,r.name,r.style,r.colour,r.size,r.qty,r.movement_type,r.reference,r.notes||''].map(v=>`"${v||''}"`).join(',')).join('\n');
+  dl2(csv,'bulk-movements.csv');
+}
+
+// ═══════════════════════════════════════
+// SHIPMENTS MODULE
+// ═══════════════════════════════════════
+function loadShipFile(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    const parsed=parseCSV(ev.target.result);
+    S.ship.parsed=parsed;
+    document.getElementById('shipTag').textContent=file.name;
+    document.getElementById('shipTag').className='file-tag loaded';
+    document.getElementById('shipMap').classList.add('show');
+    document.getElementById('shipRunBar').style.display='flex';
+    const h=parsed.headers;
+    const opts=['(none)',...h].map(hh=>`<option>${hh}</option>`).join('');
+    ['shipOrderId','shipDate','shipSku','shipName','shipQty','shipRev','shipStyle','shipColour','shipSize'].forEach(id=>document.getElementById(id).innerHTML=opts);
+    document.getElementById('shipOrderId').value=guess(h,['order id','name','order number','order_id']);
+    document.getElementById('shipDate').value=guess(h,['created at','date','paid at','fulfilled']);
+    document.getElementById('shipSku').value=guess(h,['sku','variant sku']);
+    document.getElementById('shipName').value=guess(h,['lineitem name','product','title','name']);
+    document.getElementById('shipQty').value=guess(h,['lineitem quantity','quantity','qty']);
+    document.getElementById('shipRev').value=guess(h,['total','subtotal','price','revenue','lineitem price']);
+    document.getElementById('shipStyle').value=guess(h,['style']);
+    document.getElementById('shipColour').value=guess(h,['colour','color','variant title']);
+    document.getElementById('shipSize').value=guess(h,['size']);
+    previewShipStats(parsed);
+  };
+  reader.readAsText(file);
+}
+
+function previewShipStats(parsed){
+  const qtyC=document.getElementById('shipQty').value;
+  const revC=document.getElementById('shipRev').value;
+  const orderC=document.getElementById('shipOrderId').value;
+  const skuC=document.getElementById('shipSku').value;
+  let units=0,rev=0;
+  const orders=new Set(),skus=new Set();
+  parsed.rows.forEach(r=>{
+    units+=parseFloat(r[qtyC])||0;
+    rev+=parseFloat((r[revC]||'').replace(/[^0-9.]/g,''))||0;
+    if(r[orderC])orders.add(r[orderC]);
+    if(r[skuC])skus.add(r[skuC]);
+  });
+  document.getElementById('ss-orders').textContent=orders.size.toLocaleString();
+  document.getElementById('ss-units').textContent=units.toLocaleString();
+  document.getElementById('ss-rev').textContent='R '+rev.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  document.getElementById('ss-skus').textContent=skus.size.toLocaleString();
+  document.getElementById('shipStats').style.display='grid';
+}
+
+async function saveShipments(){
+  if(!S.ship.parsed)return;
+  const orderC=document.getElementById('shipOrderId').value;
+  const dateC=document.getElementById('shipDate').value;
+  const skuC=document.getElementById('shipSku').value;
+  const nameC=document.getElementById('shipName').value;
+  const qtyC=document.getElementById('shipQty').value;
+  const revC=document.getElementById('shipRev').value;
+  const styleC=document.getElementById('shipStyle').value;
+  const colourC=document.getElementById('shipColour').value;
+  const sizeC=document.getElementById('shipSize').value;
+  const label=document.getElementById('shipLabel').value.trim()||'Shopify import';
+  const rows=S.ship.parsed.rows.map(r=>{
+    const rawDate=r[dateC]||'';
+    let order_date=null;
+    try{const d=new Date(rawDate);if(!isNaN(d))order_date=d.toISOString().split('T')[0];}catch(e){}
+    return{
+      import_label:label,
+      order_id:(r[orderC]||'').toString(),
+      order_date,
+      sku:(r[skuC]||'').toUpperCase().trim(),
+      name:r[nameC]||'',
+      style:r[styleC]||'',
+      colour:r[colourC]||'',
+      size:r[sizeC]||'',
+      qty:parseInt(r[qtyC])||0,
+      revenue:parseFloat((r[revC]||'').replace(/[^0-9.]/g,''))||0,
+      channel:'shopify'
+    };
+  }).filter(r=>r.sku);
+  try{
+    for(let i=0;i<rows.length;i+=200)await sb('POST','shipments',rows.slice(i,i+200));
+    toast('✓ '+rows.length+' shipment lines saved');
+    loadShipmentsDB();
+  }catch(e){toast('⚠ '+e.message);}
+}
+
+async function loadShipmentsDB(){
+  try{
+    const rows=await sb('GET','shipments?order=order_date.desc&limit=5000');
+    S.ship.dbRows=rows||[];
+    if(S.ship.dbRows.length){
+      renderShipmentCharts();
+      renderShipments();
+      populateShipFilters();
+      document.getElementById('shipCharts').style.display='grid';
+      document.getElementById('shipTable').style.display='block';
+    }
+  }catch(e){}
+}
+
+function populateShipFilters(){
+  const months=[...new Set(S.ship.dbRows.map(r=>(r.order_date||'').slice(0,7)).filter(Boolean))].sort().reverse();
+  const styles=[...new Set(S.ship.dbRows.map(r=>r.style).filter(Boolean))].sort();
+  document.getElementById('shipMonthF').innerHTML='<option value="">All months</option>'+months.map(m=>`<option>${m}</option>`).join('');
+  document.getElementById('shipStyleF').innerHTML='<option value="">All styles</option>'+styles.map(s=>`<option>${s}</option>`).join('');
+}
+
+function renderShipments(){
+  const q=(document.getElementById('shipSearch').value||'').toUpperCase();
+  const monthF=document.getElementById('shipMonthF').value;
+  const styleF=document.getElementById('shipStyleF').value;
+  let rows=S.ship.dbRows.filter(r=>{
+    if(q&&!(r.sku||'').includes(q)&&!(r.name||'').toUpperCase().includes(q))return false;
+    if(monthF&&!(r.order_date||'').startsWith(monthF))return false;
+    if(styleF&&r.style!==styleF)return false;
+    return true;
+  });
+  const sc=S.ship.sortCol;const sd=S.ship.sortDir;
+  rows.sort((a,b)=>{const av=a[sc],bv=b[sc];return(av<bv?-1:av>bv?1:0)*sd;});
+  document.getElementById('shipBody').innerHTML=rows.slice(0,500).map(r=>`<tr>
+    <td class="mono">${r.order_date||'—'}</td>
+    <td class="mono" style="color:var(--text3)">${r.order_id||'—'}</td>
+    <td class="mono">${r.sku||'—'}</td>
+    <td style="color:var(--text2);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.name||'—'}</td>
+    <td style="color:var(--text2)">${r.style||'—'}</td>
+    <td class="mono">${r.size||'—'}</td>
+    <td class="mono" style="text-align:right">${r.qty}</td>
+    <td class="mono" style="text-align:right">R ${(r.revenue||0).toFixed(2)}</td>
+  </tr>`).join('');
+}
+
+function shipSort(col){if(S.ship.sortCol===col)S.ship.sortDir*=-1;else{S.ship.sortCol=col;S.ship.sortDir=1;}renderShipments();}
+
+function renderShipmentCharts(){
+  const rows=S.ship.dbRows;
+  // By day
+  const dayMap={};rows.forEach(r=>{if(r.order_date)dayMap[r.order_date]=(dayMap[r.order_date]||0)+r.qty;});
+  const days=Object.keys(dayMap).sort().slice(-60);
+  drawChart('c-shipDay','bar',days,days.map(d=>dayMap[d]),{color:'rgba(201,168,76,0.8)',label:'Units'});
+  // By month
+  const mMap={};rows.forEach(r=>{const m=(r.order_date||'').slice(0,7);if(m)mMap[m]=(mMap[m]||0)+(r.revenue||0);});
+  const months=Object.keys(mMap).sort();
+  drawChart('c-shipMonth','bar',months,months.map(m=>parseFloat(mMap[m].toFixed(2))),{color:'rgba(61,153,112,0.8)',label:'Revenue (R)'});
+}
+
+function exportShipments(){
+  const hdr='Date,Order ID,SKU,Name,Style,Colour,Size,Qty,Revenue\n';
+  const csv=hdr+S.ship.dbRows.map(r=>[r.order_date,r.order_id,r.sku,r.name,r.style,r.colour,r.size,r.qty,r.revenue].map(v=>`"${v||''}"`).join(',')).join('\n');
+  dl2(csv,'shipments.csv');
+}
+
+// ═══════════════════════════════════════
+// FAST MOVERS MODULE
+// ═══════════════════════════════════════
+function renderFastMovers(){
+  const period=parseInt(document.getElementById('fmPeriod').value)||0;
+  const groupBy=document.getElementById('fmGroupBy').value;
+  const q=(document.getElementById('fmSearch').value||'').toUpperCase();
+  document.getElementById('fmGroupHeader').textContent=groupBy.charAt(0).toUpperCase()+groupBy.slice(1);
+
+  let rows=S.ship.dbRows;
+  if(period){
+    const cutoff=new Date();cutoff.setDate(cutoff.getDate()-period);
+    rows=rows.filter(r=>r.order_date&&new Date(r.order_date)>=cutoff);
+  }
+
+  const map={};
+  rows.forEach(r=>{
+    const key=r[groupBy]||'(unknown)';
+    if(!map[key])map[key]={key,units:0,orders:new Set(),revenue:0};
+    map[key].units+=r.qty;
+    map[key].orders.add(r.order_id);
+    map[key].revenue+=r.revenue||0;
+  });
+
+  let ranked=Object.values(map).map(m=>({...m,orders:m.orders.size,avgPerOrder:m.orders.size?m.units/m.orders.size:0}));
+  ranked.sort((a,b)=>b.units-a.units);
+
+  // Charts
+  const top15=ranked.slice(0,15);
+  drawChart('c-fmStyles','bar',top15.map(r=>r.key),top15.map(r=>r.units),{color:'rgba(201,168,76,0.75)',label:'Units',horizontal:true});
+
+  // Size breakdown
+  const sizeMap={};S.ship.dbRows.forEach(r=>{const s=r.size||'(none)';sizeMap[s]=(sizeMap[s]||0)+r.qty;});
+  const sizes=Object.entries(sizeMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  drawChart('c-fmSizes','doughnut',sizes.map(s=>s[0]),sizes.map(s=>s[1]),{label:'Units'});
+
+  if(q)ranked=ranked.filter(r=>r.key.toUpperCase().includes(q));
+
+  document.getElementById('fmBody').innerHTML=ranked.slice(0,200).map((r,i)=>`<tr>
+    <td class="mono ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}">#${i+1}</td>
+    <td style="font-weight:${i<3?600:400}">${r.key}</td>
+    <td class="mono" style="text-align:right">${r.units.toLocaleString()}</td>
+    <td class="mono" style="text-align:right">${r.orders.toLocaleString()}</td>
+    <td class="mono" style="text-align:right">R ${r.revenue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}</td>
+    <td class="mono" style="text-align:right">${r.avgPerOrder.toFixed(1)}</td>
+  </tr>`).join('');
+}
+
+function exportFastMovers(){
+  const rows=document.querySelectorAll('#fmBody tr');
+  const hdr='Rank,Group,Units Sold,Orders,Revenue,Avg per Order\n';
+  const csv=hdr+[...rows].map(r=>[...r.querySelectorAll('td')].map(td=>'"'+td.textContent.trim()+'"').join(',')).join('\n');
+  dl2(csv,'fast-movers.csv');
+}
+
+// ═══════════════════════════════════════
+// HISTORY MODULE
+// ═══════════════════════════════════════
+async function loadHistory(){
+  try{
+    const runs=await sb('GET','variance_runs?order=created_at.desc&limit=100');
+    S.hist.all=runs||[];
+    renderHistory();
+  }catch(e){document.getElementById('histList').innerHTML='<div class="empty">Could not load history.</div>';}
+}
+
+function renderHistory(){
+  const typeF=document.getElementById('histTypeF').value;
+  const q=(document.getElementById('histSearch').value||'').toUpperCase();
+  let runs=S.hist.all.filter(r=>{
+    if(typeF&&r.run_type!==typeF)return false;
+    if(q&&!(r.label||'').toUpperCase().includes(q))return false;
+    return true;
+  });
+  const grid=document.getElementById('histList');
+  if(!runs.length){grid.innerHTML='<div class="empty"><div class="empty-icon">🕓</div><div>No runs found.</div></div>';return;}
+  const typeLabel={variance:'Variance',cycle_count:'Cycle Count',bulk_stocktake:'Stocktake'};
+  grid.innerHTML=runs.map(r=>{
+    const dt=new Date(r.created_at).toLocaleString('en-ZA',{dateStyle:'medium',timeStyle:'short'});
+    const issues=(r.short||0)+(r.missing||0)+(r.over||0)+(r.extra||0);
+    return`<div class="hist-card" onclick="loadHistRun('${r.id}')">
+      <div>
+        <div class="hist-label">${r.label||'Untitled'}</div>
+        <div class="hist-meta">${dt} &nbsp;·&nbsp; ${r.total_skus} SKUs &nbsp;·&nbsp; <span style="color:var(--text2)">${typeLabel[r.run_type]||r.run_type}</span></div>
+      </div>
+      <div class="hist-pills">
+        <span class="pill ok">${r.matched} match</span>
+        ${issues?`<span class="pill bad">${issues} issues</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function loadHistRun(runId){
+  try{
+    const rows=await sb('GET','variance_rows?run_id=eq.'+runId+'&order=status.asc,sku.asc&limit=5000');
+    S.var.rows=(rows||[]).map(r=>({...r,variance:r.variance!==null?parseFloat(r.variance):null}));
+    S.var.notesMap={};rows.forEach(r=>{if(r.notes)S.var.notesMap[r.sku]=r.notes;});
+    S.var.runId=runId;S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;
+    const sg=document.getElementById('vStats');
+    sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';
+    buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);
+    populateFilters(S.var.rows,['vStyleF','vColourF','vSizeF','vCatF',null]);
+    document.getElementById('var-results').style.display='block';
+    renderVar();
+    // Switch to variance tab
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    document.getElementById('page-variance').classList.add('active');
+    document.querySelectorAll('.nav-item')[1].classList.add('active');
+    toast('✓ Loaded run from history');
+  }catch(e){toast('⚠ '+e.message);}
+}
+
+// ═══════════════════════════════════════
+// AUDIT MODULE
+// ═══════════════════════════════════════
+async function loadAudit(){
+  try{
+    const[runs,rows]=await Promise.all([
+      sb('GET','variance_runs?order=created_at.asc&limit=200'),
+      sb('GET','variance_rows?status=neq.match&order=created_at.desc&limit=5000')
+    ]);
+    S.audit.runs=runs||[];S.audit.rows=rows||[];
+    renderAuditStats();
+    renderAuditCharts();
+    renderAudit();
+  }catch(e){}
+}
+
+function renderAuditStats(){
+  const runs=S.audit.runs;const rows=S.audit.rows;
+  document.getElementById('au-runs').textContent=runs.length;
+  const avgRate=runs.length?runs.reduce((a,r)=>a+(1-(r.matched/(r.total_skus||1))),0)/runs.length*100:0;
+  document.getElementById('au-rate').textContent=avgRate.toFixed(1)+'%';
+  const styleMap={};rows.forEach(r=>{if(r.style)styleMap[r.style]=(styleMap[r.style]||0)+1;});
+  const worst=Object.entries(styleMap).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById('au-style').textContent=worst?worst[0]:'—';
+}
+
+function renderAuditCharts(){
+  const runs=S.audit.runs;
+  const labels=runs.map(r=>new Date(r.created_at).toLocaleDateString('en-ZA',{day:'numeric',month:'short'}));
+  const rates=runs.map(r=>parseFloat(((1-(r.matched/(r.total_skus||1)))*100).toFixed(1)));
+  drawChart('c-auditTrend','line',labels,rates,{color:'rgba(201,168,76,0.8)',label:'Variance rate %'});
+
+  const styleMap={};S.audit.rows.forEach(r=>{if(r.style)styleMap[r.style]=(styleMap[r.style]||0)+1;});
+  const top=Object.entries(styleMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  drawChart('c-auditStyle','bar',top.map(t=>t[0]),top.map(t=>t[1]),{color:'rgba(192,57,43,0.75)',label:'Issues'});
+}
+
+function renderAudit(){
+  const statusF=document.getElementById('auStatusF').value;
+  const resolvedF=document.getElementById('auResolvedF').value;
+  const q=(document.getElementById('auSearch').value||'').toUpperCase();
+  let rows=(S.audit.rows||[]).filter(r=>{
+    if(statusF&&r.status!==statusF)return false;
+    if(resolvedF===''||resolvedF===undefined){}
+    else if(resolvedF==='true'&&!r.resolved)return false;
+    else if(resolvedF==='false'&&r.resolved)return false;
+    if(q&&!(r.sku||'').includes(q)&&!(r.style||'').toUpperCase().includes(q))return false;
+    return true;
+  });
+  const runMap={};(S.audit.runs||[]).forEach(r=>runMap[r.id]=r);
+  document.getElementById('auBody').innerHTML=rows.slice(0,500).map(r=>{
+    const run=runMap[r.run_id];
+    const dt=run?new Date(run.created_at).toLocaleDateString('en-ZA',{dateStyle:'short'}):'—';
+    return`<tr>
+      <td style="color:var(--text3);font-size:11px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${run?.label||'—'}</td>
+      <td class="mono" style="color:var(--text3)">${dt}</td>
+      <td class="mono">${r.sku||'—'}</td>
+      <td style="color:var(--text2)">${r.style||'—'}</td>
+      <td style="color:var(--text2)">${r.colour||'—'}</td>
+      <td class="mono">${r.size||'—'}</td>
+      <td style="text-align:right">${varCell(r.variance)}</td>
+      <td>${BADGES[r.status]||r.status}</td>
+      <td><span class="badge ${r.resolved?'resolved':'short'}">${r.resolved?'Resolved':'Open'}</span></td>
+      <td style="color:var(--text3);font-size:11px">${r.notes||''}</td>
+    </tr>`;
+  }).join('');
+}
+
+function exportAudit(){
+  const hdr='Run,Date,SKU,Style,Colour,Size,Variance,Status,Resolved,Notes\n';
+  const runMap={};(S.audit.runs||[]).forEach(r=>runMap[r.id]=r);
+  const csv=hdr+(S.audit.rows||[]).map(r=>{
+    const run=runMap[r.run_id];
+    return[run?.label||'',run?new Date(run.created_at).toLocaleDateString('en-ZA'):'',r.sku,r.style,r.colour,r.size,r.variance,r.status,r.resolved?'Yes':'No',r.notes||''].map(v=>`"${v||''}"`).join(',');
+  }).join('\n');
+  dl2(csv,'audit-report.csv');
+}
+
+// ═══════════════════════════════════════
+// DASHBOARD MODULE
+// ═══════════════════════════════════════
+async function loadDashboard(){
+  try{
+    const[runs,shipRows,varRows,bulkRows]=await Promise.all([
+      sb('GET','variance_runs?order=created_at.desc&limit=1'),
+      sb('GET','shipments?select=qty,order_date,order_id&limit=5000'),
+      sb('GET','variance_rows?select=status&limit=5000'),
+      sb('GET','bulk_movements?select=movement_type&limit=1000')
+    ]);
+    const allRuns=await sb('GET','variance_runs?select=id&limit=1000');
+    document.getElementById('ds-runs').textContent=(allRuns||[]).length;
+    document.getElementById('ds-ship').textContent=(shipRows||[]).length.toLocaleString();
+    const openVar=(varRows||[]).filter(r=>r.status!=='match').length;
+    document.getElementById('ds-var').textContent=openVar.toLocaleString();
+    document.getElementById('ds-bulk').textContent=(bulkRows||[]).length.toLocaleString();
+
+    // Variance pie — last run
+    if(runs&&runs.length){
+      const r=runs[0];
+      drawChart('c-varPie','doughnut',
+        ['Match','Short','Over','Missing','Extra'],
+        [r.matched,r.short,r.over,r.missing,r.extra],
+        {colors:['#3d9970','#c0392b','#d4840a','#8e44ad','#2980b9']});
+    }
+
+    // Shipments by month
+    const mMap={};(shipRows||[]).forEach(r=>{const m=(r.order_date||'').slice(0,7);if(m)mMap[m]=(mMap[m]||0)+(r.qty||0);});
+    const months=Object.keys(mMap).sort().slice(-12);
+    drawChart('c-shipBar','bar',months,months.map(m=>mMap[m]),{color:'rgba(41,128,185,0.75)',label:'Units'});
+
+    // Fast movers
+    const fm=await sb('GET','shipments?select=style,qty&limit=5000');
+    const fmMap={};(fm||[]).forEach(r=>{if(r.style)fmMap[r.style]=(fmMap[r.style]||0)+(r.qty||0);});
+    const fmTop=Object.entries(fmMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+    drawChart('c-fastBar','bar',fmTop.map(t=>t[0]),fmTop.map(t=>t[1]),{color:'rgba(201,168,76,0.75)',label:'Units',horizontal:true});
+
+    // Bulk movements doughnut
+    const btMap={};(bulkRows||[]).forEach(r=>{if(r.movement_type)btMap[r.movement_type]=(btMap[r.movement_type]||0)+1;});
+    const btKeys=Object.keys(btMap);
+    drawChart('c-bulkDough','doughnut',btKeys,btKeys.map(k=>btMap[k]),{label:'Movements'});
+  }catch(e){console.error(e);}
+}
+
+// ═══════════════════════════════════════
+// CHART HELPER
+// ═══════════════════════════════════════
+const PALETTE=['rgba(201,168,76,0.8)','rgba(41,128,185,0.8)','rgba(61,153,112,0.8)','rgba(212,132,10,0.8)','rgba(142,68,173,0.8)','rgba(192,57,43,0.8)','rgba(46,204,113,0.8)','rgba(52,152,219,0.8)','rgba(230,126,34,0.8)','rgba(155,89,182,0.8)'];
+
+function drawChart(id,type,labels,data,opts={}){
+  const canvas=document.getElementById(id);if(!canvas)return;
+  if(S.charts[id])S.charts[id].destroy();
+  const colors=opts.colors||PALETTE;
+  const cfg={
+    type:type==='bar'&&opts.horizontal?'bar':type,
+    data:{
+      labels,
+      datasets:[{
+        label:opts.label||'',
+        data,
+        backgroundColor:Array.isArray(opts.colors)?opts.colors:(type==='bar'?opts.color||PALETTE[0]:PALETTE),
+        borderColor:'transparent',
+        borderWidth:0,
+        borderRadius:type==='bar'?3:0,
+      }]
+    },
+    options:{
+      indexAxis:opts.horizontal?'y':'x',
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:type!=='bar',labels:{color:'#9a9288',font:{size:11,family:"'Syne',sans-serif"},boxWidth:12}},tooltip:{bodyFont:{family:"'DM Mono',monospace"},titleFont:{family:"'Syne',sans-serif"}}},
+      scales:type==='bar'?{
+        x:{ticks:{color:'#4e4a45',font:{size:10,family:"'DM Mono',monospace"}},grid:{color:'rgba(255,255,255,0.04)'}},
+        y:{ticks:{color:'#4e4a45',font:{size:10,family:"'DM Mono',monospace"}},grid:{color:'rgba(255,255,255,0.04)'}}
+      }:{},
+      animation:{duration:400}
+    }
+  };
+  S.charts[id]=new Chart(canvas,cfg);
+}
+
+// ═══════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════
+function toRowCSV(rows){
+  const hdr='SKU,Name,Style,Colour,Size,Category,Season,ERP Qty,Count Qty,Variance,Status\n';
+  return hdr+rows.map(r=>[r.sku,r.name,r.style,r.colour,r.size,r.category,r.season,r.po_qty??'',r.scan_qty??'',r.variance??'',r.status].map(v=>`"${v||''}"`).join(',')).join('\n');
+}
+
+function dl2(content,filename){
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([content],{type:'text/csv'}));
+  a.download=filename;a.click();
+}
+
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.display='block';
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.style.display='none',3500);
+}
+</script>
+</body>
+</html>
