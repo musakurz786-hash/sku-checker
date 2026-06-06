@@ -1152,9 +1152,6 @@ function nav(id,el){
   }catch(err){console.error('nav error:',err);}
 }
 
-
-});
-
 function parseCSV(text){
   const lines=text.trim().split(/\r?\n/);
   if(!lines.length)return{headers:[],rows:[]};
@@ -2272,11 +2269,6 @@ function exportPP(){
 // SQL CONSOLE MODULE
 // ═══════════════════════════════════════
 S.sql = { lastResult: [] };
-
-// Keyboard shortcut: Ctrl+Enter to run
-
-  }
-});
 
 function sqlPreset(query) {
   const inp = document.getElementById('sqlInput');
