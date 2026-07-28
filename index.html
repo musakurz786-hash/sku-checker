@@ -22,19 +22,13 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-size:13px;display:flex;flex-direction:column;min-height:100vh}
-
-/* ── Sidebar layout ── */
 .app{display:flex;flex:1;min-height:0}
 .sidebar{width:220px;min-width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
 .content{flex:1;overflow-y:auto;min-width:0}
-
-/* ── Sidebar header ── */
 .sb-header{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
 .sb-logo{font-size:16px;font-weight:800;letter-spacing:.02em;color:var(--text)}
 .sb-logo span{color:var(--gold)}
 .sb-sub{font-size:10px;color:var(--text3);margin-top:3px;font-family:'DM Mono',monospace;letter-spacing:.06em}
-
-/* ── Nav ── */
 .sb-nav{flex:1;padding:10px 8px;overflow-y:auto}
 .sb-section{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);padding:14px 10px 6px}
 .nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--radius);cursor:pointer;color:var(--text2);font-size:12px;font-weight:500;transition:all .15s;margin-bottom:1px;border:none;background:transparent;width:100%;text-align:left}
@@ -42,26 +36,18 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-s
 .nav-item:hover{background:var(--bg3);color:var(--text)}
 .nav-item.active{background:var(--gold-bg);color:var(--gold);border:1px solid #2a2008}
 .nav-item.active svg{opacity:1}
-
-/* ── DB status ── */
 .sb-footer{padding:12px 18px;border-top:1px solid var(--border)}
 .db-pill{display:flex;align-items:center;gap:7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
 .db-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);transition:background .3s}
 .db-dot.ok{background:var(--green)}
 .db-dot.err{background:var(--red)}
-
-/* ── Pages ── */
 .page{display:none;padding:28px 32px;animation:fadeIn .2s ease}
 .page.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
-
-/* ── Page header ── */
 .page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px}
 .page-title{font-size:22px;font-weight:800;letter-spacing:-.01em}
 .page-sub{font-size:12px;color:var(--text3);margin-top:4px}
 .page-actions{display:flex;gap:8px;align-items:center;flex-shrink:0}
-
-/* ── Stat cards ── */
 .stat-grid{display:grid;gap:12px;margin-bottom:24px}
 .stat-grid.cols2{grid-template-columns:repeat(2,1fr)}
 .stat-grid.cols3{grid-template-columns:repeat(3,1fr)}
@@ -75,17 +61,12 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-s
 .stat-val.red{color:var(--red)}
 .stat-val.amber{color:var(--amber)}
 .stat-val.blue{color:var(--blue)}
-.stat-delta{font-size:11px;color:var(--text3);margin-top:6px;font-family:'DM Mono',monospace}
-
-/* ── Chart cards ── */
 .chart-grid{display:grid;gap:16px;margin-bottom:24px}
 .chart-grid.cols2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .chart-grid.cols3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .chart-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:18px 20px}
 .chart-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
 .chart-wrap{position:relative}
-
-/* ── Buttons ── */
 .btn{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:8px 16px;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 .btn:hover{background:var(--bg4);border-color:var(--border3)}
 .btn:active{transform:scale(.98)}
@@ -93,10 +74,6 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-s
 .btn-gold{background:var(--gold);border-color:var(--gold);color:#0a0a0a;font-weight:700}
 .btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
 .btn-sm{padding:5px 11px;font-size:11px}
-.btn-danger{border-color:var(--red);color:var(--red)}
-.btn-danger:hover{background:var(--red-bg)}
-
-/* ── Upload zones ── */
 .upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
 .upload-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
 .upload-head{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
@@ -109,16 +86,12 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-s
 .upload-hint{font-size:11px;color:var(--text3);text-align:center;line-height:1.7}
 .upload-hint strong{color:var(--text2)}
 input[type=file]{display:none}
-
-/* ── Column mapper ── */
 .col-mapper{padding:10px 14px;border-top:1px solid var(--border);display:none;gap:8px;flex-wrap:wrap}
 .col-mapper.show{display:flex}
 .map-field{flex:1;min-width:120px}
 .map-field label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:4px}
 .map-field select{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:5px 8px;outline:none;cursor:pointer}
 .map-field select:focus{border-color:var(--gold)}
-
-/* ── Toolbar ── */
 .toolbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .filter-pills{display:flex;gap:3px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:3px}
 .fp{background:transparent;border:none;border-radius:3px;color:var(--text3);font-family:'Syne',sans-serif;font-size:11px;font-weight:600;padding:4px 10px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:4px}
@@ -130,8 +103,6 @@ input[type=file]{display:none}
 .search-box::placeholder{color:var(--text3)}
 select.filter-sel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text2);font-family:'DM Mono',monospace;font-size:11px;padding:6px 10px;outline:none;cursor:pointer}
 select.filter-sel:focus{border-color:var(--gold)}
-
-/* ── Tables ── */
 .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:12px;min-width:600px}
 thead tr{background:var(--bg3);border-bottom:1px solid var(--border)}
@@ -142,57 +113,25 @@ td{padding:9px 12px;border-bottom:1px solid var(--border);color:var(--text);vert
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--bg3)}
 .mono{font-family:'DM Mono',monospace;font-size:11px}
-
-/* ── Badges ── */
 .badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.04em;font-family:'Syne',sans-serif}
 .badge.match{background:var(--green-bg);color:var(--green)}
 .badge.short{background:var(--red-bg);color:var(--red)}
 .badge.over{background:var(--amber-bg);color:var(--amber)}
 .badge.missing{background:var(--red-bg);color:var(--red);opacity:.8}
 .badge.extra{background:var(--blue-bg);color:var(--blue)}
-.badge.resolved{background:var(--bg3);color:var(--text3)}
-.badge.transfer{background:var(--blue-bg);color:var(--blue)}
-.badge.return{background:var(--purple-bg);color:var(--purple)}
-.badge.receipt{background:var(--green-bg);color:var(--green)}
-.badge.write_off{background:var(--red-bg);color:var(--red)}
-.badge.adjustment{background:var(--amber-bg);color:var(--amber)}
-
-/* diff colours */
-.dn{color:var(--red);font-family:'DM Mono',monospace}
-.dp{color:var(--amber);font-family:'DM Mono',monospace}
-.dz{color:var(--text3);font-family:'DM Mono',monospace}
-
-/* ── Notes input ── */
-.note-inp{background:transparent;border:none;border-bottom:1px solid transparent;color:var(--text2);font-family:'Syne',monospace;font-size:11px;padding:2px 4px;width:100%;outline:none;transition:border .15s}
-.note-inp:focus{border-bottom-color:var(--gold);background:var(--bg3);border-radius:3px}
-.note-inp::placeholder{color:var(--text3);font-style:italic}
-
-/* ── Empty state ── */
 .empty{text-align:center;padding:60px 20px;color:var(--text3)}
 .empty-icon{font-size:32px;margin-bottom:12px;opacity:.25}
-
-/* ── Section dividers ── */
 .section-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
 .section-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
-
-/* ── Input ── */
 .text-inp{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Syne',sans-serif;font-size:13px;padding:8px 12px;outline:none;transition:border .15s}
 .text-inp:focus{border-color:var(--gold)}
 .text-inp::placeholder{color:var(--text3)}
-
-/* ── Toast ── */
 #toast{position:fixed;bottom:22px;right:22px;background:var(--bg4);border:1px solid var(--border3);border-radius:var(--radius);padding:10px 16px;font-size:12px;color:var(--text);display:none;z-index:9999;max-width:300px;animation:slideUp .2s ease}
 @keyframes slideUp{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}
-
-/* ── Loader ── */
 .spin{display:inline-block;width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── Run options bar ── */
 .run-bar{display:flex;align-items:center;gap:10px;margin-bottom:16px}
 .run-bar .text-inp{flex:1}
-
-/* ── History cards ── */
 .history-list{display:flex;flex-direction:column;gap:10px}
 .hist-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 18px;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;cursor:pointer;transition:all .15s}
 .hist-card:hover{border-color:var(--border3);background:var(--bg3)}
@@ -202,15 +141,9 @@ tr:hover td{background:var(--bg3)}
 .pill{font-family:'DM Mono',monospace;font-size:10px;padding:2px 8px;border-radius:3px;font-weight:500}
 .pill.ok{background:var(--green-bg);color:var(--green)}
 .pill.bad{background:var(--red-bg);color:var(--red)}
-.pill.warn{background:var(--amber-bg);color:var(--amber)}
-.pill.info{background:var(--blue-bg);color:var(--blue)}
-
-/* ── Fast movers table colouring ── */
 .rank-1{color:var(--gold)}
 .rank-2{color:var(--text)}
 .rank-3{color:var(--text2)}
-
-/* ── Responsive ── */
 @media(max-width:900px){
   .sidebar{width:52px;min-width:52px}
   .sb-logo,.sb-sub,.sb-section,.nav-item span,.db-pill span{display:none}
@@ -220,65 +153,13 @@ tr:hover td{background:var(--bg3)}
   .stat-grid.cols5{grid-template-columns:repeat(3,1fr)}
   .chart-grid.cols2,.chart-grid.cols3{grid-template-columns:1fr}
 }
-
-/* ── Pick & Pack ── */
-.pp-form{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:20px}
-.pp-form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:14px}
-.pp-field label{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);display:block;margin-bottom:5px}
-.pp-field input,.pp-field select{width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:7px 10px;outline:none;transition:border .15s}
-.pp-field input:focus,.pp-field select:focus{border-color:var(--gold)}
-.pp-field input::placeholder{color:var(--text3)}
-.lb-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;display:flex;align-items:center;gap:14px}
-.lb-rank{font-family:'DM Mono',monospace;font-size:20px;font-weight:400;width:36px;text-align:center;flex-shrink:0}
-.lb-rank.r1{color:var(--gold)}
-.lb-rank.r2{color:var(--text)}
-.lb-rank.r3{color:var(--text2)}
-.lb-info{flex:1;min-width:0}
-.lb-name{font-size:14px;font-weight:600;margin-bottom:2px}
-.lb-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
-.lb-metrics{display:flex;gap:16px;flex-shrink:0}
-.lb-metric{text-align:right}
-.lb-metric-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--gold)}
-.lb-metric-lbl{font-size:9px;color:var(--text3);letter-spacing:.06em;text-transform:uppercase}
-.lb-bar{height:3px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden}
-.lb-bar-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease}
-.pp-tabs{display:flex;gap:4px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:3px;margin-bottom:16px;width:fit-content}
-.pp-tab{background:transparent;border:none;border-radius:3px;color:var(--text3);font-family:'Syne',sans-serif;font-size:12px;font-weight:600;padding:6px 16px;cursor:pointer;transition:all .15s}
-.pp-tab.active{background:var(--bg5);color:var(--text)}
-.pp-tab:hover{color:var(--text)}
-
-/* ── SQL Console ── */
-.sql-editor-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px}
-.sql-editor-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);background:var(--bg3)}
-.sql-editor-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)}
-.sql-editor-actions{display:flex;gap:6px;align-items:center}
-#sqlInput{width:100%;background:transparent;border:none;color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:14px 16px;outline:none;resize:vertical;min-height:120px;line-height:1.7}
-#sqlInput::placeholder{color:var(--text3)}
-.sql-presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.sql-preset{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text3);font-family:'DM Mono',monospace;font-size:10px;padding:4px 10px;cursor:pointer;transition:all .15s;white-space:nowrap}
-.sql-preset:hover{color:var(--text);border-color:var(--border3);background:var(--bg3)}
-.sql-result-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
-.sql-result-head{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--border);background:var(--bg3)}
-.sql-result-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)}
-.sql-result-meta.ok{color:var(--green)}
-.sql-result-meta.err{color:var(--red)}
-.sql-result-body{overflow-x:auto;max-height:420px;overflow-y:auto}
-.sql-result-body table{min-width:100%}
-.sql-result-body th{position:sticky;top:0;background:var(--bg3);z-index:1}
-#sqlError{background:var(--red-bg);border:1px solid var(--red);border-radius:var(--radius);padding:12px 14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--red);margin-bottom:14px;display:none;white-space:pre-wrap;word-break:break-all}
-.sql-schema-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px}
-.sql-table-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 14px}
-.sql-table-name{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;color:var(--gold);margin-bottom:6px;cursor:pointer}
-.sql-table-name:hover{text-decoration:underline}
-.sql-col{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid var(--border)}
-.sql-col:last-child{border-bottom:none}
-.sql-col-type{color:var(--text3);opacity:.6}
+.dn{color:var(--red);font-family:'DM Mono',monospace}
+.dp{color:var(--amber);font-family:'DM Mono',monospace}
+.dz{color:var(--text3);font-family:'DM Mono',monospace}
 </style>
 </head>
 <body>
 <div class="app">
-
-<!-- ═══ SIDEBAR ═══ -->
 <div class="sidebar">
   <div class="sb-header">
     <div class="sb-logo">WH<span>IP</span></div>
@@ -318,7 +199,10 @@ tr:hover td{background:var(--bg3)}
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
       <span>Fast Movers</span>
     </button>
-
+    <button class="nav-item" onclick="nav('fulfillment',this)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+      <span>Fulfillment</span>
+    </button>
 
     <div class="sb-section">Warehouse</div>
     <button class="nav-item" onclick="nav('pickpack',this)">
@@ -335,12 +219,6 @@ tr:hover td{background:var(--bg3)}
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <span>Audit Report</span>
     </button>
-
-    <div class="sb-section">Database</div>
-    <button class="nav-item" onclick="nav('sqlconsole',this)">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-      <span>SQL Console</span>
-    </button>
   </nav>
   <div class="sb-footer">
     <div class="db-pill">
@@ -350,16 +228,13 @@ tr:hover td{background:var(--bg3)}
   </div>
 </div>
 
-<!-- ═══ CONTENT ═══ -->
 <div class="content">
 
-<!-- ▸ DASHBOARD ─────────────────────────────────── -->
+<!-- ▸ DASHBOARD -->
 <div class="page active" id="page-dashboard">
   <div class="page-header">
-    <div><div class="page-title">Dashboard</div><div class="page-sub">Warehouse overview — all modules</div></div>
-    <div class="page-actions">
-      <button class="btn btn-sm" onclick="loadDashboard()">↻ Refresh</button>
-    </div>
+    <div><div class="page-title">Dashboard</div><div class="page-sub">Warehouse overview</div></div>
+    <div class="page-actions"><button class="btn btn-sm" onclick="loadDashboard()">↻ Refresh</button></div>
   </div>
   <div class="stat-grid cols4" id="dash-stats">
     <div class="stat-card"><div class="stat-label">Total Runs</div><div class="stat-val gold" id="ds-runs">—</div></div>
@@ -368,39 +243,22 @@ tr:hover td{background:var(--bg3)}
     <div class="stat-card"><div class="stat-label">Bulk Movements</div><div class="stat-val amber" id="ds-bulk">—</div></div>
   </div>
   <div class="chart-grid cols2">
-    <div class="chart-card">
-      <div class="chart-title">Variance status — last run</div>
-      <div class="chart-wrap" style="height:200px"><canvas id="c-varPie"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Shipments by month (units)</div>
-      <div class="chart-wrap" style="height:200px"><canvas id="c-shipBar"></canvas></div>
-    </div>
-  </div>
-  <div class="chart-grid cols2">
-    <div class="chart-card">
-      <div class="chart-title">Top 10 fast-moving styles</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="c-fastBar"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Bulk movement types</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="c-bulkDough"></canvas></div>
-    </div>
+    <div class="chart-card"><div class="chart-title">Variance status</div><div class="chart-wrap" style="height:200px"><canvas id="c-varPie"></canvas></div></div>
+    <div class="chart-card"><div class="chart-title">Shipments by month</div><div class="chart-wrap" style="height:200px"><canvas id="c-shipBar"></canvas></div></div>
   </div>
 </div>
 
-<!-- ▸ VARIANCE CHECK ─────────────────────────────── -->
+<!-- ▸ VARIANCE CHECK -->
 <div class="page" id="page-variance">
   <div class="page-header">
-    <div><div class="page-title">Variance Check</div><div class="page-sub">PO vs scan — Cin7 stock report vs warehouse scan</div></div>
+    <div><div class="page-title">Variance Check</div><div class="page-sub">PO vs scan</div></div>
   </div>
   <div id="var-upload">
     <div class="upload-grid">
       <div class="upload-card">
         <div class="upload-head"><span class="upload-label">PO / Cin7 Stock Report</span><span class="file-tag" id="vPOTag">no file</span></div>
         <div class="upload-zone" id="vPOZone" onclick="document.getElementById('vPOFile').click()" ondragover="dv(event,'vPOZone')" ondragleave="dl('vPOZone')" ondrop="dd(event,'vPOFile','po')">
-          <div class="upload-icon">📋</div>
-          <div class="upload-hint">Click or drag CSV/TSV<br><strong>Cin7 stock export</strong></div>
+          <div class="upload-icon">📋</div><div class="upload-hint">Click or drag CSV<br><strong>Cin7 export</strong></div>
         </div>
         <input type="file" id="vPOFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','var')">
         <div class="col-mapper" id="vPOMap">
@@ -411,14 +269,12 @@ tr:hover td{background:var(--bg3)}
           <div class="map-field"><label>Colour</label><select id="vPoColour"></select></div>
           <div class="map-field"><label>Size</label><select id="vPoSize"></select></div>
           <div class="map-field"><label>Category</label><select id="vPoCat"></select></div>
-          <div class="map-field"><label>Barcode</label><select id="vPoBarcode"></select></div>
         </div>
       </div>
       <div class="upload-card">
         <div class="upload-head"><span class="upload-label">Scan / Count Sheet</span><span class="file-tag" id="vScanTag">no file</span></div>
         <div class="upload-zone" id="vScanZone" onclick="document.getElementById('vScanFile').click()" ondragover="dv(event,'vScanZone')" ondragleave="dl('vScanZone')" ondrop="dd(event,'vScanFile','scan')">
-          <div class="upload-icon">🔍</div>
-          <div class="upload-hint">Click or drag CSV/TSV<br><strong>Warehouse scan export</strong></div>
+          <div class="upload-icon">🔍</div><div class="upload-hint">Click or drag CSV<br><strong>Scan export</strong></div>
         </div>
         <input type="file" id="vScanFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','var')">
         <div class="col-mapper" id="vScanMap">
@@ -428,72 +284,35 @@ tr:hover td{background:var(--bg3)}
       </div>
     </div>
     <div class="run-bar">
-      <input type="text" class="text-inp" id="vLabel" placeholder="Label this run — e.g. Snow colourway Jun 2025">
-      <select class="filter-sel" id="vRunType">
-        <option value="variance">Variance Check</option>
-        <option value="cycle_count">Cycle Count</option>
-        <option value="bulk_stocktake">Bulk Stocktake</option>
-      </select>
+      <input type="text" class="text-inp" id="vLabel" placeholder="Label this run">
       <button class="btn btn-gold" id="vRunBtn" onclick="runVariance()" disabled>Run check</button>
-      <button class="btn btn-sm" onclick="exportVar(false)">Export all</button>
-      <button class="btn btn-sm" onclick="exportVar(true)">Export variances</button>
-    </div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:11px;color:var(--text3)">
-      <label>Noise filter — ignore ≤</label>
-      <input type="number" id="vThresh" value="0" min="0" style="width:58px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:4px 8px;outline:none">
-      <span>units</span>
+      <button class="btn btn-sm" onclick="exportVar()">Export</button>
     </div>
   </div>
   <div id="var-results" style="display:none">
     <div class="stat-grid cols5" id="vStats"></div>
-    <div class="toolbar" id="vToolbar">
-      <div class="filter-pills" id="vFilters">
-        <button class="fp active" onclick="vSetF('all',this)">All</button>
-        <button class="fp" onclick="vSetF('short',this)"><span class="fp-dot" style="background:var(--red)"></span>Short</button>
-        <button class="fp" onclick="vSetF('over',this)"><span class="fp-dot" style="background:var(--amber)"></span>Over</button>
-        <button class="fp" onclick="vSetF('missing',this)"><span class="fp-dot" style="background:var(--red);opacity:.5"></span>Missing</button>
-        <button class="fp" onclick="vSetF('extra',this)"><span class="fp-dot" style="background:var(--blue)"></span>Extra</button>
-        <button class="fp" onclick="vSetF('match',this)"><span class="fp-dot" style="background:var(--green)"></span>Match</button>
-      </div>
-      <input type="text" class="search-box" id="vSearch" placeholder="Search SKU / name / style…" oninput="renderVar()">
+    <div class="toolbar">
+      <input type="text" class="search-box" id="vSearch" placeholder="Search SKU…" oninput="renderVar()">
       <select class="filter-sel" id="vStyleF" onchange="renderVar()"><option value="">All styles</option></select>
-      <select class="filter-sel" id="vColourF" onchange="renderVar()"><option value="">All colours</option></select>
-      <select class="filter-sel" id="vSizeF" onchange="renderVar()"><option value="">All sizes</option></select>
-      <select class="filter-sel" id="vCatF" onchange="renderVar()"><option value="">All categories</option></select>
-      <button class="btn btn-sm" id="vNotesBtn" onclick="saveVarNotes()">Save notes</button>
     </div>
-    <div class="table-wrap" id="vTableWrap">
-      <table>
-        <thead><tr>
-          <th onclick="vSort('sku')">SKU</th>
-          <th onclick="vSort('name')">Name</th>
-          <th onclick="vSort('style')">Style</th>
-          <th onclick="vSort('colour')">Colour</th>
-          <th onclick="vSort('size')">Size</th>
-          <th onclick="vSort('po_qty')" style="text-align:right">PO Qty</th>
-          <th onclick="vSort('scan_qty')" style="text-align:right">Scan Qty</th>
-          <th onclick="vSort('variance')" style="text-align:right">Variance</th>
-          <th onclick="vSort('status')">Status</th>
-          <th>Notes</th>
-        </tr></thead>
-        <tbody id="vBody"></tbody>
-      </table>
-    </div>
+    <div class="table-wrap"><table><thead><tr>
+      <th onclick="vSort('sku')">SKU</th><th onclick="vSort('name')">Name</th><th onclick="vSort('style')">Style</th>
+      <th onclick="vSort('po_qty')" style="text-align:right">PO</th><th onclick="vSort('scan_qty')" style="text-align:right">Scan</th>
+      <th style="text-align:right">Var</th><th>Status</th>
+    </tr></thead><tbody id="vBody"></tbody></table></div>
   </div>
-  <div class="empty" id="vEmpty" style="display:none"><div class="empty-icon">📦</div><div>No SKUs match this filter.</div></div>
 </div>
 
-<!-- ▸ CYCLE COUNTS ───────────────────────────────── -->
+<!-- ▸ CYCLE COUNTS -->
 <div class="page" id="page-cycle">
   <div class="page-header">
-    <div><div class="page-title">Cycle Counts</div><div class="page-sub">Upload cycle count scan vs Cin7 live stock levels</div></div>
+    <div><div class="page-title">Cycle Counts</div><div class="page-sub">Scan vs live stock</div></div>
   </div>
   <div class="upload-grid">
     <div class="upload-card">
-      <div class="upload-head"><span class="upload-label">Cin7 Stock Level</span><span class="file-tag" id="ccETag">no file</span></div>
+      <div class="upload-head"><span class="upload-label">Stock Level</span><span class="file-tag" id="ccETag">no file</span></div>
       <div class="upload-zone" onclick="document.getElementById('ccEFile').click()">
-        <div class="upload-icon">📊</div>
-        <div class="upload-hint">Cin7 stock on hand report<br><strong>CSV export</strong></div>
+        <div class="upload-icon">📊</div><div class="upload-hint">Cin7 report<br><strong>CSV</strong></div>
       </div>
       <input type="file" id="ccEFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','cc')">
       <div class="col-mapper" id="ccEMap">
@@ -501,15 +320,12 @@ tr:hover td{background:var(--bg3)}
         <div class="map-field"><label>Qty</label><select id="ccEQty"></select></div>
         <div class="map-field"><label>Name</label><select id="ccEName"></select></div>
         <div class="map-field"><label>Style</label><select id="ccEStyle"></select></div>
-        <div class="map-field"><label>Colour</label><select id="ccEColour"></select></div>
-        <div class="map-field"><label>Size</label><select id="ccESize"></select></div>
       </div>
     </div>
     <div class="upload-card">
-      <div class="upload-head"><span class="upload-label">Cycle Count Scan</span><span class="file-tag" id="ccSTag">no file</span></div>
+      <div class="upload-head"><span class="upload-label">Cycle Count</span><span class="file-tag" id="ccSTag">no file</span></div>
       <div class="upload-zone" onclick="document.getElementById('ccSFile').click()">
-        <div class="upload-icon">🔄</div>
-        <div class="upload-hint">Scanned cycle count sheet<br><strong>CSV export</strong></div>
+        <div class="upload-icon">🔄</div><div class="upload-hint">Scanned count<br><strong>CSV</strong></div>
       </div>
       <input type="file" id="ccSFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','cc')">
       <div class="col-mapper" id="ccSMap">
@@ -519,55 +335,27 @@ tr:hover td{background:var(--bg3)}
     </div>
   </div>
   <div class="run-bar">
-    <input type="text" class="text-inp" id="ccLabel" placeholder="Cycle count label — e.g. Warehouse A, Section 3, Jun 2025">
-    <button class="btn btn-gold" id="ccRunBtn" onclick="runCC()" disabled>Run cycle count</button>
-    <button class="btn btn-sm" onclick="exportCC()">Export</button>
+    <input type="text" class="text-inp" id="ccLabel" placeholder="Label">
+    <button class="btn btn-gold" id="ccRunBtn" onclick="runCC()" disabled>Run</button>
   </div>
   <div id="cc-results" style="display:none">
     <div class="stat-grid cols5" id="ccStats"></div>
-    <div class="toolbar">
-      <div class="filter-pills" id="ccFilters">
-        <button class="fp active" onclick="ccSetF('all',this)">All</button>
-        <button class="fp" onclick="ccSetF('short',this)"><span class="fp-dot" style="background:var(--red)"></span>Short</button>
-        <button class="fp" onclick="ccSetF('over',this)"><span class="fp-dot" style="background:var(--amber)"></span>Over</button>
-        <button class="fp" onclick="ccSetF('missing',this)">Missing</button>
-        <button class="fp" onclick="ccSetF('match',this)"><span class="fp-dot" style="background:var(--green)"></span>Match</button>
-      </div>
-      <input type="text" class="search-box" id="ccSearch" placeholder="Search…" oninput="renderCC()">
-      <select class="filter-sel" id="ccStyleF" onchange="renderCC()"><option value="">All styles</option></select>
-      <select class="filter-sel" id="ccColourF" onchange="renderCC()"><option value="">All colours</option></select>
-      <select class="filter-sel" id="ccSizeF" onchange="renderCC()"><option value="">All sizes</option></select>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th onclick="ccSort('sku')">SKU</th>
-          <th onclick="ccSort('name')">Name</th>
-          <th onclick="ccSort('style')">Style</th>
-          <th onclick="ccSort('colour')">Colour</th>
-          <th onclick="ccSort('size')">Size</th>
-          <th style="text-align:right">ERP Qty</th>
-          <th style="text-align:right">Count Qty</th>
-          <th style="text-align:right">Variance</th>
-          <th>Status</th>
-        </tr></thead>
-        <tbody id="ccBody"></tbody>
-      </table>
-    </div>
+    <div class="table-wrap"><table><thead><tr>
+      <th>SKU</th><th>Name</th><th>Style</th><th style="text-align:right">ERP</th><th style="text-align:right">Count</th><th style="text-align:right">Var</th><th>Status</th>
+    </tr></thead><tbody id="ccBody"></tbody></table></div>
   </div>
 </div>
 
-<!-- ▸ BULK STOCKTAKE ─────────────────────────────── -->
+<!-- ▸ BULK STOCKTAKE -->
 <div class="page" id="page-stocktake">
   <div class="page-header">
-    <div><div class="page-title">Bulk Stocktake</div><div class="page-sub">Upload full stocktake sheets, compare year-over-year</div></div>
+    <div><div class="page-title">Bulk Stocktake</div><div class="page-sub">Full count comparison</div></div>
   </div>
   <div class="upload-grid">
     <div class="upload-card">
-      <div class="upload-head"><span class="upload-label">ERP / Expected Stock</span><span class="file-tag" id="stETag">no file</span></div>
+      <div class="upload-head"><span class="upload-label">ERP Stock</span><span class="file-tag" id="stETag">no file</span></div>
       <div class="upload-zone" onclick="document.getElementById('stEFile').click()">
-        <div class="upload-icon">📋</div>
-        <div class="upload-hint">Cin7 full stock report<br><strong>CSV export</strong></div>
+        <div class="upload-icon">📋</div><div class="upload-hint">Cin7 full stock<br><strong>CSV</strong></div>
       </div>
       <input type="file" id="stEFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','st')">
       <div class="col-mapper" id="stEMap">
@@ -575,17 +363,12 @@ tr:hover td{background:var(--bg3)}
         <div class="map-field"><label>Qty</label><select id="stEQty"></select></div>
         <div class="map-field"><label>Name</label><select id="stEName"></select></div>
         <div class="map-field"><label>Style</label><select id="stEStyle"></select></div>
-        <div class="map-field"><label>Colour</label><select id="stEColour"></select></div>
-        <div class="map-field"><label>Size</label><select id="stESize"></select></div>
-        <div class="map-field"><label>Season</label><select id="stESeason"></select></div>
-        <div class="map-field"><label>Category</label><select id="stECat"></select></div>
       </div>
     </div>
     <div class="upload-card">
-      <div class="upload-head"><span class="upload-label">Physical Count Sheet</span><span class="file-tag" id="stSTag">no file</span></div>
+      <div class="upload-head"><span class="upload-label">Physical Count</span><span class="file-tag" id="stSTag">no file</span></div>
       <div class="upload-zone" onclick="document.getElementById('stSFile').click()">
-        <div class="upload-icon">📦</div>
-        <div class="upload-hint">Physical count results<br><strong>CSV export</strong></div>
+        <div class="upload-icon">📦</div><div class="upload-hint">Count results<br><strong>CSV</strong></div>
       </div>
       <input type="file" id="stSFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','st')">
       <div class="col-mapper" id="stSMap">
@@ -595,53 +378,26 @@ tr:hover td{background:var(--bg3)}
     </div>
   </div>
   <div class="run-bar">
-    <input type="text" class="text-inp" id="stLabel" placeholder="Stocktake label — e.g. Annual stocktake FY2025">
-    <button class="btn btn-gold" id="stRunBtn" onclick="runST()" disabled>Run stocktake</button>
-    <button class="btn btn-sm" onclick="exportST()">Export</button>
+    <input type="text" class="text-inp" id="stLabel" placeholder="Label">
+    <button class="btn btn-gold" id="stRunBtn" onclick="runST()" disabled>Run</button>
   </div>
   <div id="st-results" style="display:none">
     <div class="stat-grid cols5" id="stStats"></div>
-    <div class="toolbar">
-      <div class="filter-pills" id="stFilters">
-        <button class="fp active" onclick="stSetF('all',this)">All</button>
-        <button class="fp" onclick="stSetF('short',this)"><span class="fp-dot" style="background:var(--red)"></span>Short</button>
-        <button class="fp" onclick="stSetF('over',this)"><span class="fp-dot" style="background:var(--amber)"></span>Over</button>
-        <button class="fp" onclick="stSetF('missing',this)">Missing</button>
-        <button class="fp" onclick="stSetF('match',this)"><span class="fp-dot" style="background:var(--green)"></span>Match</button>
-      </div>
-      <input type="text" class="search-box" id="stSearch" placeholder="Search…" oninput="renderST()">
-      <select class="filter-sel" id="stStyleF" onchange="renderST()"><option value="">All styles</option></select>
-      <select class="filter-sel" id="stColourF" onchange="renderST()"><option value="">All colours</option></select>
-      <select class="filter-sel" id="stSizeF" onchange="renderST()"><option value="">All sizes</option></select>
-      <select class="filter-sel" id="stSeasonF" onchange="renderST()"><option value="">All seasons</option></select>
-      <select class="filter-sel" id="stCatF" onchange="renderST()"><option value="">All categories</option></select>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead><tr>
-          <th>SKU</th><th>Name</th><th>Style</th><th>Colour</th><th>Size</th><th>Season</th>
-          <th style="text-align:right">ERP</th><th style="text-align:right">Count</th><th style="text-align:right">Variance</th><th>Status</th><th>Notes</th>
-        </tr></thead>
-        <tbody id="stBody"></tbody>
-      </table>
-    </div>
+    <div class="table-wrap"><table><thead><tr>
+      <th>SKU</th><th>Name</th><th>Style</th><th style="text-align:right">ERP</th><th style="text-align:right">Count</th><th style="text-align:right">Var</th><th>Status</th>
+    </tr></thead><tbody id="stBody"></tbody></table></div>
   </div>
 </div>
 
-<!-- ▸ BULK MOVEMENTS ─────────────────────────────── -->
+<!-- ▸ BULK MOVEMENTS -->
 <div class="page" id="page-movements">
   <div class="page-header">
-    <div><div class="page-title">Bulk Movements</div><div class="page-sub">Track transfers, returns, receipts, write-offs and adjustments</div></div>
-    <div class="page-actions">
-      <button class="btn btn-sm" onclick="loadMovements()">↻ Refresh</button>
-      <button class="btn btn-sm" onclick="exportMovements()">Export CSV</button>
-    </div>
+    <div><div class="page-title">Bulk Movements</div><div class="page-sub">Transfers, returns, receipts</div></div>
   </div>
   <div class="upload-card" style="margin-bottom:16px">
-    <div class="upload-head"><span class="upload-label">Upload movement sheet</span><span class="file-tag" id="movTag">no file</span></div>
+    <div class="upload-head"><span class="upload-label">Movement Sheet</span><span class="file-tag" id="movTag">no file</span></div>
     <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('movFile').click()">
-      <div class="upload-icon">↔️</div>
-      <div class="upload-hint">Warehouse movement export or custom CSV<br><strong>transfers · returns · receipts · write-offs</strong></div>
+      <div class="upload-icon">↔️</div><div class="upload-hint">Movement export<br><strong>CSV</strong></div>
     </div>
     <input type="file" id="movFile" accept=".csv,.tsv,.txt" onchange="loadMovFile(event)">
     <div class="col-mapper" id="movMap">
@@ -649,450 +405,184 @@ tr:hover td{background:var(--bg3)}
       <div class="map-field"><label>Qty</label><select id="movQty"></select></div>
       <div class="map-field"><label>Date</label><select id="movDate"></select></div>
       <div class="map-field"><label>Type</label><select id="movType"></select></div>
-      <div class="map-field"><label>Name</label><select id="movName"></select></div>
-      <div class="map-field"><label>Reference</label><select id="movRef"></select></div>
-      <div class="map-field"><label>Style</label><select id="movStyle"></select></div>
-      <div class="map-field"><label>Colour</label><select id="movColour"></select></div>
-      <div class="map-field"><label>Size</label><select id="movSize"></select></div>
     </div>
   </div>
   <div class="run-bar" id="movRunBar" style="display:none">
-    <input type="text" class="text-inp" id="movLabel" placeholder="Movement batch label — e.g. Transfer to CPT warehouse Jun 2025">
-    <button class="btn btn-gold" onclick="saveMovements()">Save to database</button>
+    <input type="text" class="text-inp" id="movLabel" placeholder="Label">
+    <button class="btn btn-gold" onclick="saveMovements()">Save</button>
   </div>
-  <div class="section-row" style="margin-top:8px">
-    <div class="section-title">Movement log</div>
-    <div style="display:flex;gap:8px">
-      <select class="filter-sel" id="movTypeF" onchange="renderMovements()"><option value="">All types</option><option>transfer</option><option>return</option><option>receipt</option><option>write_off</option><option>adjustment</option></select>
-      <input type="text" class="search-box" style="width:160px" id="movSearch" placeholder="Search SKU…" oninput="renderMovements()">
-    </div>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr>
-        <th>Date</th><th>SKU</th><th>Name</th><th>Style</th><th>Colour</th><th>Size</th>
-        <th style="text-align:right">Qty</th><th>Type</th><th>Reference</th><th>Notes</th>
-      </tr></thead>
-      <tbody id="movBody"><tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3)">No movements loaded yet.</td></tr></tbody>
-    </table>
-  </div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Date</th><th>SKU</th><th style="text-align:right">Qty</th><th>Type</th>
+  </tr></thead><tbody id="movBody"><tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text3)">No movements</td></tr></tbody></table></div>
 </div>
 
-<!-- ▸ SHIPMENTS ──────────────────────────────────── -->
+<!-- ▸ SHIPMENTS -->
 <div class="page" id="page-shipments">
   <div class="page-header">
-    <div><div class="page-title">Shipments</div><div class="page-sub">Upload Shopify orders CSV — track per day, per month</div></div>
-    <div class="page-actions">
-      <button class="btn btn-sm" onclick="exportShipments()">Export CSV</button>
-    </div>
+    <div><div class="page-title">Shipments</div><div class="page-sub">Shopify orders tracking</div></div>
   </div>
   <div class="upload-card" style="margin-bottom:16px">
-    <div class="upload-head"><span class="upload-label">Shopify Orders Export</span><span class="file-tag" id="shipTag">no file</span></div>
+    <div class="upload-head"><span class="upload-label">Shopify Orders</span><span class="file-tag" id="shipTag">no file</span></div>
     <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('shipFile').click()">
-      <div class="upload-icon">🛒</div>
-      <div class="upload-hint">Export from Shopify Admin → Orders → Export<br><strong>CSV format</strong></div>
+      <div class="upload-icon">🛒</div><div class="upload-hint">Shopify export<br><strong>CSV</strong></div>
     </div>
     <input type="file" id="shipFile" accept=".csv,.tsv,.txt" onchange="loadShipFile(event)">
     <div class="col-mapper" id="shipMap">
       <div class="map-field"><label>Order ID</label><select id="shipOrderId"></select></div>
       <div class="map-field"><label>Date</label><select id="shipDate"></select></div>
       <div class="map-field"><label>SKU</label><select id="shipSku"></select></div>
-      <div class="map-field"><label>Name / Product</label><select id="shipName"></select></div>
+      <div class="map-field"><label>Name</label><select id="shipName"></select></div>
       <div class="map-field"><label>Qty</label><select id="shipQty"></select></div>
       <div class="map-field"><label>Revenue</label><select id="shipRev"></select></div>
-      <div class="map-field"><label>Style (optional)</label><select id="shipStyle"></select></div>
-      <div class="map-field"><label>Colour (optional)</label><select id="shipColour"></select></div>
-      <div class="map-field"><label>Size (optional)</label><select id="shipSize"></select></div>
     </div>
   </div>
   <div class="run-bar" id="shipRunBar" style="display:none">
-    <input type="text" class="text-inp" id="shipLabel" placeholder="Import label — e.g. Shopify orders Jun 2025">
-    <button class="btn btn-gold" onclick="saveShipments()">Save to database</button>
+    <input type="text" class="text-inp" id="shipLabel" placeholder="Label">
+    <button class="btn btn-gold" onclick="saveShipments()">Save</button>
   </div>
   <div class="stat-grid cols4" id="shipStats" style="display:none">
     <div class="stat-card"><div class="stat-label">Orders</div><div class="stat-val blue" id="ss-orders">—</div></div>
-    <div class="stat-card"><div class="stat-label">Total Units</div><div class="stat-val gold" id="ss-units">—</div></div>
+    <div class="stat-card"><div class="stat-label">Units</div><div class="stat-val gold" id="ss-units">—</div></div>
     <div class="stat-card"><div class="stat-label">Revenue</div><div class="stat-val green" id="ss-rev">—</div></div>
-    <div class="stat-card"><div class="stat-label">Unique SKUs</div><div class="stat-val" id="ss-skus">—</div></div>
+    <div class="stat-card"><div class="stat-label">SKUs</div><div class="stat-val" id="ss-skus">—</div></div>
   </div>
-  <div class="chart-grid cols2" id="shipCharts" style="display:none">
-    <div class="chart-card">
-      <div class="chart-title">Units shipped by day</div>
-      <div class="chart-wrap" style="height:200px"><canvas id="c-shipDay"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Revenue by month</div>
-      <div class="chart-wrap" style="height:200px"><canvas id="c-shipMonth"></canvas></div>
-    </div>
-  </div>
-  <div class="toolbar" style="margin-top:4px">
-    <input type="text" class="search-box" id="shipSearch" placeholder="Search SKU / product…" oninput="renderShipments()">
-    <select class="filter-sel" id="shipMonthF" onchange="renderShipments()"><option value="">All months</option></select>
-    <select class="filter-sel" id="shipStyleF" onchange="renderShipments()"><option value="">All styles</option></select>
-  </div>
-  <div class="table-wrap" id="shipTable" style="display:none">
-    <table>
-      <thead><tr>
-        <th onclick="shipSort('order_date')">Date</th>
-        <th onclick="shipSort('order_id')">Order ID</th>
-        <th onclick="shipSort('sku')">SKU</th>
-        <th onclick="shipSort('name')">Product</th>
-        <th onclick="shipSort('style')">Style</th>
-        <th onclick="shipSort('size')">Size</th>
-        <th onclick="shipSort('qty')" style="text-align:right">Qty</th>
-        <th onclick="shipSort('revenue')" style="text-align:right">Revenue</th>
-      </tr></thead>
-      <tbody id="shipBody"></tbody>
-    </table>
-  </div>
+  <div class="table-wrap" id="shipTable" style="display:none"><table><thead><tr>
+    <th>Date</th><th>Order</th><th>SKU</th><th>Product</th><th style="text-align:right">Qty</th><th style="text-align:right">Revenue</th>
+  </tr></thead><tbody id="shipBody"></tbody></table></div>
 </div>
 
-<!-- ▸ FAST MOVERS ────────────────────────────────── -->
+<!-- ▸ FAST MOVERS -->
 <div class="page" id="page-fastmovers">
   <div class="page-header">
-    <div><div class="page-title">Fast Movers</div><div class="page-sub">Top-selling SKUs and styles from shipment data</div></div>
-    <div class="page-actions">
-      <select class="filter-sel" id="fmPeriod" onchange="renderFastMovers()">
-        <option value="all">All time</option>
-        <option value="30">Last 30 days</option>
-        <option value="90">Last 90 days</option>
-        <option value="180">Last 180 days</option>
-        <option value="365">Last 365 days</option>
-      </select>
-      <button class="btn btn-sm" onclick="exportFastMovers()">Export CSV</button>
-    </div>
-  </div>
-  <div class="chart-grid cols2" style="margin-bottom:24px">
-    <div class="chart-card">
-      <div class="chart-title">Top 15 styles by units</div>
-      <div class="chart-wrap" style="height:260px"><canvas id="c-fmStyles"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Top 10 sizes by units</div>
-      <div class="chart-wrap" style="height:260px"><canvas id="c-fmSizes"></canvas></div>
-    </div>
+    <div><div class="page-title">Fast Movers</div><div class="page-sub">Top-selling SKUs</div></div>
   </div>
   <div class="toolbar">
     <select class="filter-sel" id="fmGroupBy" onchange="renderFastMovers()">
-      <option value="sku">By SKU</option>
-      <option value="style">By Style</option>
-      <option value="colour">By Colour</option>
-      <option value="size">By Size</option>
-      <option value="category">By Category</option>
+      <option value="sku">By SKU</option><option value="style">By Style</option>
     </select>
     <input type="text" class="search-box" id="fmSearch" placeholder="Search…" oninput="renderFastMovers()">
   </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr>
-        <th style="width:40px">Rank</th>
-        <th id="fmGroupHeader">SKU</th>
-        <th style="text-align:right">Units Sold</th>
-        <th style="text-align:right">Orders</th>
-        <th style="text-align:right">Revenue</th>
-        <th style="text-align:right">Avg per Order</th>
-      </tr></thead>
-      <tbody id="fmBody"></tbody>
-    </table>
-  </div>
+  <div class="table-wrap"><table><thead><tr>
+    <th style="width:40px">Rank</th><th>Item</th><th style="text-align:right">Units</th><th style="text-align:right">Orders</th><th style="text-align:right">Revenue</th>
+  </tr></thead><tbody id="fmBody"></tbody></table></div>
 </div>
 
-<!-- ▸ RUN HISTORY ────────────────────────────────── -->
+<!-- ▸ FULFILLMENT TRACKER -->
+<div class="page" id="page-fulfillment">
+  <div class="page-header">
+    <div><div class="page-title">Fulfillment Tracker</div><div class="page-sub">Shopify vs Scrubbil comparison</div></div>
+    <div class="page-actions"><button class="btn btn-sm" onclick="exportFulfillment()">Export CSV</button></div>
+  </div>
+  <div class="upload-grid">
+    <div class="upload-card">
+      <div class="upload-head"><span class="upload-label">Shopify Orders</span><span class="file-tag" id="shopTag">no file</span></div>
+      <div class="upload-zone" onclick="document.getElementById('shopFile').click()">
+        <div class="upload-icon">🛒</div><div class="upload-hint">Sales by Order CSV<br><strong>Shopify export</strong></div>
+      </div>
+      <input type="file" id="shopFile" accept=".csv,.tsv,.txt" onchange="loadShopifyFile(event)">
+      <div class="col-mapper" id="shopMap">
+        <div class="map-field"><label>Order Name</label><select id="shopOrderName"></select></div>
+        <div class="map-field"><label>Month</label><select id="shopMonth"></select></div>
+        <div class="map-field"><label>Product</label><select id="shopProduct"></select></div>
+        <div class="map-field"><label>Revenue</label><select id="shopRevenue"></select></div>
+      </div>
+    </div>
+    <div class="upload-card">
+      <div class="upload-head"><span class="upload-label">Scrubbil Manifest</span><span class="file-tag" id="scrubTag">no file</span></div>
+      <div class="upload-zone" onclick="document.getElementById('scrubFile').click()">
+        <div class="upload-icon">📦</div><div class="upload-hint">Waybills CSV<br><strong>Scrubbil export</strong></div>
+      </div>
+      <input type="file" id="scrubFile" accept=".csv,.tsv,.txt" onchange="loadScrubbilFile(event)">
+      <div class="col-mapper" id="scrubMap">
+        <div class="map-field"><label>Waybill #</label><select id="scrubWaybill"></select></div>
+        <div class="map-field"><label>Confirmed</label><select id="scrubConfirmed"></select></div>
+      </div>
+    </div>
+  </div>
+  <div class="stat-grid cols5" id="fulfillStats" style="display:none">
+    <div class="stat-card"><div class="stat-label">Orders Received</div><div class="stat-val blue" id="fs-orders">—</div></div>
+    <div class="stat-card"><div class="stat-label">Shipped</div><div class="stat-val green" id="fs-shipped">—</div></div>
+    <div class="stat-card"><div class="stat-label">Pending</div><div class="stat-val red" id="fs-pending">—</div></div>
+    <div class="stat-card"><div class="stat-label">Rate</div><div class="stat-val gold" id="fs-rate">—</div></div>
+    <div class="stat-card"><div class="stat-label">Revenue at Risk</div><div class="stat-val amber" id="fs-risk">—</div></div>
+  </div>
+  <div class="toolbar" style="margin-top:16px">
+    <input type="text" class="search-box" id="fulfillSearch" placeholder="Search order…" oninput="renderUnfulfilled()">
+    <select class="filter-sel" id="fulfillDaysF" onchange="renderUnfulfilled()">
+      <option value="">All</option><option value="1">1+ days</option><option value="3">3+ days</option><option value="7">7+ days</option>
+    </select>
+  </div>
+  <div class="table-wrap" id="fulfillTable" style="display:none"><table><thead><tr>
+    <th>Order ID</th><th>Date</th><th>Product</th><th style="text-align:right">Pending Days</th><th style="text-align:right">Revenue</th><th>Status</th>
+  </tr></thead><tbody id="fulfillBody"></tbody></table></div>
+</div>
+
+<!-- ▸ PICK & PACK -->
+<div class="page" id="page-pickpack">
+  <div class="page-header">
+    <div><div class="page-title">Pick &amp; Pack</div><div class="page-sub">Packer productivity tracking</div></div>
+  </div>
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px;margin-bottom:20px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px">
+      <div>
+        <label style="font-size:9px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px">Packer</label>
+        <input type="text" id="ppPacker" placeholder="Name" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:7px;font-size:11px;outline:none">
+      </div>
+      <div>
+        <label style="font-size:9px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px">Date</label>
+        <input type="date" id="ppDate" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:7px;font-size:11px;outline:none">
+      </div>
+      <div>
+        <label style="font-size:9px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px">Orders</label>
+        <input type="number" id="ppOrders" placeholder="0" min="0" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:7px;font-size:11px;outline:none">
+      </div>
+      <div>
+        <label style="font-size:9px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px">Units</label>
+        <input type="number" id="ppUnits" placeholder="0" min="0" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:7px;font-size:11px;outline:none">
+      </div>
+      <div>
+        <label style="font-size:9px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px">Start Time</label>
+        <input type="time" id="ppStart" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:7px;font-size:11px;outline:none">
+      </div>
+      <div>
+        <label style="font-size:9px;font-weight:700;color:var(--text3);display:block;margin-bottom:5px">End Time</label>
+        <input type="time" id="ppEnd" style="width:100%;background:var(--bg3);border:1px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:7px;font-size:11px;outline:none">
+      </div>
+    </div>
+    <button class="btn btn-gold" onclick="savePPSession()">Save Session</button>
+  </div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Date</th><th>Packer</th><th style="text-align:right">Orders</th><th style="text-align:right">Units</th><th style="text-align:right">UPH</th>
+  </tr></thead><tbody id="ppBody"><tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No sessions</td></tr></tbody></table></div>
+</div>
+
+<!-- ▸ HISTORY -->
 <div class="page" id="page-history">
   <div class="page-header">
-    <div><div class="page-title">Run History</div><div class="page-sub">All saved variance, cycle count and stocktake runs</div></div>
-    <div class="page-actions"><button class="btn btn-sm" onclick="loadHistory()">↻ Refresh</button></div>
-  </div>
-  <div class="toolbar" style="margin-bottom:16px">
-    <select class="filter-sel" id="histTypeF" onchange="renderHistory()"><option value="">All types</option><option value="variance">Variance</option><option value="cycle_count">Cycle Count</option><option value="bulk_stocktake">Bulk Stocktake</option></select>
-    <input type="text" class="search-box" id="histSearch" placeholder="Search label…" oninput="renderHistory()">
+    <div><div class="page-title">Run History</div><div class="page-sub">Saved variance checks</div></div>
   </div>
   <div class="history-list" id="histList"><div class="empty"><div class="spin"></div></div></div>
 </div>
 
-<!-- ▸ AUDIT REPORT ───────────────────────────────── -->
+<!-- ▸ AUDIT REPORT -->
 <div class="page" id="page-audit">
   <div class="page-header">
-    <div><div class="page-title">Audit Report</div><div class="page-sub">Year-over-year variance comparison and trend analysis</div></div>
-    <div class="page-actions">
-      <button class="btn btn-sm" onclick="loadAudit()">↻ Refresh</button>
-      <button class="btn btn-sm" onclick="exportAudit()">Export PDF-ready CSV</button>
-    </div>
+    <div><div class="page-title">Audit Report</div><div class="page-sub">Variance trends &amp; analysis</div></div>
   </div>
   <div class="stat-grid cols3" id="auditStats">
-    <div class="stat-card"><div class="stat-label">Total runs recorded</div><div class="stat-val gold" id="au-runs">—</div></div>
-    <div class="stat-card"><div class="stat-label">Avg variance rate</div><div class="stat-val amber" id="au-rate">—</div></div>
-    <div class="stat-card"><div class="stat-label">Most problematic style</div><div class="stat-val red" id="au-style" style="font-size:16px;margin-top:4px">—</div></div>
+    <div class="stat-card"><div class="stat-label">Total runs</div><div class="stat-val gold" id="au-runs">—</div></div>
+    <div class="stat-card"><div class="stat-label">Avg variance</div><div class="stat-val amber" id="au-rate">—</div></div>
+    <div class="stat-card"><div class="stat-label">Top issue style</div><div class="stat-val red" id="au-style">—</div></div>
   </div>
-  <div class="chart-grid cols2">
-    <div class="chart-card">
-      <div class="chart-title">Variance rate per run</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="c-auditTrend"></canvas></div>
-    </div>
-    <div class="chart-card">
-      <div class="chart-title">Issues by style</div>
-      <div class="chart-wrap" style="height:220px"><canvas id="c-auditStyle"></canvas></div>
-    </div>
-  </div>
-  <div class="section-row"><div class="section-title">All variance issues — resolved &amp; open</div></div>
-  <div class="toolbar">
-    <select class="filter-sel" id="auStatusF" onchange="renderAudit()"><option value="">All statuses</option><option value="short">Short</option><option value="over">Over</option><option value="missing">Missing</option><option value="extra">Extra</option></select>
-    <select class="filter-sel" id="auResolvedF" onchange="renderAudit()"><option value="">All</option><option value="false">Open</option><option value="true">Resolved</option></select>
-    <input type="text" class="search-box" id="auSearch" placeholder="Search SKU / style…" oninput="renderAudit()">
-  </div>
-  <div class="table-wrap">
-    <table>
-      <thead><tr>
-        <th>Run</th><th>Date</th><th>SKU</th><th>Style</th><th>Colour</th><th>Size</th>
-        <th style="text-align:right">Variance</th><th>Status</th><th>Resolved</th><th>Notes</th>
-      </tr></thead>
-      <tbody id="auBody"></tbody>
-    </table>
-  </div>
-</div>
-
-
-<!-- ▸ PICK & PACK ───────────────────────────────── -->
-<div class="page" id="page-pickpack">
-  <div class="page-header">
-    <div><div class="page-title">Pick &amp; Pack Tracker</div><div class="page-sub">Log packer sessions, track productivity, compare performance</div></div>
-    <div class="page-actions">
-      <button class="btn btn-sm" onclick="loadPPData()">↻ Refresh</button>
-      <button class="btn btn-sm" onclick="exportPP()">Export CSV</button>
-    </div>
-  </div>
-
-  <!-- Sub-tabs -->
-  <div class="pp-tabs">
-    <button class="pp-tab active" onclick="ppTab('log',this)">Log Session</button>
-    <button class="pp-tab" onclick="ppTab('upload',this)">Upload Sheet</button>
-    <button class="pp-tab" onclick="ppTab('leaderboard',this)">Leaderboard</button>
-    <button class="pp-tab" onclick="ppTab('history',this)">Session History</button>
-  </div>
-
-  <!-- LOG SESSION -->
-  <div id="pp-log">
-    <div class="pp-form">
-      <div class="pp-form-grid">
-        <div class="pp-field">
-          <label>Packer Name</label>
-          <input type="text" id="ppPacker" placeholder="e.g. Thabo">
-        </div>
-        <div class="pp-field">
-          <label>Date</label>
-          <input type="date" id="ppDate">
-        </div>
-        <div class="pp-field">
-          <label>Shift</label>
-          <select id="ppShift">
-            <option value="morning">Morning</option>
-            <option value="afternoon">Afternoon</option>
-            <option value="full day">Full Day</option>
-            <option value="overtime">Overtime</option>
-          </select>
-        </div>
-        <div class="pp-field">
-          <label>Store / Channel</label>
-          <input type="text" id="ppStore" placeholder="e.g. Shopify, Takealot, Bulk">
-        </div>
-        <div class="pp-field">
-          <label>Orders Picked</label>
-          <input type="number" id="ppOrders" placeholder="0" min="0">
-        </div>
-        <div class="pp-field">
-          <label>Units Packed</label>
-          <input type="number" id="ppUnits" placeholder="0" min="0">
-        </div>
-        <div class="pp-field">
-          <label>Start Time</label>
-          <input type="time" id="ppStart">
-        </div>
-        <div class="pp-field">
-          <label>End Time</label>
-          <input type="time" id="ppEnd">
-        </div>
-        <div class="pp-field">
-          <label>Errors / Mispicks</label>
-          <input type="number" id="ppErrors" placeholder="0" min="0" value="0">
-        </div>
-        <div class="pp-field">
-          <label>Notes</label>
-          <input type="text" id="ppNotes" placeholder="Optional">
-        </div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <button class="btn btn-gold" onclick="savePPSession()">Save session</button>
-        <button class="btn btn-sm" onclick="clearPPForm()">Clear</button>
-        <span id="ppCalc" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text3)"></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- UPLOAD SHEET -->
-  <div id="pp-upload" style="display:none">
-    <div class="upload-card" style="margin-bottom:16px">
-      <div class="upload-head"><span class="upload-label">Packer timesheet CSV</span><span class="file-tag" id="ppFileTag">no file</span></div>
-      <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('ppFile').click()">
-        <div class="upload-icon">⏱</div>
-        <div class="upload-hint">Upload packer timesheet export<br><strong>CSV format — any column order</strong></div>
-      </div>
-      <input type="file" id="ppFile" accept=".csv,.tsv,.txt" onchange="loadPPFile(event)">
-      <div class="col-mapper" id="ppFileMap">
-        <div class="map-field"><label>Packer</label><select id="ppFPacker"></select></div>
-        <div class="map-field"><label>Date</label><select id="ppFDate"></select></div>
-        <div class="map-field"><label>Store / Channel</label><select id="ppFStore"></select></div>
-        <div class="map-field"><label>Orders</label><select id="ppFOrders"></select></div>
-        <div class="map-field"><label>Units</label><select id="ppFUnits"></select></div>
-        <div class="map-field"><label>Start Time</label><select id="ppFStart"></select></div>
-        <div class="map-field"><label>End Time</label><select id="ppFEnd"></select></div>
-        <div class="map-field"><label>Errors</label><select id="ppFErrors"></select></div>
-        <div class="map-field"><label>Shift</label><select id="ppFShift"></select></div>
-        <div class="map-field"><label>Notes</label><select id="ppFNotes"></select></div>
-      </div>
-    </div>
-    <div id="ppUploadBar" style="display:none;margin-bottom:16px">
-      <button class="btn btn-gold" onclick="savePPUpload()">Save all sessions to database</button>
-      <span id="ppUploadCount" style="margin-left:10px;font-size:12px;color:var(--text3)"></span>
-    </div>
-  </div>
-
-  <!-- LEADERBOARD -->
-  <div id="pp-leaderboard" style="display:none">
-    <div class="stat-grid cols4" style="margin-bottom:20px">
-      <div class="stat-card"><div class="stat-label">Total Sessions</div><div class="stat-val blue" id="pp-stat-sessions">—</div></div>
-      <div class="stat-card"><div class="stat-label">Total Orders</div><div class="stat-val gold" id="pp-stat-orders">—</div></div>
-      <div class="stat-card"><div class="stat-label">Total Units</div><div class="stat-val green" id="pp-stat-units">—</div></div>
-      <div class="stat-card"><div class="stat-label">Avg Units/hr</div><div class="stat-val amber" id="pp-stat-uph">—</div></div>
-    </div>
-    <div class="chart-grid cols2" style="margin-bottom:20px">
-      <div class="chart-card">
-        <div class="chart-title">Units per hour — by packer</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-ppUph"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Orders per hour — by packer</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="c-ppOph"></canvas></div>
-      </div>
-    </div>
-    <div class="section-row">
-      <div class="section-title">Packer leaderboard</div>
-      <div style="display:flex;gap:8px">
-        <select class="filter-sel" id="ppLBPeriod" onchange="renderPPLeaderboard()">
-          <option value="all">All time</option>
-          <option value="7">Last 7 days</option>
-          <option value="30">Last 30 days</option>
-          <option value="90">Last 90 days</option>
-        </select>
-        <select class="filter-sel" id="ppLBStore" onchange="renderPPLeaderboard()"><option value="">All stores</option></select>
-        <select class="filter-sel" id="ppLBShift" onchange="renderPPLeaderboard()"><option value="">All shifts</option><option value="morning">Morning</option><option value="afternoon">Afternoon</option><option value="full day">Full Day</option><option value="overtime">Overtime</option></select>
-      </div>
-    </div>
-    <div id="ppLeaderboard" style="display:flex;flex-direction:column;gap:8px;margin-top:12px"></div>
-  </div>
-
-  <!-- SESSION HISTORY -->
-  <div id="pp-history" style="display:none">
-    <div class="toolbar">
-      <input type="text" class="search-box" id="ppHSearch" placeholder="Search packer / store…" oninput="renderPPHistory()">
-      <select class="filter-sel" id="ppHPacker" onchange="renderPPHistory()"><option value="">All packers</option></select>
-      <select class="filter-sel" id="ppHStore" onchange="renderPPHistory()"><option value="">All stores</option></select>
-      <select class="filter-sel" id="ppHShift" onchange="renderPPHistory()"><option value="">All shifts</option><option value="morning">Morning</option><option value="afternoon">Afternoon</option><option value="full day">Full Day</option><option value="overtime">Overtime</option></select>
-    </div>
-    <div class="table-wrap" style="margin-top:12px">
-      <table>
-        <thead><tr>
-          <th onclick="ppHSort('session_date')">Date</th>
-          <th onclick="ppHSort('packer_name')">Packer</th>
-          <th onclick="ppHSort('shift')">Shift</th>
-          <th onclick="ppHSort('store_channel')">Store</th>
-          <th onclick="ppHSort('orders_picked')" style="text-align:right">Orders</th>
-          <th onclick="ppHSort('units_packed')" style="text-align:right">Units</th>
-          <th onclick="ppHSort('duration_mins')" style="text-align:right">Duration</th>
-          <th onclick="ppHSort('units_per_hour')" style="text-align:right">UPH</th>
-          <th onclick="ppHSort('orders_per_hour')" style="text-align:right">OPH</th>
-          <th onclick="ppHSort('errors')" style="text-align:right">Errors</th>
-          <th>Notes</th>
-        </tr></thead>
-        <tbody id="ppHBody"></tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-
-<!-- ▸ SQL CONSOLE ───────────────────────────────── -->
-<div class="page" id="page-sqlconsole">
-  <div class="page-header">
-    <div><div class="page-title">SQL Console</div><div class="page-sub">Run queries directly against your Supabase database</div></div>
-    <div class="page-actions">
-      <button class="btn btn-sm" onclick="loadSchema()">↻ Refresh schema</button>
-    </div>
-  </div>
-
-  <!-- Schema browser -->
-  <div class="section-row" style="margin-bottom:10px">
-    <div class="section-title">Tables — click name to query</div>
-  </div>
-  <div class="sql-schema-grid" id="sqlSchema">
-    <div style="color:var(--text3);font-size:12px">Loading schema…</div>
-  </div>
-
-  <!-- Preset queries -->
-  <div class="section-row" style="margin-bottom:8px"><div class="section-title">Quick queries</div></div>
-  <div class="sql-presets">
-    <button class="sql-preset" onclick="sqlPreset('SELECT * FROM variance_runs ORDER BY created_at DESC LIMIT 20')">Recent runs</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT status, COUNT(*) as count FROM variance_rows GROUP BY status ORDER BY count DESC')">Variance by status</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT style, COUNT(*) as issues FROM variance_rows WHERE status != \'match\' GROUP BY style ORDER BY issues DESC LIMIT 20')">Issues by style</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT packer_name, ROUND(AVG(units_per_hour)::numeric,1) as avg_uph, ROUND(AVG(orders_per_hour)::numeric,1) as avg_oph, SUM(units_packed) as total_units, COUNT(*) as sessions FROM pick_pack_sessions GROUP BY packer_name ORDER BY avg_uph DESC')">Packer performance</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT TO_CHAR(order_date,\'YYYY-MM\') as month, SUM(qty) as units, ROUND(SUM(revenue)::numeric,2) as revenue FROM shipments GROUP BY month ORDER BY month DESC LIMIT 12')">Monthly sales</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT sku, SUM(qty) as total_units, ROUND(SUM(revenue)::numeric,2) as revenue FROM shipments GROUP BY sku ORDER BY total_units DESC LIMIT 30')">Top SKUs by sales</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT movement_type, COUNT(*) as count, SUM(qty) as total_qty FROM bulk_movements GROUP BY movement_type ORDER BY count DESC')">Movement summary</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT store_channel, SUM(orders_picked) as orders, SUM(units_packed) as units FROM pick_pack_sessions GROUP BY store_channel ORDER BY units DESC')">PP by store</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT colour, COUNT(*) as issues, SUM(ABS(variance)) as total_variance FROM variance_rows WHERE status != \'match\' AND variance IS NOT NULL GROUP BY colour ORDER BY total_variance DESC LIMIT 20')">Variance by colour</button>
-    <button class="sql-preset" onclick="sqlPreset('SELECT size, COUNT(*) as issues FROM variance_rows WHERE status != \'match\' GROUP BY size ORDER BY issues DESC')">Variance by size</button>
-  </div>
-
-  <!-- Editor -->
-  <div class="sql-editor-wrap">
-    <div class="sql-editor-head">
-      <span class="sql-editor-title">Query editor</span>
-      <div class="sql-editor-actions">
-        <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text3)">Ctrl+Enter to run</span>
-        <button class="btn btn-sm" onclick="clearSQL()">Clear</button>
-        <button class="btn btn-gold btn-sm" onclick="runSQL()">▶ Run</button>
-      </div>
-    </div>
-    <textarea id="sqlInput" placeholder="SELECT * FROM variance_runs ORDER BY created_at DESC LIMIT 10;
-
--- Tip: Use Ctrl+Enter to run. All your tables:
--- variance_runs, variance_rows, shipments,
--- bulk_movements, pick_pack_sessions"></textarea>
-  </div>
-
-  <!-- Error -->
-  <div id="sqlError"></div>
-
-  <!-- Results -->
-  <div class="sql-result-wrap" id="sqlResultWrap" style="display:none">
-    <div class="sql-result-head">
-      <span class="sql-result-meta" id="sqlResultMeta"></span>
-      <button class="btn btn-sm" onclick="exportSQLResult()">Export CSV</button>
-    </div>
-    <div class="sql-result-body">
-      <table id="sqlResultTable">
-        <thead id="sqlResultHead"></thead>
-        <tbody id="sqlResultBody"></tbody>
-      </table>
-    </div>
-  </div>
+  <div class="table-wrap"><table><thead><tr>
+    <th>Run</th><th>Date</th><th>SKU</th><th>Style</th><th style="text-align:right">Variance</th><th>Status</th>
+  </tr></thead><tbody id="auBody"></tbody></table></div>
 </div>
 
 </div><!-- /content -->
 </div><!-- /app -->
 
 <div id="toast"></div>
-
-
 
 <script>
 const SB_URL='https://wqsibegaczuhgrcjwitl.supabase.co';
@@ -1107,26 +597,17 @@ async function sb(method,path,body){
   return [];
 }
 
-const S={
-  var:{rows:[],runId:null,filter:'all',sortCol:'status',sortDir:1,notesMap:{}},
-  cc: {rows:[],filter:'all',sortCol:'status',sortDir:1},
-  st: {rows:[],filter:'all',sortCol:'status',sortDir:1,notesMap:{}},
-  mov:{dbRows:[],parsed:null},
-  ship:{dbRows:[],parsedData:null,sortCol:'order_date',sortDir:-1},
-  hist:{all:[]},
-  audit:{runs:[],rows:[]},
-  charts:{}
-};
+const S={var:{rows:[],runId:null,filter:'all',sortCol:'status',sortDir:1},cc:{rows:[],filter:'all',sortCol:'status',sortDir:1},st:{rows:[],filter:'all',sortCol:'status',sortDir:1},mov:{dbRows:[]},ship:{dbRows:[],sortCol:'order_date',sortDir:-1},hist:{all:[]},audit:{runs:[],rows:[]},fulfill:{sortCol:'order_id',sortDir:1,comparison:{}},pp:{dbRows:[]},charts:{}};
 const FILE_DATA={};
 
 async function initApp(){
   try{
     await sb('GET','variance_runs?limit=1');
-    setDb('ok','supabase live');
+    setDb('ok','live');
     loadDashboard();loadHistory();loadMovements();loadShipmentsDB();loadAudit();loadPPData();
   }catch(e){
-    setDb('err','db error');
-    toast('⚠ Supabase error — run schema_v2.sql first in your SQL editor');
+    setDb('err','error');
+    toast('⚠ Supabase error');
     console.error('DB init:',e);
   }
 }
@@ -1137,19 +618,12 @@ function setDb(cls,lbl){
 }
 
 function nav(id,el){
-  try{
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   const pg=document.getElementById('page-'+id);
-  if(!pg){console.warn('Page not found:',id);return;}
+  if(!pg)return;
   pg.classList.add('active');
   if(el)el.classList.add('active');
-  if(id==='fastmovers')renderFastMovers();
-  if(id==='audit')loadAudit();
-  if(id==='history')loadHistory();
-  if(id==='pickpack'){loadPPData();}
-  if(id==='sqlconsole'){loadSchema();}
-  }catch(err){console.error('nav error:',err);}
 }
 
 function parseCSV(text){
@@ -1177,38 +651,23 @@ function parseCSV(text){
   return{headers,rows};
 }
 
-function guess(headers,pats){
-  for(const p of pats){const h=headers.find(h=>h.toLowerCase().includes(p));if(h)return h;}
-  return '';
-}
-
-function populateSel(selId,headers,gv){
-  const el=document.getElementById(selId);if(!el)return;
-  el.innerHTML=['(none)',...headers].map(h=>`<option value="${h}">${h}</option>`).join('');
-  el.value=(gv&&headers.includes(gv))?gv:'(none)';
-}
-
+function guess(headers,pats){for(const p of pats){const h=headers.find(h=>h.toLowerCase().includes(p));if(h)return h;}return '';}
+function populateSel(selId,headers,gv){const el=document.getElementById(selId);if(!el)return;el.innerHTML=['(none)',...headers].map(h=>`<option value="${h}">${h}</option>`).join('');el.value=(gv&&headers.includes(gv))?gv:'(none)';}'
 function dv(e,id){e.preventDefault();document.getElementById(id)?.classList.add('over');}
 function dl(id){document.getElementById(id)?.classList.remove('over');}
-function dd(e,fid,role,mod){
-  e.preventDefault();
-  document.getElementById(e.currentTarget.id)?.classList.remove('over');
-  const file=e.dataTransfer?.files[0];if(!file)return;
-  loadF({target:{files:[file]}},role,mod);
-}
+function dd(e,fid,role,mod){e.preventDefault();document.getElementById(e.currentTarget.id)?.classList.remove('over');const file=e.dataTransfer?.files[0];if(!file)return;loadF({target:{files:[file]}},role,mod);}
 
 function loadF(event,role,mod){
   const file=event.target.files[0];if(!file)return;
   const reader=new FileReader();
   reader.onload=ev=>{
     const parsed=parseCSV(ev.target.result);
-    if(!parsed.headers.length){toast('⚠ Could not parse — check CSV format');return;}
+    if(!parsed.headers.length){toast('⚠ Could not parse');return;}
     FILE_DATA[mod+'_'+role]=parsed;
     setupMapper(mod,role,parsed.headers,file.name);
     checkRunReady(mod);
-    toast('✓ '+file.name+' ('+parsed.rows.length+' rows)');
+    toast('✓ '+file.name);
   };
-  reader.onerror=()=>toast('⚠ Error reading file');
   reader.readAsText(file);
 }
 
@@ -1219,1288 +678,159 @@ function setupMapper(mod,role,headers,fname){
   const mapEl=document.getElementById(prefix+'Map');
   if(tagEl){tagEl.textContent=fname;tagEl.className='file-tag loaded';}
   if(mapEl)mapEl.classList.add('show');
-  if(mod==='var'&&role==='po'){
-    populateSel('vPoSku',headers,guess(headers,['sku','barcode','code','item number','article']));
-    populateSel('vPoQty',headers,guess(headers,['qty','quantity','stock','on hand','available','soh']));
-    populateSel('vPoName',headers,guess(headers,['name','description','product','title']));
-    populateSel('vPoStyle',headers,guess(headers,['style','product name','range','group']));
-    populateSel('vPoColour',headers,guess(headers,['colour','color','colourway','variant']));
-    populateSel('vPoSize',headers,guess(headers,['size','sz']));
-    populateSel('vPoCat',headers,guess(headers,['category','cat','type','department','class']));
-    populateSel('vPoBarcode',headers,guess(headers,['barcode','ean','upc','gtin']));
-  }else if(mod==='var'&&role==='scan'){
-    populateSel('vScSku',headers,guess(headers,['sku','barcode','code','item']));
-    populateSel('vScQty',headers,guess(headers,['qty','quantity','count','scanned']));
-  }else if(mod==='cc'&&role==='po'){
-    populateSel('ccESku',headers,guess(headers,['sku','barcode','code','item']));
-    populateSel('ccEQty',headers,guess(headers,['qty','quantity','stock','on hand','soh']));
-    populateSel('ccEName',headers,guess(headers,['name','description','product']));
-    populateSel('ccEStyle',headers,guess(headers,['style','product name','range']));
-    populateSel('ccEColour',headers,guess(headers,['colour','color','colourway']));
-    populateSel('ccESize',headers,guess(headers,['size','sz']));
-  }else if(mod==='cc'&&role==='scan'){
-    populateSel('ccSSku',headers,guess(headers,['sku','barcode','code']));
-    populateSel('ccSQty',headers,guess(headers,['qty','quantity','count','scanned']));
-  }else if(mod==='st'&&role==='po'){
-    populateSel('stESku',headers,guess(headers,['sku','barcode','code','item']));
-    populateSel('stEQty',headers,guess(headers,['qty','quantity','stock','on hand','soh']));
-    populateSel('stEName',headers,guess(headers,['name','description','product']));
-    populateSel('stEStyle',headers,guess(headers,['style','range']));
-    populateSel('stEColour',headers,guess(headers,['colour','color','colourway']));
-    populateSel('stESize',headers,guess(headers,['size','sz']));
-    populateSel('stESeason',headers,guess(headers,['season','year']));
-    populateSel('stECat',headers,guess(headers,['category','cat','type','department']));
-  }else if(mod==='st'&&role==='scan'){
-    populateSel('stSSku',headers,guess(headers,['sku','barcode','code']));
-    populateSel('stSQty',headers,guess(headers,['qty','quantity','count','scanned']));
-  }
+  if(mod==='var'&&role==='po'){populateSel('vPoSku',headers,guess(headers,['sku','barcode']));populateSel('vPoQty',headers,guess(headers,['qty','quantity','stock']));populateSel('vPoName',headers,guess(headers,['name']));populateSel('vPoStyle',headers,guess(headers,['style']));populateSel('vPoColour',headers,guess(headers,['colour','color']));populateSel('vPoSize',headers,guess(headers,['size']));populateSel('vPoCat',headers,guess(headers,['category']));}
+  else if(mod==='var'&&role==='scan'){populateSel('vScSku',headers,guess(headers,['sku','barcode']));populateSel('vScQty',headers,guess(headers,['qty','quantity']));}
+  else if(mod==='cc'&&role==='po'){populateSel('ccESku',headers,guess(headers,['sku']));populateSel('ccEQty',headers,guess(headers,['qty']));populateSel('ccEName',headers,guess(headers,['name']));populateSel('ccEStyle',headers,guess(headers,['style']));}
+  else if(mod==='cc'&&role==='scan'){populateSel('ccSSku',headers,guess(headers,['sku']));populateSel('ccSQty',headers,guess(headers,['qty']));}
+  else if(mod==='st'&&role==='po'){populateSel('stESku',headers,guess(headers,['sku']));populateSel('stEQty',headers,guess(headers,['qty']));populateSel('stEName',headers,guess(headers,['name']));populateSel('stEStyle',headers,guess(headers,['style']));}
+  else if(mod==='st'&&role==='scan'){populateSel('stSSku',headers,guess(headers,['sku']));populateSel('stSQty',headers,guess(headers,['qty']));}
 }
 
-function checkRunReady(mod){
-  const btns={var:'vRunBtn',cc:'ccRunBtn',st:'stRunBtn'};
-  const btn=document.getElementById(btns[mod]);
-  if(btn)btn.disabled=!(FILE_DATA[mod+'_po']&&FILE_DATA[mod+'_scan']);
-}
-
+function checkRunReady(mod){const btns={var:'vRunBtn',cc:'ccRunBtn',st:'stRunBtn'};const btn=document.getElementById(btns[mod]);if(btn)btn.disabled=!(FILE_DATA[mod+'_po']&&FILE_DATA[mod+'_scan']);}
 function colVal(row,col){if(!col||col==='(none)')return '';return(row[col]||'').toString().trim();}
 
 function buildRows(poData,scanData,cfg){
   const poMap={};
-  poData.rows.forEach(r=>{
-    const sku=colVal(r,cfg.poSku).toUpperCase();if(!sku)return;
-    const qty=parseFloat(colVal(r,cfg.poQty).replace(/[^0-9.\-]/g,''))||0;
-    poMap[sku]={qty,name:colVal(r,cfg.poName),style:colVal(r,cfg.poStyle),colour:colVal(r,cfg.poColour),size:colVal(r,cfg.poSize),category:colVal(r,cfg.poCat),season:colVal(r,cfg.poSeason),barcode:colVal(r,cfg.poBarcode)};
-  });
-  const scanMap={};
-  scanData.rows.forEach(r=>{
-    const sku=colVal(r,cfg.scSku).toUpperCase();if(!sku)return;
-    const qty=parseFloat(colVal(r,cfg.scQty).replace(/[^0-9.\-]/g,''))||0;
-    scanMap[sku]=(scanMap[sku]||0)+qty;
-  });
-  if(!Object.keys(poMap).length){toast('⚠ No SKUs read from ERP file — check SKU column mapping');return[];}
-  if(!Object.keys(scanMap).length){toast('⚠ No SKUs read from scan file — check SKU column mapping');return[];}
+  poData.rows.forEach(r=>{const sku=colVal(r,cfg.poSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.poQty).replace(/[^0-9.\-]/g,''))||0;poMap[sku]={qty,name:colVal(r,cfg.poName),style:colVal(r,cfg.poStyle),colour:colVal(r,cfg.poColour),size:colVal(r,cfg.poSize),category:colVal(r,cfg.poCat)};});
+  const scanMap={};scanData.rows.forEach(r=>{const sku=colVal(r,cfg.scSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.scQty).replace(/[^0-9.\-]/g,''))||0;scanMap[sku]=(scanMap[sku]||0)+qty;});
+  if(!Object.keys(poMap).length){toast('⚠ No SKUs in ERP');return[];}
+  if(!Object.keys(scanMap).length){toast('⚠ No SKUs in scan');return[];}
   const allSkus=new Set([...Object.keys(poMap),...Object.keys(scanMap)]);
   const rows=[];
   allSkus.forEach(sku=>{
-    const po=poMap[sku];
-    const scanQty=scanMap.hasOwnProperty(sku)?scanMap[sku]:null;
-    const poQty=po?po.qty:null;
-    let status;
-    if(poQty===null)status='extra';
-    else if(scanQty===null)status='missing';
-    else if(scanQty===poQty)status='match';
-    else if(scanQty<poQty)status='short';
-    else status='over';
+    const po=poMap[sku];const scanQty=scanMap.hasOwnProperty(sku)?scanMap[sku]:null;const poQty=po?po.qty:null;
+    let status;if(poQty===null)status='extra';else if(scanQty===null)status='missing';else if(scanQty===poQty)status='match';else if(scanQty<poQty)status='short';else status='over';
     const variance=(poQty!==null&&scanQty!==null)?+(scanQty-poQty).toFixed(4):null;
-    rows.push({sku,name:po?.name||'',style:po?.style||'',colour:po?.colour||'',size:po?.size||'',category:po?.category||'',season:po?.season||'',barcode:po?.barcode||'',po_qty:poQty,scan_qty:scanQty,variance,status});
+    rows.push({sku,name:po?.name||'',style:po?.style||'',colour:po?.colour||'',size:po?.size||'',category:po?.category||'',po_qty:poQty,scan_qty:scanQty,variance,status});
   });
   return rows;
 }
 
-function countS(rows){
-  const c={match:0,short:0,over:0,missing:0,extra:0};
-  rows.forEach(r=>{if(c[r.status]!==undefined)c[r.status]++;});
-  return c;
-}
+function countS(rows){const c={match:0,short:0,over:0,missing:0,extra:0};rows.forEach(r=>{if(c[r.status]!==undefined)c[r.status]++;});return c;}
+function buildStatHTML(rows,ids){const c=countS(rows);const set=(id,label,val,cls)=>{const el=document.getElementById(id);if(el)el.innerHTML=`<div class="stat-label">${label}</div><div class="stat-val ${cls}">${val}</div>`;};set(ids[0],'Total SKUs',rows.length,'blue');set(ids[1],'Matched',c.match,'green');set(ids[2],'Short',c.short,'red');set(ids[3],'Over',c.over,'amber');set(ids[4],'Issues',c.missing+c.extra,'');}
 
-function buildStatHTML(rows,ids){
-  const c=countS(rows);
-  const set=(id,label,val,cls)=>{const el=document.getElementById(id);if(el)el.innerHTML=`<div class="stat-label">${label}</div><div class="stat-val ${cls}">${val}</div>`;};
-  set(ids[0],'Total SKUs',rows.length,'blue');set(ids[1],'Matched',c.match,'green');
-  set(ids[2],'Short',c.short,'red');set(ids[3],'Over',c.over,'amber');set(ids[4],'Missing / Extra',c.missing+c.extra,'');
-}
+function filterRows(rows,filter,search,extra){const q=(search||'').toUpperCase().trim();return rows.filter(r=>{if(filter!=='all'&&r.status!==filter)return false;if(q&&!(r.sku||'').includes(q)&&!(r.name||'').toUpperCase().includes(q))return false;for(const[k,v]of Object.entries(extra||{})){if(v&&r[k]!==v)return false;}return true;});}
 
-function populateFilters(rows,cfg){
-  const uniq=key=>[...new Set(rows.map(r=>r[key]).filter(Boolean))].sort();
-  Object.entries(cfg).forEach(([id,key])=>{
-    const el=document.getElementById(id);if(!el)return;
-    const cur=el.value;
-    const label=id.includes('Style')?'All styles':id.includes('Colour')?'All colours':id.includes('Size')?'All sizes':id.includes('Cat')?'All categories':id.includes('Season')?'All seasons':'All';
-    el.innerHTML=`<option value="">${label}</option>`+uniq(key).map(v=>`<option value="${escAttr(v)}">${escHtml(v)}</option>`).join('');
-    if(cur)el.value=cur;
-  });
-}
-
-function filterRows(rows,filter,search,extra,thresh){
-  const q=(search||'').toUpperCase().trim();const t=parseFloat(thresh)||0;
-  return rows.filter(r=>{
-    if(filter!=='all'&&r.status!==filter)return false;
-    if(q&&!(r.sku||'').includes(q)&&!(r.name||'').toUpperCase().includes(q)&&!(r.style||'').toUpperCase().includes(q)&&!(r.barcode||'').includes(q))return false;
-    for(const[k,v]of Object.entries(extra||{})){if(v&&r[k]!==v)return false;}
-    if(t>0&&r.variance!==null&&Math.abs(r.variance)<=t&&r.status!=='missing'&&r.status!=='extra')return false;
-    return true;
-  });
-}
-
-function sortRows(rows,col,dir){
-  const sord={missing:0,short:1,over:2,extra:3,match:4};
-  return[...rows].sort((a,b)=>{
-    let av=a[col],bv=b[col];
-    if(col==='status'){av=sord[av]??9;bv=sord[bv]??9;}
-    if(av===null||av===undefined)return 1;if(bv===null||bv===undefined)return-1;
-    return(typeof av==='string'?av.localeCompare(bv):(av-bv))*dir;
-  });
-}
+function sortRows(rows,col,dir){const sord={missing:0,short:1,over:2,extra:3,match:4};return[...rows].sort((a,b)=>{let av=a[col],bv=b[col];if(col==='status'){av=sord[av]??9;bv=sord[bv]??9;}if(av===null)return 1;if(bv===null)return-1;return(typeof av==='string'?av.localeCompare(bv):(av-bv))*dir;});}
 
 const BADGES={match:'<span class="badge match">✓ Match</span>',short:'<span class="badge short">↓ Short</span>',over:'<span class="badge over">↑ Over</span>',missing:'<span class="badge missing">✕ Missing</span>',extra:'<span class="badge extra">+ Extra</span>'};
-function varCell(v){if(v===null||v===undefined)return'<span style="color:var(--text3)">—</span>';const n=parseFloat(v);if(n<0)return`<span class="dn">${n}</span>`;if(n>0)return`<span class="dp">+${n}</span>`;return'<span class="dz">0</span>';}
-function qCell(v){return(v===null||v===undefined)?'<span style="color:var(--text3)">—</span>':v;}
+function varCell(v){if(v===null)return'<span style="color:var(--text3)">—</span>';const n=parseFloat(v);return n<0?`<span class="dn">${n}</span>`:n>0?`<span class="dp">+${n}</span>`:'<span class="dz">0</span>';}
+function qCell(v){return v===null?'<span style="color:var(--text3)">—</span>':v;}
 function escHtml(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function escAttr(s){if(!s)return'';return String(s).replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
 function csvEsc(v){return'"'+(v===null||v===undefined?'':String(v).replace(/"/g,'""'))+'"';}
 function dl2(content,filename){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'text/csv;charset=utf-8;'}));a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);}
 
-// ── VARIANCE ────────────────────────────────────────
-function runVariance(){
-  const pd=FILE_DATA['var_po'],sd=FILE_DATA['var_scan'];if(!pd||!sd){toast('⚠ Load both files first');return;}
-  const cfg={poSku:document.getElementById('vPoSku').value,poQty:document.getElementById('vPoQty').value,poName:document.getElementById('vPoName').value,poStyle:document.getElementById('vPoStyle').value,poColour:document.getElementById('vPoColour').value,poSize:document.getElementById('vPoSize').value,poCat:document.getElementById('vPoCat').value,poBarcode:document.getElementById('vPoBarcode').value,poSeason:'',scSku:document.getElementById('vScSku').value,scQty:document.getElementById('vScQty').value};
-  const rows=buildRows(pd,sd,cfg);if(!rows.length)return;
-  S.var.rows=rows;S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;S.var.notesMap={};S.var.runId=null;
-  const sg=document.getElementById('vStats');
-  sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';
-  buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);
-  populateFilters(S.var.rows,{vStyleF:'style',vColourF:'colour',vSizeF:'size',vCatF:'category'});
-  document.querySelectorAll('#vFilters .fp').forEach(b=>b.classList.remove('active'));
-  document.querySelector('#vFilters .fp')?.classList.add('active');
-  document.getElementById('var-results').style.display='block';
-  document.getElementById('vTableWrap').style.display='block';
-  document.getElementById('vEmpty').style.display='none';
-  renderVar();saveVarRun();
-}
+// ── VARIANCE ────
+function runVariance(){const pd=FILE_DATA['var_po'],sd=FILE_DATA['var_scan'];if(!pd||!sd){toast('⚠ Load both');return;}
+const cfg={poSku:document.getElementById('vPoSku').value,poQty:document.getElementById('vPoQty').value,poName:document.getElementById('vPoName').value,poStyle:document.getElementById('vPoStyle').value,poColour:document.getElementById('vPoColour').value,poSize:document.getElementById('vPoSize').value,poCat:document.getElementById('vPoCat').value,scSku:document.getElementById('vScSku').value,scQty:document.getElementById('vScQty').value};
+const rows=buildRows(pd,sd,cfg);if(!rows.length)return;
+S.var.rows=rows;S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;
+const sg=document.getElementById('vStats');sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';
+buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);
+populateFilters(S.var.rows,{vStyleF:'style'});
+document.getElementById('var-results').style.display='block';renderVar();saveVarRun();}
 
-async function saveVarRun(){
-  const label=document.getElementById('vLabel').value.trim()||('Variance run '+new Date().toLocaleString('en-ZA'));
-  const c=countS(S.var.rows);const runType=document.getElementById('vRunType').value;
-  try{
-    const res=await sb('POST','variance_runs',{label,run_type:runType,total_skus:S.var.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});
-    const run=Array.isArray(res)?res[0]:res;S.var.runId=run.id;
-    const chunk=S.var.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,colour:r.colour,size:r.size,category:r.category,season:r.season,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));
-    for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));
-    toast('✓ Saved to database ('+S.var.rows.length+' SKUs)');
-  }catch(e){toast('⚠ Save failed: '+e.message);console.error(e);}
-}
+async function saveVarRun(){const label=document.getElementById('vLabel').value.trim()||'Variance run';const c=countS(S.var.rows);try{const res=await sb('POST','variance_runs',{label,run_type:'variance',total_skus:S.var.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});const run=Array.isArray(res)?res[0]:res;S.var.runId=run.id;const chunk=S.var.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,colour:r.colour,size:r.size,category:r.category,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));toast('✓ Saved');}catch(e){toast('⚠ Save failed');console.error(e);}}
 
-function vSetF(f,el){S.var.filter=f;document.querySelectorAll('#vFilters .fp').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');renderVar();}
 function vSort(col){S.var.sortDir=(S.var.sortCol===col)?S.var.sortDir*-1:1;S.var.sortCol=col;renderVar();}
 
-function renderVar(){
-  if(!S.var.rows.length)return;
-  const rows=sortRows(filterRows(S.var.rows,S.var.filter,document.getElementById('vSearch').value,{style:document.getElementById('vStyleF').value,colour:document.getElementById('vColourF').value,size:document.getElementById('vSizeF').value,category:document.getElementById('vCatF').value},document.getElementById('vThresh').value),S.var.sortCol,S.var.sortDir);
-  const tw=document.getElementById('vTableWrap'),em=document.getElementById('vEmpty');
-  if(!rows.length){tw.style.display='none';em.style.display='block';return;}
-  tw.style.display='block';em.style.display='none';
-  document.getElementById('vBody').innerHTML=rows.map(r=>`<tr>
-    <td class="mono">${escHtml(r.sku)}</td>
-    <td style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text2)">${escHtml(r.name)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.style)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.colour)||'—'}</td>
-    <td class="mono">${escHtml(r.size)||'—'}</td>
-    <td class="mono" style="text-align:right">${qCell(r.po_qty)}</td>
-    <td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td>
-    <td style="text-align:right">${varCell(r.variance)}</td>
-    <td>${BADGES[r.status]||r.status}</td>
-    <td><input class="note-inp" placeholder="Note…" value="${escAttr(S.var.notesMap[r.sku]||'')}" data-sku="${escAttr(r.sku)}" oninput="S.var.notesMap[this.dataset.sku]=this.value"></td>
-  </tr>`).join('');
-}
-
-async function saveVarNotes(){
-  if(!S.var.runId){toast('⚠ Run not saved yet');return;}
-  const entries=Object.entries(S.var.notesMap).filter(([,v])=>v&&v.trim());
-  if(!entries.length){toast('No notes to save');return;}
-  let n=0;
-  for(const[sku,notes]of entries){
-    try{await fetch(`${SB_URL}/rest/v1/variance_rows?run_id=eq.${S.var.runId}&sku=eq.${encodeURIComponent(sku)}`,{method:'PATCH',headers:SBH,body:JSON.stringify({notes})});n++;}catch(e){}
-  }
-  toast(`✓ ${n} notes saved`);
-}
-
-function exportVar(varOnly){
-  const rows=varOnly?S.var.rows.filter(r=>r.status!=='match'):S.var.rows;
-  if(!rows.length){toast('No data');return;}
-  dl2('SKU,Name,Style,Colour,Size,Category,PO Qty,Scan Qty,Variance,Status,Notes\n'+rows.map(r=>[r.sku,r.name,r.style,r.colour,r.size,r.category,r.po_qty??'',r.scan_qty??'',r.variance??'',r.status,S.var.notesMap[r.sku]||''].map(csvEsc).join(',')).join('\n'),varOnly?'variance-only.csv':'variance-full.csv');
-}
-
-// ── CYCLE COUNT ─────────────────────────────────────
-function runCC(){
-  const pd=FILE_DATA['cc_po'],sd=FILE_DATA['cc_scan'];if(!pd||!sd){toast('⚠ Load both files first');return;}
-  const cfg={poSku:document.getElementById('ccESku').value,poQty:document.getElementById('ccEQty').value,poName:document.getElementById('ccEName').value,poStyle:document.getElementById('ccEStyle').value,poColour:document.getElementById('ccEColour').value,poSize:document.getElementById('ccESize').value,poCat:'',poBarcode:'',poSeason:'',scSku:document.getElementById('ccSSku').value,scQty:document.getElementById('ccSQty').value};
-  const rows=buildRows(pd,sd,cfg);if(!rows.length)return;
-  S.cc.rows=rows;S.cc.filter='all';S.cc.sortCol='status';S.cc.sortDir=1;
-  const sg=document.getElementById('ccStats');
-  sg.innerHTML='<div class="stat-card" id="ccS0"></div><div class="stat-card" id="ccS1"></div><div class="stat-card" id="ccS2"></div><div class="stat-card" id="ccS3"></div><div class="stat-card" id="ccS4"></div>';
-  buildStatHTML(S.cc.rows,['ccS0','ccS1','ccS2','ccS3','ccS4']);
-  populateFilters(S.cc.rows,{ccStyleF:'style',ccColourF:'colour',ccSizeF:'size'});
-  document.querySelectorAll('#ccFilters .fp').forEach(b=>b.classList.remove('active'));
-  document.querySelector('#ccFilters .fp')?.classList.add('active');
-  document.getElementById('cc-results').style.display='block';
-  renderCC();saveCCRun();
-}
-
-async function saveCCRun(){
-  const label=document.getElementById('ccLabel').value.trim()||('Cycle count '+new Date().toLocaleString('en-ZA'));
-  const c=countS(S.cc.rows);
-  try{
-    const res=await sb('POST','variance_runs',{label,run_type:'cycle_count',total_skus:S.cc.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});
-    const run=Array.isArray(res)?res[0]:res;
-    const chunk=S.cc.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,colour:r.colour,size:r.size,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));
-    for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));
-    toast('✓ Cycle count saved');
-  }catch(e){toast('⚠ '+e.message);}
-}
-
-function ccSetF(f,el){S.cc.filter=f;document.querySelectorAll('#ccFilters .fp').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');renderCC();}
-function ccSort(col){S.cc.sortDir=(S.cc.sortCol===col)?S.cc.sortDir*-1:1;S.cc.sortCol=col;renderCC();}
-
-function renderCC(){
-  if(!S.cc.rows.length)return;
-  const rows=sortRows(filterRows(S.cc.rows,S.cc.filter,document.getElementById('ccSearch').value,{style:document.getElementById('ccStyleF').value,colour:document.getElementById('ccColourF').value,size:document.getElementById('ccSizeF').value},0),S.cc.sortCol,S.cc.sortDir);
-  document.getElementById('ccBody').innerHTML=rows.length?rows.map(r=>`<tr>
-    <td class="mono">${escHtml(r.sku)}</td><td style="color:var(--text2)">${escHtml(r.name)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.style)||'—'}</td><td style="color:var(--text2)">${escHtml(r.colour)||'—'}</td>
-    <td class="mono">${escHtml(r.size)||'—'}</td>
-    <td class="mono" style="text-align:right">${qCell(r.po_qty)}</td><td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td>
-    <td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td>
-  </tr>`).join(''):'<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text3)">No results match this filter.</td></tr>';
-}
-function exportCC(){if(!S.cc.rows.length){toast('No data');return;}dl2(toRowCSV(S.cc.rows,{}),'cycle-count.csv');}
-
-// ── BULK STOCKTAKE ──────────────────────────────────
-function runST(){
-  const pd=FILE_DATA['st_po'],sd=FILE_DATA['st_scan'];if(!pd||!sd){toast('⚠ Load both files first');return;}
-  const cfg={poSku:document.getElementById('stESku').value,poQty:document.getElementById('stEQty').value,poName:document.getElementById('stEName').value,poStyle:document.getElementById('stEStyle').value,poColour:document.getElementById('stEColour').value,poSize:document.getElementById('stESize').value,poCat:document.getElementById('stECat').value,poSeason:document.getElementById('stESeason').value,poBarcode:'',scSku:document.getElementById('stSSku').value,scQty:document.getElementById('stSQty').value};
-  const rows=buildRows(pd,sd,cfg);if(!rows.length)return;
-  S.st.rows=rows;S.st.filter='all';S.st.sortCol='status';S.st.sortDir=1;S.st.notesMap={};
-  const sg=document.getElementById('stStats');
-  sg.innerHTML='<div class="stat-card" id="stS0"></div><div class="stat-card" id="stS1"></div><div class="stat-card" id="stS2"></div><div class="stat-card" id="stS3"></div><div class="stat-card" id="stS4"></div>';
-  buildStatHTML(S.st.rows,['stS0','stS1','stS2','stS3','stS4']);
-  populateFilters(S.st.rows,{stStyleF:'style',stColourF:'colour',stSizeF:'size',stCatF:'category',stSeasonF:'season'});
-  document.querySelectorAll('#stFilters .fp').forEach(b=>b.classList.remove('active'));
-  document.querySelector('#stFilters .fp')?.classList.add('active');
-  document.getElementById('st-results').style.display='block';
-  renderST();saveSTRun();
-}
-
-async function saveSTRun(){
-  const label=document.getElementById('stLabel').value.trim()||('Stocktake '+new Date().toLocaleString('en-ZA'));
-  const c=countS(S.st.rows);
-  try{
-    const res=await sb('POST','variance_runs',{label,run_type:'bulk_stocktake',total_skus:S.st.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});
-    const run=Array.isArray(res)?res[0]:res;
-    const chunk=S.st.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,colour:r.colour,size:r.size,category:r.category,season:r.season,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));
-    for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));
-    toast('✓ Stocktake saved');
-  }catch(e){toast('⚠ '+e.message);}
-}
-
-function stSetF(f,el){S.st.filter=f;document.querySelectorAll('#stFilters .fp').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');renderST();}
-function stSort(col){S.st.sortDir=(S.st.sortCol===col)?S.st.sortDir*-1:1;S.st.sortCol=col;renderST();}
-
-function renderST(){
-  if(!S.st.rows.length)return;
-  const rows=sortRows(filterRows(S.st.rows,S.st.filter,document.getElementById('stSearch').value,{style:document.getElementById('stStyleF').value,colour:document.getElementById('stColourF').value,size:document.getElementById('stSizeF').value,category:document.getElementById('stCatF').value,season:document.getElementById('stSeasonF').value},0),S.st.sortCol,S.st.sortDir);
-  document.getElementById('stBody').innerHTML=rows.length?rows.map(r=>`<tr>
-    <td class="mono">${escHtml(r.sku)}</td><td style="color:var(--text2)">${escHtml(r.name)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.style)||'—'}</td><td style="color:var(--text2)">${escHtml(r.colour)||'—'}</td>
-    <td class="mono">${escHtml(r.size)||'—'}</td><td style="color:var(--text3)">${escHtml(r.season)||'—'}</td>
-    <td class="mono" style="text-align:right">${qCell(r.po_qty)}</td><td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td>
-    <td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td>
-    <td><input class="note-inp" placeholder="Note…" value="${escAttr(S.st.notesMap[r.sku]||'')}" data-sku="${escAttr(r.sku)}" oninput="S.st.notesMap[this.dataset.sku]=this.value"></td>
-  </tr>`).join(''):'<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text3)">No results match this filter.</td></tr>';
-}
-function exportST(){if(!S.st.rows.length){toast('No data');return;}dl2(toRowCSV(S.st.rows,S.st.notesMap),'stocktake.csv');}
-
-// ── BULK MOVEMENTS ──────────────────────────────────
-function loadMovFile(event){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const parsed=parseCSV(ev.target.result);
-    if(!parsed.headers.length){toast('⚠ Could not parse file');return;}
-    S.mov.parsed=parsed;
-    document.getElementById('movTag').textContent=file.name;
-    document.getElementById('movTag').className='file-tag loaded';
-    document.getElementById('movMap').classList.add('show');
-    document.getElementById('movRunBar').style.display='flex';
-    const h=parsed.headers;
-    ['movSku','movQty','movDate','movType','movName','movRef','movStyle','movColour','movSize'].forEach(id=>{
-      const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');
-    });
-    const setG=(id,pats)=>{const el=document.getElementById(id);if(el){const v=guess(h,pats);if(v)el.value=v;}};
-    setG('movSku',['sku','barcode','code','item']);setG('movQty',['qty','quantity','units','amount']);
-    setG('movDate',['date','movement date','created','timestamp']);setG('movType',['type','movement type','reason','category']);
-    setG('movName',['name','description','product']);setG('movRef',['ref','reference','order','po','doc']);
-    setG('movStyle',['style','range']);setG('movColour',['colour','color']);setG('movSize',['size','sz']);
-    toast('✓ '+file.name+' ('+parsed.rows.length+' rows)');
-  };
-  reader.readAsText(file);
-}
-
-async function saveMovements(){
-  if(!S.mov.parsed){toast('⚠ No file loaded');return;}
-  const get=id=>document.getElementById(id)?.value||'';
-  const skuC=get('movSku'),qtyC=get('movQty'),dateC=get('movDate'),typeC=get('movType'),nameC=get('movName'),refC=get('movRef'),styleC=get('movStyle'),colourC=get('movColour'),sizeC=get('movSize');
-  const label=document.getElementById('movLabel')?.value.trim()||'Movement batch';
-  const rows=S.mov.parsed.rows.map(r=>{
-    const sku=colVal(r,skuC).toUpperCase();if(!sku||sku==='(NONE)')return null;
-    const rawDate=colVal(r,dateC);let movement_date=null;
-    if(rawDate){try{const d=new Date(rawDate);if(!isNaN(d))movement_date=d.toISOString().split('T')[0];}catch(e){}}
-    return{sku,qty:parseFloat(colVal(r,qtyC).replace(/[^0-9.\-]/g,''))||0,movement_date,movement_type:(colVal(r,typeC)||'transfer').toLowerCase().replace(/\s+/g,'_'),name:colVal(r,nameC),reference:colVal(r,refC),style:colVal(r,styleC),colour:colVal(r,colourC),size:colVal(r,sizeC),label};
-  }).filter(Boolean);
-  if(!rows.length){toast('⚠ No valid rows — check SKU column');return;}
-  try{
-    for(let i=0;i<rows.length;i+=200)await sb('POST','bulk_movements',rows.slice(i,i+200));
-    toast('✓ '+rows.length+' movements saved');loadMovements();
-  }catch(e){toast('⚠ '+e.message);console.error(e);}
-}
-
-async function loadMovements(){
-  try{
-    const rows=await sb('GET','bulk_movements?order=movement_date.desc,created_at.desc&limit=2000');
-    S.mov.dbRows=rows||[];renderMovements();
-  }catch(e){console.error('loadMovements:',e);}
-}
-
-function renderMovements(){
-  const typeF=document.getElementById('movTypeF')?.value||'';
-  const q=(document.getElementById('movSearch')?.value||'').toUpperCase().trim();
-  const rows=S.mov.dbRows.filter(r=>{
-    if(typeF&&r.movement_type!==typeF)return false;
-    if(q&&!(r.sku||'').toUpperCase().includes(q)&&!(r.name||'').toUpperCase().includes(q))return false;
-    return true;
-  });
-  document.getElementById('movBody').innerHTML=rows.length?rows.map(r=>`<tr>
-    <td class="mono">${r.movement_date||'—'}</td><td class="mono">${escHtml(r.sku)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.name)||'—'}</td><td style="color:var(--text2)">${escHtml(r.style)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.colour)||'—'}</td><td class="mono">${escHtml(r.size)||'—'}</td>
-    <td class="mono" style="text-align:right">${r.qty}</td>
-    <td>${BADGES[r.movement_type]||`<span class="badge">${escHtml(r.movement_type||'—')}</span>`}</td>
-    <td class="mono" style="color:var(--text3)">${escHtml(r.reference)||'—'}</td>
-    <td style="color:var(--text3);font-size:11px">${escHtml(r.notes||'')}</td>
-  </tr>`).join(''):'<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3)">No movements found.</td></tr>';
-}
-
-function exportMovements(){
-  dl2('Date,SKU,Name,Style,Colour,Size,Qty,Type,Reference,Notes\n'+S.mov.dbRows.map(r=>[r.movement_date,r.sku,r.name,r.style,r.colour,r.size,r.qty,r.movement_type,r.reference,r.notes||''].map(csvEsc).join(',')).join('\n'),'bulk-movements.csv');
-}
-
-// ── SHIPMENTS ───────────────────────────────────────
-function loadShipFile(event){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const parsed=parseCSV(ev.target.result);
-    if(!parsed.headers.length){toast('⚠ Could not parse file');return;}
-    S.ship.parsedData=parsed;
-    document.getElementById('shipTag').textContent=file.name;
-    document.getElementById('shipTag').className='file-tag loaded';
-    document.getElementById('shipMap').classList.add('show');
-    document.getElementById('shipRunBar').style.display='flex';
-    const h=parsed.headers;
-    ['shipOrderId','shipDate','shipSku','shipName','shipQty','shipRev','shipStyle','shipColour','shipSize'].forEach(id=>{
-      const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');
-    });
-    const setG=(id,pats)=>{const el=document.getElementById(id);if(el){const v=guess(h,pats);if(v)el.value=v;}};
-    setG('shipOrderId',['order id','name','order number','order_id','#']);
-    setG('shipDate',['created at','date','paid at','processed at','fulfilled']);
-    setG('shipSku',['sku','variant sku','lineitem sku']);
-    setG('shipName',['lineitem name','product','title','name','variant title']);
-    setG('shipQty',['lineitem quantity','quantity','qty']);
-    setG('shipRev',['total','subtotal','price','revenue','lineitem price','net']);
-    setG('shipStyle',['style','product type','type']);
-    setG('shipColour',['colour','color','variant title','option1']);
-    setG('shipSize',['size','option2']);
-    toast('✓ '+file.name+' ('+parsed.rows.length+' rows)');
-  };
-  reader.readAsText(file);
-}
-
-async function saveShipments(){
-  if(!S.ship.parsedData){toast('⚠ No file loaded');return;}
-  const get=id=>document.getElementById(id)?.value||'';
-  const orderC=get('shipOrderId'),dateC=get('shipDate'),skuC=get('shipSku'),nameC=get('shipName'),qtyC=get('shipQty'),revC=get('shipRev'),styleC=get('shipStyle'),colourC=get('shipColour'),sizeC=get('shipSize');
-  const label=document.getElementById('shipLabel')?.value.trim()||'Shopify import';
-  const rows=S.ship.parsedData.rows.map(r=>{
-    const sku=colVal(r,skuC).toUpperCase();if(!sku||sku==='(NONE)')return null;
-    const rawDate=colVal(r,dateC);let order_date=null;
-    if(rawDate){try{const d=new Date(rawDate);if(!isNaN(d))order_date=d.toISOString().split('T')[0];}catch(e){}}
-    return{import_label:label,order_id:colVal(r,orderC),order_date,sku,name:colVal(r,nameC),style:colVal(r,styleC),colour:colVal(r,colourC),size:colVal(r,sizeC),qty:parseInt(colVal(r,qtyC).replace(/[^0-9\-]/g,''))||0,revenue:parseFloat(colVal(r,revC).replace(/[^0-9.\-]/g,''))||0,channel:'shopify'};
-  }).filter(Boolean);
-  if(!rows.length){toast('⚠ No valid rows — check SKU column');return;}
-  try{
-    for(let i=0;i<rows.length;i+=200)await sb('POST','shipments',rows.slice(i,i+200));
-    toast('✓ '+rows.length+' shipment lines saved');loadShipmentsDB();
-  }catch(e){toast('⚠ '+e.message);console.error(e);}
-}
-
-async function loadShipmentsDB(){
-  try{
-    const rows=await sb('GET','shipments?order=order_date.desc&limit=10000');
-    S.ship.dbRows=rows||[];
-    if(S.ship.dbRows.length){
-      let units=0,rev=0;const orders=new Set(),skus=new Set();
-      S.ship.dbRows.forEach(r=>{units+=(r.qty||0);rev+=(r.revenue||0);if(r.order_id)orders.add(r.order_id);if(r.sku)skus.add(r.sku);});
-      const setText=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-      setText('ss-orders',orders.size.toLocaleString());setText('ss-units',units.toLocaleString());
-      setText('ss-rev','R '+rev.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','));setText('ss-skus',skus.size.toLocaleString());
-      document.getElementById('shipStats').style.display='grid';
-      renderShipmentCharts();populateShipFilters();renderShipments();
-      document.getElementById('shipCharts').style.display='grid';
-      document.getElementById('shipTable').style.display='block';
-    }
-  }catch(e){console.error('loadShipmentsDB:',e);}
-}
-
-function populateShipFilters(){
-  const months=[...new Set(S.ship.dbRows.map(r=>(r.order_date||'').slice(0,7)).filter(Boolean))].sort().reverse();
-  const styles=[...new Set(S.ship.dbRows.map(r=>r.style).filter(Boolean))].sort();
-  const e1=document.getElementById('shipMonthF'),e2=document.getElementById('shipStyleF');
-  if(e1)e1.innerHTML='<option value="">All months</option>'+months.map(m=>`<option value="${m}">${m}</option>`).join('');
-  if(e2)e2.innerHTML='<option value="">All styles</option>'+styles.map(s=>`<option value="${escAttr(s)}">${escHtml(s)}</option>`).join('');
-}
-
-function shipSort(col){S.ship.sortDir=(S.ship.sortCol===col)?S.ship.sortDir*-1:1;S.ship.sortCol=col;renderShipments();}
-
-function renderShipments(){
-  const q=(document.getElementById('shipSearch')?.value||'').toUpperCase().trim();
-  const monthF=document.getElementById('shipMonthF')?.value||'';
-  const styleF=document.getElementById('shipStyleF')?.value||'';
-  let rows=S.ship.dbRows.filter(r=>{
-    if(q&&!(r.sku||'').toUpperCase().includes(q)&&!(r.name||'').toUpperCase().includes(q))return false;
-    if(monthF&&!(r.order_date||'').startsWith(monthF))return false;
-    if(styleF&&r.style!==styleF)return false;
-    return true;
-  });
-  const sc=S.ship.sortCol,sd=S.ship.sortDir;
-  rows.sort((a,b)=>{const av=a[sc],bv=b[sc];if(av===null||av===undefined)return 1;if(bv===null||bv===undefined)return-1;return typeof av==='string'?av.localeCompare(bv)*sd:(av-bv)*sd;});
-  document.getElementById('shipBody').innerHTML=rows.slice(0,1000).map(r=>`<tr>
-    <td class="mono">${r.order_date||'—'}</td>
-    <td class="mono" style="color:var(--text3)">${escHtml(r.order_id)||'—'}</td>
-    <td class="mono">${escHtml(r.sku)||'—'}</td>
-    <td style="color:var(--text2);max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(r.name)||'—'}</td>
-    <td style="color:var(--text2)">${escHtml(r.style)||'—'}</td>
-    <td class="mono">${escHtml(r.size)||'—'}</td>
-    <td class="mono" style="text-align:right">${r.qty}</td>
-    <td class="mono" style="text-align:right">R ${(r.revenue||0).toFixed(2)}</td>
-  </tr>`).join('');
-}
-
-function renderShipmentCharts(){
-  const rows=S.ship.dbRows;
-  const dayMap={};rows.forEach(r=>{if(r.order_date)dayMap[r.order_date]=(dayMap[r.order_date]||0)+(r.qty||0);});
-  const days=Object.keys(dayMap).sort().slice(-60);
-  if(days.length)drawChart('c-shipDay','bar',days,days.map(d=>dayMap[d]),{color:'rgba(201,168,76,0.8)',label:'Units'});
-  const mMap={};rows.forEach(r=>{const m=(r.order_date||'').slice(0,7);if(m)mMap[m]=(mMap[m]||0)+(r.revenue||0);});
-  const months=Object.keys(mMap).sort();
-  if(months.length)drawChart('c-shipMonth','bar',months,months.map(m=>+mMap[m].toFixed(2)),{color:'rgba(61,153,112,0.8)',label:'Revenue (R)'});
-}
-
-function exportShipments(){
-  dl2('Date,Order ID,SKU,Name,Style,Colour,Size,Qty,Revenue\n'+S.ship.dbRows.map(r=>[r.order_date,r.order_id,r.sku,r.name,r.style,r.colour,r.size,r.qty,r.revenue].map(csvEsc).join(',')).join('\n'),'shipments.csv');
-}
-
-// ── FAST MOVERS ─────────────────────────────────────
-function renderFastMovers(){
-  const period=parseInt(document.getElementById('fmPeriod')?.value)||0;
-  const groupBy=document.getElementById('fmGroupBy')?.value||'sku';
-  const q=(document.getElementById('fmSearch')?.value||'').toUpperCase().trim();
-  const headerEl=document.getElementById('fmGroupHeader');
-  if(headerEl)headerEl.textContent=groupBy.charAt(0).toUpperCase()+groupBy.slice(1);
-
-  let rows=S.ship.dbRows;
-  if(period>0){
-    const cutoff=new Date();cutoff.setDate(cutoff.getDate()-period);
-    const cs=cutoff.toISOString().split('T')[0];
-    rows=rows.filter(r=>r.order_date&&r.order_date>=cs);
-  }
-
-  // Build map — FIX: use Set for order deduplication, convert to count before ranking
-  const map={};
-  rows.forEach(r=>{
-    const key=(r[groupBy]||'(unknown)');
-    if(!map[key])map[key]={key,units:0,orderSet:new Set(),revenue:0};
-    map[key].units+=(r.qty||0);
-    if(r.order_id)map[key].orderSet.add(r.order_id);
-    map[key].revenue+=(r.revenue||0);
-  });
-
-  let ranked=Object.values(map).map(m=>({
-    key:m.key,units:m.units,
-    orders:m.orderSet.size,  // convert Set to number HERE
-    revenue:m.revenue,
-    avgPerOrder:m.orderSet.size>0?+(m.units/m.orderSet.size).toFixed(2):0
-  })).sort((a,b)=>b.units-a.units);
-
-  const top15=ranked.slice(0,15);
-  if(top15.length)drawChart('c-fmStyles','bar',top15.map(r=>r.key),top15.map(r=>r.units),{color:'rgba(201,168,76,0.75)',label:'Units',horizontal:true});
-  const sizeMap={};S.ship.dbRows.forEach(r=>{const s=r.size||'(none)';sizeMap[s]=(sizeMap[s]||0)+(r.qty||0);});
-  const sizes=Object.entries(sizeMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
-  if(sizes.length)drawChart('c-fmSizes','doughnut',sizes.map(s=>s[0]),sizes.map(s=>s[1]),{label:'Units'});
-
-  if(q)ranked=ranked.filter(r=>(r.key||'').toUpperCase().includes(q));
-  if(!ranked.length){document.getElementById('fmBody').innerHTML='<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text3)">No data — import shipments first.</td></tr>';return;}
-  document.getElementById('fmBody').innerHTML=ranked.slice(0,300).map((r,i)=>`<tr>
-    <td class="mono ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}">#${i+1}</td>
-    <td style="font-weight:${i<3?600:400}">${escHtml(r.key)}</td>
-    <td class="mono" style="text-align:right">${r.units.toLocaleString()}</td>
-    <td class="mono" style="text-align:right">${r.orders.toLocaleString()}</td>
-    <td class="mono" style="text-align:right">R ${r.revenue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',')}</td>
-    <td class="mono" style="text-align:right">${r.avgPerOrder}</td>
-  </tr>`).join('');
-}
-
-function exportFastMovers(){
-  const rows=[...document.getElementById('fmBody').querySelectorAll('tr')];
-  dl2('Rank,Group,Units Sold,Orders,Revenue,Avg per Order\n'+rows.map(r=>[...r.querySelectorAll('td')].map(td=>csvEsc(td.textContent.trim())).join(',')).join('\n'),'fast-movers.csv');
-}
-
-// ── HISTORY ─────────────────────────────────────────
-async function loadHistory(){
-  const grid=document.getElementById('histList');if(!grid)return;
-  grid.innerHTML='<div class="empty"><div class="spin"></div></div>';
-  try{
-    const runs=await sb('GET','variance_runs?order=created_at.desc&limit=200');
-    S.hist.all=runs||[];renderHistory();
-  }catch(e){if(grid)grid.innerHTML='<div class="empty">Could not load history.</div>';console.error(e);}
-}
-
-function renderHistory(){
-  const typeF=document.getElementById('histTypeF')?.value||'';
-  const q=(document.getElementById('histSearch')?.value||'').toUpperCase().trim();
-  const grid=document.getElementById('histList');if(!grid)return;
-  const runs=S.hist.all.filter(r=>{
-    if(typeF&&r.run_type!==typeF)return false;
-    if(q&&!(r.label||'').toUpperCase().includes(q))return false;
-    return true;
-  });
-  if(!runs.length){grid.innerHTML='<div class="empty"><div class="empty-icon">🕓</div><div>No runs found.</div></div>';return;}
-  const tl={variance:'Variance',cycle_count:'Cycle Count',bulk_stocktake:'Stocktake'};
-  grid.innerHTML=runs.map(r=>{
-    const dt=new Date(r.created_at).toLocaleString('en-ZA',{dateStyle:'medium',timeStyle:'short'});
-    const issues=(r.short||0)+(r.missing||0)+(r.over||0)+(r.extra||0);
-    return`<div class="hist-card" onclick="loadHistRun('${r.id}')">
-      <div>
-        <div class="hist-label">${escHtml(r.label||'Untitled')}</div>
-        <div class="hist-meta">${dt} · ${r.total_skus||0} SKUs · <span style="color:var(--text2)">${tl[r.run_type]||r.run_type||'—'}</span></div>
-      </div>
-      <div class="hist-pills">
-        <span class="pill ok">${r.matched||0} match</span>
-        ${issues?`<span class="pill bad">${issues} issues</span>`:''}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-async function loadHistRun(runId){
-  toast('Loading run…');
-  try{
-    const rows=await sb('GET',`variance_rows?run_id=eq.${runId}&order=status.asc,sku.asc&limit=5000`);
-    S.var.rows=(rows||[]).map(r=>({...r,variance:r.variance!==null?parseFloat(r.variance):null}));
-    S.var.notesMap={};(rows||[]).forEach(r=>{if(r.notes)S.var.notesMap[r.sku]=r.notes;});
-    S.var.runId=runId;S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;
-    const sg=document.getElementById('vStats');
-    sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';
-    buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);
-    populateFilters(S.var.rows,{vStyleF:'style',vColourF:'colour',vSizeF:'size',vCatF:'category'});
-    document.querySelectorAll('#vFilters .fp').forEach(b=>b.classList.remove('active'));
-    document.querySelector('#vFilters .fp')?.classList.add('active');
-    document.getElementById('var-results').style.display='block';
-    document.getElementById('vTableWrap').style.display='block';
-    document.getElementById('vEmpty').style.display='none';
-    renderVar();
-    // Navigate to variance tab by ID, not index
-    const varBtn=document.querySelector('.nav-item[data-navid="variance"]')||[...document.querySelectorAll('.nav-item')].find(b=>b.textContent.trim().includes('Variance'));
-    nav('variance',varBtn||null);
-    toast('✓ Loaded '+S.var.rows.length+' SKUs');
-  }catch(e){toast('⚠ Could not load: '+e.message);console.error(e);}
-}
-
-// ── AUDIT ───────────────────────────────────────────
-async function loadAudit(){
-  try{
-    const[runs,rows]=await Promise.all([
-      sb('GET','variance_runs?order=created_at.asc&limit=500'),
-      sb('GET','variance_rows?status=neq.match&order=created_at.desc&limit=5000')
-    ]);
-    S.audit.runs=runs||[];S.audit.rows=rows||[];
-    renderAuditStats();renderAuditCharts();renderAudit();
-  }catch(e){console.error('loadAudit:',e);}
-}
-
-function renderAuditStats(){
-  const runs=S.audit.runs,rows=S.audit.rows;
-  const setText=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  setText('au-runs',runs.length);
-  const avg=runs.length?runs.reduce((a,r)=>a+(1-((r.matched||0)/Math.max(r.total_skus||1,1))),0)/runs.length*100:0;
-  setText('au-rate',avg.toFixed(1)+'%');
-  const sm={};rows.forEach(r=>{if(r.style)sm[r.style]=(sm[r.style]||0)+1;});
-  const worst=Object.entries(sm).sort((a,b)=>b[1]-a[1])[0];
-  setText('au-style',worst?worst[0]:'—');
-}
-
-function renderAuditCharts(){
-  const runs=S.audit.runs;
-  const labels=runs.map(r=>new Date(r.created_at).toLocaleDateString('en-ZA',{day:'numeric',month:'short'}));
-  const rates=runs.map(r=>+((1-((r.matched||0)/Math.max(r.total_skus||1,1)))*100).toFixed(1));
-  if(labels.length)drawChart('c-auditTrend','line',labels,rates,{color:'rgba(201,168,76,0.8)',label:'Variance rate %'});
-  const sm={};S.audit.rows.forEach(r=>{if(r.style)sm[r.style]=(sm[r.style]||0)+1;});
-  const top=Object.entries(sm).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  if(top.length)drawChart('c-auditStyle','bar',top.map(t=>t[0]),top.map(t=>t[1]),{color:'rgba(192,57,43,0.75)',label:'Issues'});
-}
-
-function renderAudit(){
-  const statusF=document.getElementById('auStatusF')?.value||'';
-  const resolvedF=document.getElementById('auResolvedF')?.value||'';
-  const q=(document.getElementById('auSearch')?.value||'').toUpperCase().trim();
-  const rows=S.audit.rows.filter(r=>{
-    if(statusF&&r.status!==statusF)return false;
-    if(resolvedF==='true'&&!r.resolved)return false;
-    if(resolvedF==='false'&&r.resolved)return false;
-    if(q&&!(r.sku||'').toUpperCase().includes(q)&&!(r.style||'').toUpperCase().includes(q))return false;
-    return true;
-  });
-  const runMap={};(S.audit.runs||[]).forEach(r=>runMap[r.id]=r);
-  const body=document.getElementById('auBody');if(!body)return;
-  body.innerHTML=rows.length?rows.slice(0,500).map(r=>{
-    const run=runMap[r.run_id];
-    const dt=run?new Date(run.created_at).toLocaleDateString('en-ZA',{dateStyle:'short'}):'—';
-    return`<tr>
-      <td style="color:var(--text3);font-size:11px;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escHtml(run?.label||'—')}</td>
-      <td class="mono" style="color:var(--text3)">${dt}</td>
-      <td class="mono">${escHtml(r.sku||'—')}</td>
-      <td style="color:var(--text2)">${escHtml(r.style||'—')}</td>
-      <td style="color:var(--text2)">${escHtml(r.colour||'—')}</td>
-      <td class="mono">${escHtml(r.size||'—')}</td>
-      <td style="text-align:right">${varCell(r.variance)}</td>
-      <td>${BADGES[r.status]||r.status}</td>
-      <td><span class="badge ${r.resolved?'match':'short'}">${r.resolved?'Resolved':'Open'}</span></td>
-      <td style="color:var(--text3);font-size:11px">${escHtml(r.notes||'')}</td>
-    </tr>`;
-  }).join(''):'<tr><td colspan="10" style="text-align:center;padding:40px;color:var(--text3)">No issues match this filter.</td></tr>';
-}
-
-function exportAudit(){
-  const runMap={};(S.audit.runs||[]).forEach(r=>runMap[r.id]=r);
-  dl2('Run,Date,SKU,Style,Colour,Size,Variance,Status,Resolved,Notes\n'+(S.audit.rows||[]).map(r=>{const run=runMap[r.run_id];return[run?.label||'',run?new Date(run.created_at).toLocaleDateString('en-ZA'):'',r.sku,r.style,r.colour,r.size,r.variance,r.status,r.resolved?'Yes':'No',r.notes||''].map(csvEsc).join(',');}).join('\n'),'audit-report.csv');
-}
-
-// ── DASHBOARD ───────────────────────────────────────
-async function loadDashboard(){
-  try{
-    const[lastRun,shipRows,varRows,bulkRows,allRuns]=await Promise.all([
-      sb('GET','variance_runs?order=created_at.desc&limit=1'),
-      sb('GET','shipments?select=qty,order_date,order_id&limit=10000'),
-      sb('GET','variance_rows?select=status&limit=10000'),
-      sb('GET','bulk_movements?select=movement_type&limit=2000'),
-      sb('GET','variance_runs?select=id&limit=1000')
-    ]);
-    const setText=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-    setText('ds-runs',(allRuns||[]).length.toLocaleString());
-    setText('ds-ship',(shipRows||[]).length.toLocaleString());
-    setText('ds-var',(varRows||[]).filter(r=>r.status!=='match').length.toLocaleString());
-    setText('ds-bulk',(bulkRows||[]).length.toLocaleString());
-    if(lastRun&&lastRun.length){
-      const r=lastRun[0];
-      drawChart('c-varPie','doughnut',['Match','Short','Over','Missing','Extra'],[r.matched||0,r.short||0,r.over||0,r.missing||0,r.extra||0],{colors:['#3d9970','#c0392b','#d4840a','#8e44ad','#2980b9']});
-    }
-    const mMap={};(shipRows||[]).forEach(r=>{const m=(r.order_date||'').slice(0,7);if(m)mMap[m]=(mMap[m]||0)+(r.qty||0);});
-    const months=Object.keys(mMap).sort().slice(-12);
-    if(months.length)drawChart('c-shipBar','bar',months,months.map(m=>mMap[m]),{color:'rgba(41,128,185,0.75)',label:'Units'});
-    sb('GET','shipments?select=style,qty&limit=10000').then(fm=>{
-      const fmM={};(fm||[]).forEach(r=>{if(r.style)fmM[r.style]=(fmM[r.style]||0)+(r.qty||0);});
-      const top=Object.entries(fmM).sort((a,b)=>b[1]-a[1]).slice(0,10);
-      if(top.length)drawChart('c-fastBar','bar',top.map(t=>t[0]),top.map(t=>t[1]),{color:'rgba(201,168,76,0.75)',label:'Units',horizontal:true});
-    }).catch(()=>{});
-    const btMap={};(bulkRows||[]).forEach(r=>{if(r.movement_type)btMap[r.movement_type]=(btMap[r.movement_type]||0)+1;});
-    const btKeys=Object.keys(btMap);
-    if(btKeys.length)drawChart('c-bulkDough','doughnut',btKeys,btKeys.map(k=>btMap[k]),{label:'Movements'});
-  }catch(e){console.error('loadDashboard:',e);}
-}
-
-// ── CHARTS ──────────────────────────────────────────
-const PALETTE=['rgba(201,168,76,0.85)','rgba(41,128,185,0.85)','rgba(61,153,112,0.85)','rgba(212,132,10,0.85)','rgba(142,68,173,0.85)','rgba(192,57,43,0.85)','rgba(46,204,113,0.85)','rgba(52,152,219,0.85)','rgba(230,126,34,0.85)','rgba(155,89,182,0.85)','rgba(149,165,166,0.85)','rgba(241,196,15,0.85)'];
-
-function drawChart(id,type,labels,data,opts={}){
-  if(typeof Chart==='undefined'){console.warn('Chart.js not loaded yet');return;}
-  const canvas=document.getElementById(id);if(!canvas)return;
-  if(!labels||!labels.length||!data||!data.length)return;
-  if(S.charts[id]){try{S.charts[id].destroy();}catch(e){}}
-  const isBar=type==='bar',isLine=type==='line';
-  const colors=Array.isArray(opts.colors)?opts.colors:PALETTE;
-  S.charts[id]=new Chart(canvas,{
-    type,
-    data:{labels,datasets:[{label:opts.label||'',data,backgroundColor:isBar?(opts.color||PALETTE[0]):(isLine?'transparent':colors),borderColor:isLine?(opts.color||PALETTE[0]):'transparent',borderWidth:isLine?2:0,borderRadius:isBar?3:0,pointBackgroundColor:isLine?(opts.color||PALETTE[0]):'transparent',pointRadius:isLine?3:0,fill:false,tension:0.4}]},
-    options:{
-      indexAxis:opts.horizontal?'y':'x',responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:type==='doughnut',labels:{color:'#9a9288',font:{size:10,family:"'DM Mono',monospace"},boxWidth:10,padding:12}},tooltip:{bodyFont:{family:"'DM Mono',monospace",size:11},titleFont:{family:"'Syne',sans-serif",size:11}}},
-      scales:(isBar||isLine)?{x:{ticks:{color:'#4e4a45',font:{size:9,family:"'DM Mono',monospace"},maxRotation:45},grid:{color:'rgba(255,255,255,0.03)'},border:{color:'rgba(255,255,255,0.05)'}},y:{ticks:{color:'#4e4a45',font:{size:9,family:"'DM Mono',monospace"}},grid:{color:'rgba(255,255,255,0.03)'},border:{color:'rgba(255,255,255,0.05)'}}}:{},
-      animation:{duration:300}
-    }
-  });
-}
-
-// ── SHARED UTILS ────────────────────────────────────
-function toRowCSV(rows,notesMap={}){
-  return'SKU,Name,Style,Colour,Size,Category,Season,ERP Qty,Count Qty,Variance,Status,Notes\n'+rows.map(r=>[r.sku,r.name,r.style,r.colour,r.size,r.category,r.season,r.po_qty??'',r.scan_qty??'',r.variance??'',r.status,notesMap[r.sku]||''].map(csvEsc).join(',')).join('\n');
-}
-
-let toastTimer;
-function toast(msg){
-  const t=document.getElementById('toast');if(!t)return;
-  t.textContent=msg;t.style.display='block';
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.style.display='none';},4000);
-}
-
-// ═══════════════════════════════════════
-// PICK & PACK MODULE
-// ═══════════════════════════════════════
-S.pp={dbRows:[],parsedUpload:null,activeTab:'log',sortCol:'session_date',sortDir:-1};
-
-// One consolidated init on page load
-window.addEventListener('load',()=>{
-  // Set today's date in PP form
-  const d=document.getElementById('ppDate');
-  if(d)d.value=new Date().toISOString().split('T')[0];
-  // PP live calc listeners
-  ['ppStart','ppEnd','ppUnits','ppOrders'].forEach(id=>{
-    const el=document.getElementById(id);
-    if(el)el.addEventListener('input',updatePPCalc);
-  });
-  // SQL Ctrl+Enter shortcut
-  const inp=document.getElementById('sqlInput');
-  if(inp){
-    inp.addEventListener('keydown',e=>{
-      if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();runSQL();}
-    });
-  }
-  // Start app AFTER Chart.js and DOM are both ready
-  initApp();
-});
-
-function ppTab(tab,el){
-  S.pp.activeTab=tab;
-  document.querySelectorAll('.pp-tab').forEach(b=>b.classList.remove('active'));
-  if(el)el.classList.add('active');
-  ['log','upload','leaderboard','history'].forEach(t=>{
-    const el=document.getElementById('pp-'+t);
-    if(el)el.style.display=(t===tab)?'block':'none';
-  });
-  if(tab==='leaderboard')renderPPLeaderboard();
-  if(tab==='history')renderPPHistory();
-}
-
-function calcPPDuration(start,end){
-  if(!start||!end)return null;
-  const [sh,sm]=(start||'').split(':').map(Number);
-  const [eh,em]=(end||'').split(':').map(Number);
-  if(isNaN(sh)||isNaN(eh))return null;
-  const mins=(eh*60+em)-(sh*60+sm);
-  return mins>0?mins:null;
-}
-
-// Live calc display while filling form
-['ppStart','ppEnd','ppUnits','ppOrders'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el)el.addEventListener('input',updatePPCalc);
-});
-
-function updatePPCalc(){
-  const start=document.getElementById('ppStart')?.value;
-  const end=document.getElementById('ppEnd')?.value;
-  const units=parseInt(document.getElementById('ppUnits')?.value)||0;
-  const orders=parseInt(document.getElementById('ppOrders')?.value)||0;
-  const mins=calcPPDuration(start,end);
-  const el=document.getElementById('ppCalc');
-  if(!el)return;
-  if(mins&&mins>0){
-    const hrs=mins/60;
-    const uph=units?(units/hrs).toFixed(1):'—';
-    const oph=orders?(orders/hrs).toFixed(1):'—';
-    el.textContent=`${mins} min · ${uph} UPH · ${oph} OPH`;
-  } else {
-    el.textContent='';
-  }
-}
-
-async function savePPSession(){
-  const packer=(document.getElementById('ppPacker')?.value||'').trim();
-  const date=document.getElementById('ppDate')?.value;
-  if(!packer){toast('⚠ Enter packer name');return;}
-  if(!date){toast('⚠ Enter date');return;}
-  const start=document.getElementById('ppStart')?.value||null;
-  const end=document.getElementById('ppEnd')?.value||null;
-  const mins=calcPPDuration(start,end);
-  const units=parseInt(document.getElementById('ppUnits')?.value)||0;
-  const orders=parseInt(document.getElementById('ppOrders')?.value)||0;
-  const hrs=mins?mins/60:null;
-  const row={
-    packer_name:packer,
-    session_date:date,
-    shift:document.getElementById('ppShift')?.value||'morning',
-    store_channel:(document.getElementById('ppStore')?.value||'').trim()||'General',
-    orders_picked:orders,
-    units_packed:units,
-    start_time:start,
-    end_time:end,
-    duration_mins:mins,
-    units_per_hour:hrs&&units?+(units/hrs).toFixed(2):null,
-    orders_per_hour:hrs&&orders?+(orders/hrs).toFixed(2):null,
-    errors:parseInt(document.getElementById('ppErrors')?.value)||0,
-    notes:(document.getElementById('ppNotes')?.value||'').trim()
-  };
-  try{
-    await sb('POST','pick_pack_sessions',[row]);
-    toast('✓ Session saved — '+packer+' · '+units+' units');
-    clearPPForm();loadPPData();
-  }catch(e){toast('⚠ Save failed: '+e.message);console.error(e);}
-}
-
-function clearPPForm(){
-  ['ppPacker','ppStore','ppNotes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  ['ppOrders','ppUnits','ppErrors'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  ['ppStart','ppEnd'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  document.getElementById('ppDate').value=new Date().toISOString().split('T')[0];
-  document.getElementById('ppCalc').textContent='';
-}
-
-// ── Upload sheet ──
-function loadPPFile(event){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const parsed=parseCSV(ev.target.result);
-    if(!parsed.headers.length){toast('⚠ Could not parse file');return;}
-    S.pp.parsedUpload=parsed;
-    document.getElementById('ppFileTag').textContent=file.name;
-    document.getElementById('ppFileTag').className='file-tag loaded';
-    document.getElementById('ppFileMap').classList.add('show');
-    document.getElementById('ppUploadBar').style.display='flex';
-    document.getElementById('ppUploadCount').textContent=parsed.rows.length+' rows found';
-    const h=parsed.headers;
-    const opts=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');
-    ['ppFPacker','ppFDate','ppFStore','ppFOrders','ppFUnits','ppFStart','ppFEnd','ppFErrors','ppFShift','ppFNotes'].forEach(id=>{
-      const el=document.getElementById(id);if(el)el.innerHTML=opts;
-    });
-    const setG=(id,pats)=>{const el=document.getElementById(id);if(el){const v=guess(h,pats);if(v)el.value=v;}};
-    setG('ppFPacker',['packer','name','staff','worker','person','employee']);
-    setG('ppFDate',['date','session date','day']);
-    setG('ppFStore',['store','channel','client','site','platform']);
-    setG('ppFOrders',['order','orders picked','pick']);
-    setG('ppFUnits',['unit','units','packed','qty','quantity']);
-    setG('ppFStart',['start','start time','from','begin']);
-    setG('ppFEnd',['end','end time','finish','to','stop']);
-    setG('ppFErrors',['error','errors','mispick','mistake']);
-    setG('ppFShift',['shift','period']);
-    setG('ppFNotes',['note','notes','comment','remarks']);
-    toast('✓ '+file.name+' loaded');
-  };
-  reader.readAsText(file);
-}
-
-async function savePPUpload(){
-  if(!S.pp.parsedUpload){toast('⚠ No file loaded');return;}
-  const get=id=>document.getElementById(id)?.value||'';
-  const packerC=get('ppFPacker'),dateC=get('ppFDate'),storeC=get('ppFStore'),ordersC=get('ppFOrders'),unitsC=get('ppFUnits'),startC=get('ppFStart'),endC=get('ppFEnd'),errorsC=get('ppFErrors'),shiftC=get('ppFShift'),notesC=get('ppFNotes');
-  const rows=S.pp.parsedUpload.rows.map(r=>{
-    const packer=colVal(r,packerC).trim();if(!packer||packer==='(none)')return null;
-    const rawDate=colVal(r,dateC);let session_date=null;
-    if(rawDate){try{const d=new Date(rawDate);if(!isNaN(d))session_date=d.toISOString().split('T')[0];}catch(e){}}
-    const start=colVal(r,startC)||null;const end=colVal(r,endC)||null;
-    const mins=calcPPDuration(start,end);const hrs=mins?mins/60:null;
-    const units=parseInt(colVal(r,unitsC))||0;const orders=parseInt(colVal(r,ordersC))||0;
-    return{packer_name:packer,session_date,shift:colVal(r,shiftC)||'morning',store_channel:colVal(r,storeC)||'General',orders_picked:orders,units_packed:units,start_time:start,end_time:end,duration_mins:mins,units_per_hour:hrs&&units?+(units/hrs).toFixed(2):null,orders_per_hour:hrs&&orders?+(orders/hrs).toFixed(2):null,errors:parseInt(colVal(r,errorsC))||0,notes:colVal(r,notesC)};
-  }).filter(Boolean);
-  if(!rows.length){toast('⚠ No valid rows — check Packer column');return;}
-  try{
-    for(let i=0;i<rows.length;i+=200)await sb('POST','pick_pack_sessions',rows.slice(i,i+200));
-    toast('✓ '+rows.length+' sessions saved');loadPPData();
-  }catch(e){toast('⚠ '+e.message);}
-}
-
-// ── Load from DB ──
-async function loadPPData(){
-  try{
-    const rows=await sb('GET','pick_pack_sessions?order=session_date.desc,created_at.desc&limit=5000');
-    S.pp.dbRows=rows||[];
-    populatePPFilters();
-    if(S.pp.activeTab==='leaderboard')renderPPLeaderboard();
-    if(S.pp.activeTab==='history')renderPPHistory();
-  }catch(e){console.error('loadPPData:',e);}
-}
-
-function populatePPFilters(){
-  const packers=[...new Set(S.pp.dbRows.map(r=>r.packer_name).filter(Boolean))].sort();
-  const stores=[...new Set(S.pp.dbRows.map(r=>r.store_channel).filter(Boolean))].sort();
-  ['ppHPacker'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<option value="">All packers</option>'+packers.map(p=>`<option value="${escAttr(p)}">${escHtml(p)}</option>`).join('');});
-  ['ppHStore','ppLBStore'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML='<option value="">All stores</option>'+stores.map(s=>`<option value="${escAttr(s)}">${escHtml(s)}</option>`).join('');});
-}
-
-// ── Leaderboard ──
-function getFilteredPP(periodEl,storeEl,shiftEl){
-  const period=parseInt(document.getElementById(periodEl)?.value)||0;
-  const store=document.getElementById(storeEl)?.value||'';
-  const shift=document.getElementById(shiftEl)?.value||'';
-  let rows=S.pp.dbRows;
-  if(period>0){const cutoff=new Date();cutoff.setDate(cutoff.getDate()-period);const cs=cutoff.toISOString().split('T')[0];rows=rows.filter(r=>r.session_date&&r.session_date>=cs);}
-  if(store)rows=rows.filter(r=>r.store_channel===store);
-  if(shift)rows=rows.filter(r=>r.shift===shift);
-  return rows;
-}
-
-function renderPPLeaderboard(){
-  const rows=getFilteredPP('ppLBPeriod','ppLBStore','ppLBShift');
-
-  // Summary stats
-  const totalOrders=rows.reduce((a,r)=>a+(r.orders_picked||0),0);
-  const totalUnits=rows.reduce((a,r)=>a+(r.units_packed||0),0);
-  const validUph=rows.filter(r=>r.units_per_hour>0);
-  const avgUph=validUph.length?(validUph.reduce((a,r)=>a+r.units_per_hour,0)/validUph.length).toFixed(1):'—';
-  const setText=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
-  setText('pp-stat-sessions',rows.length.toLocaleString());
-  setText('pp-stat-orders',totalOrders.toLocaleString());
-  setText('pp-stat-units',totalUnits.toLocaleString());
-  setText('pp-stat-uph',avgUph);
-
-  // Aggregate by packer
-  const map={};
-  rows.forEach(r=>{
-    const k=r.packer_name||'Unknown';
-    if(!map[k])map[k]={name:k,sessions:0,orders:0,units:0,mins:0,errors:0,uphSum:0,ophSum:0,uphCount:0,ophCount:0};
-    map[k].sessions++;map[k].orders+=(r.orders_picked||0);map[k].units+=(r.units_packed||0);
-    map[k].mins+=(r.duration_mins||0);map[k].errors+=(r.errors||0);
-    if(r.units_per_hour>0){map[k].uphSum+=r.units_per_hour;map[k].uphCount++;}
-    if(r.orders_per_hour>0){map[k].ophSum+=r.orders_per_hour;map[k].ophCount++;}
-  });
-
-  const ranked=Object.values(map).map(p=>({
-    ...p,
-    uph:p.uphCount?+(p.uphSum/p.uphCount).toFixed(1):null,
-    oph:p.ophCount?+(p.ophSum/p.ophCount).toFixed(1):null,
-    accuracy:p.units>0?+((1-Math.min(p.errors/p.units,1))*100).toFixed(1):null,
-    totalHrs:p.mins>0?+(p.mins/60).toFixed(1):null
-  })).sort((a,b)=>(b.uph||0)-(a.uph||0));
-
-  if(!ranked.length){
-    document.getElementById('ppLeaderboard').innerHTML='<div class="empty"><div class="empty-icon">⏱</div><div>No sessions recorded yet. Log a session or upload a sheet.</div></div>';
-    return;
-  }
-
-  const maxUph=Math.max(...ranked.map(r=>r.uph||0),1);
-  const maxOph=Math.max(...ranked.map(r=>r.oph||0),1);
-
-  document.getElementById('ppLeaderboard').innerHTML=ranked.map((p,i)=>`
-    <div class="lb-card">
-      <div class="lb-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">#${i+1}</div>
-      <div class="lb-info">
-        <div class="lb-name">${escHtml(p.name)}</div>
-        <div class="lb-meta">${p.sessions} sessions · ${p.totalHrs||'—'}h worked · ${p.errors} errors${p.accuracy!==null?' · '+p.accuracy+'% accuracy':''}</div>
-        <div class="lb-bar"><div class="lb-bar-fill" style="width:${((p.uph||0)/maxUph*100).toFixed(1)}%"></div></div>
-      </div>
-      <div class="lb-metrics">
-        <div class="lb-metric">
-          <div class="lb-metric-val">${p.uph||'—'}</div>
-          <div class="lb-metric-lbl">UPH</div>
-        </div>
-        <div class="lb-metric">
-          <div class="lb-metric-val">${p.oph||'—'}</div>
-          <div class="lb-metric-lbl">OPH</div>
-        </div>
-        <div class="lb-metric">
-          <div class="lb-metric-val">${p.units.toLocaleString()}</div>
-          <div class="lb-metric-lbl">Units</div>
-        </div>
-        <div class="lb-metric">
-          <div class="lb-metric-val">${p.orders.toLocaleString()}</div>
-          <div class="lb-metric-lbl">Orders</div>
-        </div>
-      </div>
-    </div>`).join('');
-
-  // Charts
-  const top8=ranked.slice(0,8);
-  if(top8.length){
-    drawChart('c-ppUph','bar',top8.map(p=>p.name),top8.map(p=>p.uph||0),{color:'rgba(201,168,76,0.85)',label:'Avg UPH'});
-    drawChart('c-ppOph','bar',top8.map(p=>p.name),top8.map(p=>p.oph||0),{color:'rgba(41,128,185,0.85)',label:'Avg OPH'});
-  }
-}
-
-// ── Session history ──
-function ppHSort(col){S.pp.sortDir=(S.pp.sortCol===col)?S.pp.sortDir*-1:1;S.pp.sortCol=col;renderPPHistory();}
-
-function renderPPHistory(){
-  const q=(document.getElementById('ppHSearch')?.value||'').toUpperCase().trim();
-  const packer=document.getElementById('ppHPacker')?.value||'';
-  const store=document.getElementById('ppHStore')?.value||'';
-  const shift=document.getElementById('ppHShift')?.value||'';
-  let rows=S.pp.dbRows.filter(r=>{
-    if(q&&!(r.packer_name||'').toUpperCase().includes(q)&&!(r.store_channel||'').toUpperCase().includes(q))return false;
-    if(packer&&r.packer_name!==packer)return false;
-    if(store&&r.store_channel!==store)return false;
-    if(shift&&r.shift!==shift)return false;
-    return true;
-  });
-  const sc=S.pp.sortCol,sd=S.pp.sortDir;
-  rows=[...rows].sort((a,b)=>{
-    const av=a[sc],bv=b[sc];
-    if(av===null||av===undefined)return 1;if(bv===null||bv===undefined)return-1;
-    return(typeof av==='string'?av.localeCompare(bv):(av-bv))*sd;
-  });
-  const fmtDur=m=>m?Math.floor(m/60)+'h '+Math.round(m%60)+'m':'—';
-  document.getElementById('ppHBody').innerHTML=rows.length?rows.slice(0,500).map(r=>`<tr>
-    <td class="mono">${r.session_date||'—'}</td>
-    <td style="font-weight:500">${escHtml(r.packer_name||'—')}</td>
-    <td style="color:var(--text2)">${escHtml(r.shift||'—')}</td>
-    <td style="color:var(--text2)">${escHtml(r.store_channel||'—')}</td>
-    <td class="mono" style="text-align:right">${r.orders_picked??'—'}</td>
-    <td class="mono" style="text-align:right">${r.units_packed??'—'}</td>
-    <td class="mono" style="text-align:right">${fmtDur(r.duration_mins)}</td>
-    <td class="mono" style="text-align:right;color:var(--gold)">${r.units_per_hour??'—'}</td>
-    <td class="mono" style="text-align:right;color:var(--blue)">${r.orders_per_hour??'—'}</td>
-    <td class="mono" style="text-align:right;color:${(r.errors||0)>0?'var(--red)':'var(--text3)'}">${r.errors||0}</td>
-    <td style="color:var(--text3);font-size:11px">${escHtml(r.notes||'')}</td>
-  </tr>`).join(''):'<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--text3)">No sessions match this filter.</td></tr>';
-}
-
-function exportPP(){
-  if(!S.pp.dbRows.length){toast('No data to export');return;}
-  dl2('Date,Packer,Shift,Store,Orders,Units,Duration (min),UPH,OPH,Errors,Notes\n'+S.pp.dbRows.map(r=>[r.session_date,r.packer_name,r.shift,r.store_channel,r.orders_picked,r.units_packed,r.duration_mins,r.units_per_hour,r.orders_per_hour,r.errors,r.notes||''].map(csvEsc).join(',')).join('\n'),'pick-pack-sessions.csv');
-}
-
-// ═══════════════════════════════════════
-// SQL CONSOLE MODULE
-// ═══════════════════════════════════════
-S.sql = { lastResult: [] };
-
-function sqlPreset(query) {
-  const inp = document.getElementById('sqlInput');
-  if (inp) inp.value = query;
-  runSQL();
-}
-
-function clearSQL() {
-  const inp = document.getElementById('sqlInput');
-  if (inp) inp.value = '';
-  document.getElementById('sqlResultWrap').style.display = 'none';
-  document.getElementById('sqlError').style.display = 'none';
-}
-
-async function runSQL() {
-  const query = (document.getElementById('sqlInput')?.value || '').trim();
-  if (!query) { toast('⚠ Enter a SQL query first'); return; }
-
-  const errEl = document.getElementById('sqlError');
-  const wrapEl = document.getElementById('sqlResultWrap');
-  const metaEl = document.getElementById('sqlResultMeta');
-  errEl.style.display = 'none';
-  wrapEl.style.display = 'none';
-
-  // Show running state
-  metaEl.textContent = 'Running…';
-  metaEl.className = 'sql-result-meta';
-  wrapEl.style.display = 'block';
-
-  const t0 = Date.now();
-
-  try {
-    // Use Supabase REST API rpc for raw SQL via pg_query (if enabled)
-    // Fall back to the PostgREST query builder approach
-    const result = await runSQLQuery(query);
-    const elapsed = Date.now() - t0;
-
-    S.sql.lastResult = result;
-    metaEl.textContent = `${result.length} row${result.length !== 1 ? 's' : ''} · ${elapsed}ms`;
-    metaEl.className = 'sql-result-meta ok';
-    renderSQLResult(result);
-    wrapEl.style.display = 'block';
-  } catch (e) {
-    wrapEl.style.display = 'none';
-    errEl.textContent = '⚠ ' + (e.message || 'Query failed');
-    errEl.style.display = 'block';
-    console.error('SQL error:', e);
-  }
-}
-
-async function runSQLQuery(query) {
-  // Try Supabase RPC endpoint for raw SQL
-  const resp = await fetch(SB_URL + '/rest/v1/rpc/exec_sql', {
-    method: 'POST',
-    headers: SBH,
-    body: JSON.stringify({ query })
-  });
-
-  if (resp.ok) {
-    const data = await resp.json();
-    return Array.isArray(data) ? data : (data.result || [data]);
-  }
-
-  // If exec_sql RPC not set up, parse the query ourselves and use REST API
-  return await restSQL(query);
-}
-
-async function restSQL(query) {
-  const q = query.trim().replace(/;+$/, '');
-  const upper = q.toUpperCase().replace(/\s+/g, ' ');
-
-  // Handle SELECT queries via PostgREST
-  if (upper.startsWith('SELECT')) {
-    return await parseAndFetchSelect(q);
-  }
-
-  // Handle DDL / DML via the Supabase SQL endpoint (requires service role normally)
-  // Use the anon key approach — works for INSERT/UPDATE/DELETE on RLS-open tables
-  if (upper.startsWith('INSERT') || upper.startsWith('UPDATE') || upper.startsWith('DELETE')) {
-    return await parseDML(q);
-  }
-
-  throw new Error('Only SELECT, INSERT, UPDATE, DELETE are supported without the exec_sql RPC.\n\nTo enable full SQL support (CREATE TABLE, ALTER TABLE, etc.):\n1. Go to Supabase → SQL Editor\n2. Run: CREATE OR REPLACE FUNCTION exec_sql(query text) RETURNS json LANGUAGE plpgsql SECURITY DEFINER AS $$ DECLARE result json; BEGIN EXECUTE query; RETURN \'[]\'; EXCEPTION WHEN OTHERS THEN RAISE; END; $$;\n\nThen grant it: GRANT EXECUTE ON FUNCTION exec_sql TO anon;');
-}
-
-async function parseAndFetchSelect(query) {
-  // Extract table name from SELECT ... FROM table ...
-  const fromMatch = query.match(/FROM\s+([\w."]+)/i);
-  if (!fromMatch) throw new Error('Could not identify table in SELECT query');
-  const table = fromMatch[1].replace(/["\']/g, '').split('.').pop();
-
-  // Build PostgREST params from query
-  let path = table + '?';
-  const params = [];
-
-  // SELECT columns
-  const selMatch = query.match(/SELECT\s+(.+?)\s+FROM/is);
-  if (selMatch && selMatch[1].trim() !== '*') {
-    // For simple column lists (not expressions/functions)
-    const cols = selMatch[1].split(',').map(c => c.trim().split(/\s+as\s+/i)[0].trim().replace(/["\'`]/g,'')).filter(c => !c.includes('(') && !c.includes(' '));
-    if (cols.length && cols[0] !== '*') params.push('select=' + cols.join(','));
-  }
-
-  // LIMIT
-  const limitMatch = query.match(/LIMIT\s+(\d+)/i);
-  if (limitMatch) params.push('limit=' + limitMatch[1]);
-  else params.push('limit=500');
-
-  // ORDER BY (basic)
-  const orderMatch = query.match(/ORDER\s+BY\s+([\w.,\s]+?)(\s+LIMIT|\s+OFFSET|$)/i);
-  if (orderMatch) {
-    const parts = orderMatch[1].trim().split(',').map(p => {
-      const t = p.trim();
-      const desc = /DESC/i.test(t);
-      const col = t.replace(/\s+(ASC|DESC)/i,'').trim();
-      return col + (desc ? '.desc' : '.asc');
-    });
-    params.push('order=' + parts.join(','));
-  }
-
-  // WHERE basic conditions (col=value, col>value, col!=value)
-  const whereMatch = query.match(/WHERE\s+(.+?)(?:\s+ORDER\s+BY|\s+LIMIT|\s+GROUP\s+BY|$)/i);
-  if (whereMatch) {
-    const conds = whereMatch[1].split(/\s+AND\s+/i);
-    conds.forEach(cond => {
-      const eqM = cond.match(/([\w.]+)\s*=\s*\'?([^']+)\'?/);
-      const neM = cond.match(/([\w.]+)\s*!=\s*\'?([^']+)\'?/);
-      const gtM = cond.match(/([\w.]+)\s*>\s*\'?([^']+)\'?/);
-      const ltM = cond.match(/([\w.]+)\s*<\s*\'?([^']+)\'?/);
-      if (neM) params.push(neM[1] + '=neq.' + neM[2].trim());
-      else if (eqM) params.push(eqM[1] + '=eq.' + eqM[2].trim());
-      else if (gtM) params.push(gtM[1] + '=gt.' + gtM[2].trim());
-      else if (ltM) params.push(ltM[1] + '=lt.' + ltM[2].trim());
-    });
-  }
-
-  path += params.join('&');
-  const rows = await sb('GET', path);
-  return rows || [];
-}
-
-async function parseDML(query) {
-  const upper = query.toUpperCase();
-  const tableMatch = query.match(/(?:INTO|UPDATE|FROM)\s+([\w."]+)/i);
-  if (!tableMatch) throw new Error('Could not identify table');
-  const table = tableMatch[1].replace(/["\']/g,'').split('.').pop();
-
-  if (upper.startsWith('DELETE')) {
-    const whereM = query.match(/WHERE\s+(.+)$/i);
-    if (!whereM) throw new Error('DELETE without WHERE is not allowed here for safety');
-    const cond = whereM[1].trim();
-    const eqM = cond.match(/([\w.]+)\s*=\s*\'?([^']+)\'?/);
-    if (!eqM) throw new Error('Only simple WHERE col=val supported for DELETE');
-    await fetch(SB_URL + '/rest/v1/' + table + '?' + eqM[1] + '=eq.' + eqM[2].trim(), { method: 'DELETE', headers: SBH });
-    return [{ result: 'DELETE executed' }];
-  }
-
-  throw new Error('Complex DML requires exec_sql RPC. See the SELECT tip above.');
-}
-
-function renderSQLResult(rows) {
-  if (!rows || !rows.length) {
-    document.getElementById('sqlResultHead').innerHTML = '<tr><th>Result</th></tr>';
-    document.getElementById('sqlResultBody').innerHTML = '<tr><td style="color:var(--text3);padding:20px">Query returned 0 rows</td></tr>';
-    return;
-  }
-  const keys = Object.keys(rows[0]);
-  document.getElementById('sqlResultHead').innerHTML =
-    '<tr>' + keys.map(k => `<th>${escHtml(k)}</th>`).join('') + '</tr>';
-  document.getElementById('sqlResultBody').innerHTML =
-    rows.map(r => '<tr>' + keys.map(k => {
-      const v = r[k];
-      const display = v === null ? '<span style="color:var(--text3)">NULL</span>' :
-        typeof v === 'object' ? escHtml(JSON.stringify(v)) : escHtml(String(v));
-      return `<td class="mono">${display}</td>`;
-    }).join('') + '</tr>').join('');
-}
-
-function exportSQLResult() {
-  if (!S.sql.lastResult.length) { toast('No results to export'); return; }
-  const keys = Object.keys(S.sql.lastResult[0]);
-  const csv = keys.map(csvEsc).join(',') + '\n' +
-    S.sql.lastResult.map(r => keys.map(k => csvEsc(r[k])).join(',')).join('\n');
-  dl2(csv, 'sql-result.csv');
-}
-
-// ── Schema browser ──────────────────────────────────
-async function loadSchema() {
-  const grid = document.getElementById('sqlSchema');
-  if (!grid) return;
-  grid.innerHTML = '<div style="color:var(--text3);font-size:12px">Loading…</div>';
-  try {
-    // Fetch column info from information_schema via PostgREST
-    const tables = ['variance_runs','variance_rows','shipments','bulk_movements','pick_pack_sessions'];
-    // Get row counts for each
-    const counts = await Promise.all(tables.map(async t => {
-      try {
-        const r = await fetch(SB_URL + '/rest/v1/' + t + '?select=id&limit=1', {
-          headers: { ...SBH, 'Prefer': 'count=exact' }
-        });
-        const count = r.headers.get('content-range');
-        const total = count ? count.split('/')[1] : '?';
-        return { table: t, count: total };
-      } catch(e) { return { table: t, count: '?' }; }
-    }));
-
-    // Schema definitions (static — matches our SQL schema)
-    const schema = {
-      variance_runs: ['id:uuid','created_at:timestamptz','label:text','run_type:text','total_skus:int','matched:int','short:int','over:int','missing:int','extra:int'],
-      variance_rows: ['id:uuid','run_id:uuid','sku:text','name:text','style:text','colour:text','size:text','category:text','season:text','po_qty:numeric','scan_qty:numeric','variance:numeric','status:text','notes:text','resolved:bool'],
-      shipments: ['id:uuid','imported_at:timestamptz','import_label:text','order_id:text','order_date:date','sku:text','name:text','style:text','colour:text','size:text','qty:int','revenue:numeric','channel:text'],
-      bulk_movements: ['id:uuid','created_at:timestamptz','movement_date:date','label:text','movement_type:text','sku:text','name:text','style:text','colour:text','size:text','qty:numeric','reference:text','notes:text'],
-      pick_pack_sessions: ['id:uuid','created_at:timestamptz','packer_name:text','session_date:date','shift:text','store_channel:text','orders_picked:int','units_packed:int','start_time:text','end_time:text','duration_mins:numeric','units_per_hour:numeric','orders_per_hour:numeric','errors:int','notes:text']
-    };
-
-    const countMap = {};
-    counts.forEach(c => countMap[c.table] = c.count);
-
-    grid.innerHTML = tables.map(t => `
-      <div class="sql-table-card">
-        <div class="sql-table-name" onclick="sqlPreset('SELECT * FROM ${t} LIMIT 20')">${t}</div>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);margin-bottom:6px">${countMap[t] || '?'} rows</div>
-        ${(schema[t]||[]).map(col => {
-          const [name,type] = col.split(':');
-          return `<div class="sql-col"><span>${escHtml(name)}</span><span class="sql-col-type">${escHtml(type)}</span></div>`;
-        }).join('')}
-      </div>`).join('');
-  } catch(e) {
-    grid.innerHTML = '<div style="color:var(--red);font-size:12px">Could not load schema</div>';
-    console.error(e);
-  }
-}
+function populateFilters(rows,cfg){const uniq=key=>[...new Set(rows.map(r=>r[key]).filter(Boolean))].sort();Object.entries(cfg).forEach(([id,key])=>{const el=document.getElementById(id);if(!el)return;el.innerHTML=`<option value="">All</option>`+uniq(key).map(v=>`<option value="${escAttr(v)}">${escHtml(v)}</option>`).join('');});}
+
+function renderVar(){if(!S.var.rows.length)return;const rows=sortRows(filterRows(S.var.rows,S.var.filter,document.getElementById('vSearch').value,{style:document.getElementById('vStyleF').value}),S.var.sortCol,S.var.sortDir);document.getElementById('vBody').innerHTML=rows.map(r=>`<tr><td class="mono">${escHtml(r.sku)}</td><td>${escHtml(r.name)||'—'}</td><td>${escHtml(r.style)||'—'}</td><td class="mono" style="text-align:right">${qCell(r.po_qty)}</td><td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td><td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td></tr>`).join('');}
+
+function exportVar(){if(!S.var.rows.length){toast('No data');return;}dl2('SKU,Name,Style,PO Qty,Scan Qty,Variance,Status\n'+S.var.rows.map(r=>[r.sku,r.name,r.style,r.po_qty??'',r.scan_qty??'',r.variance??'',r.status].map(csvEsc).join(',')).join('\n'),'variance.csv');}
+
+// ── CYCLE COUNT ──
+function runCC(){const pd=FILE_DATA['cc_po'],sd=FILE_DATA['cc_scan'];if(!pd||!sd){toast('⚠ Load both');return;}
+const cfg={poSku:document.getElementById('ccESku').value,poQty:document.getElementById('ccEQty').value,poName:document.getElementById('ccEName').value,poStyle:document.getElementById('ccEStyle').value,scSku:document.getElementById('ccSSku').value,scQty:document.getElementById('ccSQty').value,poCat:'',poColour:'',poSize:''};
+const rows=buildRows(pd,sd,cfg);if(!rows.length)return;S.cc.rows=rows;S.cc.filter='all';S.cc.sortCol='status';S.cc.sortDir=1;const sg=document.getElementById('ccStats');sg.innerHTML='<div class="stat-card" id="ccS0"></div><div class="stat-card" id="ccS1"></div><div class="stat-card" id="ccS2"></div><div class="stat-card" id="ccS3"></div><div class="stat-card" id="ccS4"></div>';buildStatHTML(S.cc.rows,['ccS0','ccS1','ccS2','ccS3','ccS4']);document.getElementById('cc-results').style.display='block';renderCC();saveCCRun();}
+
+async function saveCCRun(){const label=document.getElementById('ccLabel').value.trim()||'Cycle count';const c=countS(S.cc.rows);try{const res=await sb('POST','variance_runs',{label,run_type:'cycle_count',total_skus:S.cc.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});const run=Array.isArray(res)?res[0]:res;const chunk=S.cc.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));toast('✓ Saved');}catch(e){toast('⚠ '+e.message);}}
+
+function renderCC(){if(!S.cc.rows.length)return;const rows=sortRows(filterRows(S.cc.rows,S.cc.filter,document.getElementById('ccSearch')?document.getElementById('ccSearch').value:'',{}),S.cc.sortCol,S.cc.sortDir);document.getElementById('ccBody').innerHTML=rows.length?rows.map(r=>`<tr><td class="mono">${escHtml(r.sku)}</td><td>${escHtml(r.name)||'—'}</td><td>${escHtml(r.style)||'—'}</td><td class="mono" style="text-align:right">${qCell(r.po_qty)}</td><td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td><td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3)">No results</td></tr>';}
+
+// ── BULK STOCKTAKE ──
+function runST(){const pd=FILE_DATA['st_po'],sd=FILE_DATA['st_scan'];if(!pd||!sd){toast('⚠ Load both');return;}
+const cfg={poSku:document.getElementById('stESku').value,poQty:document.getElementById('stEQty').value,poName:document.getElementById('stEName').value,poStyle:document.getElementById('stEStyle').value,scSku:document.getElementById('stSSku').value,scQty:document.getElementById('stSQty').value,poCat:'',poColour:'',poSize:''};
+const rows=buildRows(pd,sd,cfg);if(!rows.length)return;S.st.rows=rows;S.st.filter='all';S.st.sortCol='status';S.st.sortDir=1;const sg=document.getElementById('stStats');sg.innerHTML='<div class="stat-card" id="stS0"></div><div class="stat-card" id="stS1"></div><div class="stat-card" id="stS2"></div><div class="stat-card" id="stS3"></div><div class="stat-card" id="stS4"></div>';buildStatHTML(S.st.rows,['stS0','stS1','stS2','stS3','stS4']);document.getElementById('st-results').style.display='block';renderST();saveSTRun();}
+
+async function saveSTRun(){const label=document.getElementById('stLabel').value.trim()||'Stocktake';const c=countS(S.st.rows);try{const res=await sb('POST','variance_runs',{label,run_type:'bulk_stocktake',total_skus:S.st.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});const run=Array.isArray(res)?res[0]:res;const chunk=S.st.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));toast('✓ Saved');}catch(e){toast('⚠ '+e.message);}}
+
+function renderST(){if(!S.st.rows.length)return;const rows=sortRows(filterRows(S.st.rows,S.st.filter,document.getElementById('stSearch')?document.getElementById('stSearch').value:'',{}),S.st.sortCol,S.st.sortDir);document.getElementById('stBody').innerHTML=rows.length?rows.map(r=>`<tr><td class="mono">${escHtml(r.sku)}</td><td>${escHtml(r.name)||'—'}</td><td>${escHtml(r.style)||'—'}</td><td class="mono" style="text-align:right">${qCell(r.po_qty)}</td><td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td><td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3)">No results</td></tr>';}
+
+// ── BULK MOVEMENTS ──
+function loadMovFile(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('⚠ Parse error');return;}const h=parsed.headers;['movSku','movQty','movDate','movType'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');});document.getElementById('movTag').textContent=file.name;document.getElementById('movTag').className='file-tag loaded';document.getElementById('movMap').classList.add('show');document.getElementById('movRunBar').style.display='flex';toast('✓ Loaded');};reader.readAsText(file);}
+
+async function saveMovements(){const h=parsed.headers||[];const skuC=document.getElementById('movSku')?.value||'';const qtyC=document.getElementById('movQty')?.value||'';const dateC=document.getElementById('movDate')?.value||'';const typeC=document.getElementById('movType')?.value||'';const label=document.getElementById('movLabel')?.value||'Movement batch';if(!S.mov.parsed){toast('⚠ No file');return;}const rows=S.mov.parsed.rows.map(r=>{const sku=colVal(r,skuC).toUpperCase();if(!sku)return null;return{sku,qty:parseFloat(colVal(r,qtyC))||0,movement_date:colVal(r,dateC),movement_type:colVal(r,typeC)||'transfer',label};}).filter(Boolean);if(!rows.length){toast('⚠ No valid rows');return;}try{for(let i=0;i<rows.length;i+=200)await sb('POST','bulk_movements',rows.slice(i,i+200));toast('✓ '+rows.length+' saved');loadMovements();}catch(e){toast('⚠ '+e.message);}}
+
+async function loadMovements(){try{const rows=await sb('GET','bulk_movements?order=movement_date.desc&limit=2000');S.mov.dbRows=rows||[];renderMovements();}catch(e){console.error(e);}}
+
+function renderMovements(){const rows=S.mov.dbRows;document.getElementById('movBody').innerHTML=rows.length?rows.map(r=>`<tr><td>${r.movement_date||'—'}</td><td>${escHtml(r.sku)||'—'}</td><td class="mono" style="text-align:right">${r.qty}</td><td>${escHtml(r.movement_type||'—')}</td></tr>`).join(''):'<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text3)">No movements</td></tr>';}
+
+// ── SHIPMENTS ──
+function loadShipFile(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('⚠ Parse error');return;}const h=parsed.headers;['shipOrderId','shipDate','shipSku','shipName','shipQty','shipRev'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');});document.getElementById('shipTag').textContent=file.name;document.getElementById('shipTag').className='file-tag loaded';document.getElementById('shipMap').classList.add('show');document.getElementById('shipRunBar').style.display='flex';toast('✓ Loaded');};reader.readAsText(file);}
+
+async function saveShipments(){if(!document.getElementById('shipOrderId').value){toast('⚠ Select columns');return;}const label=document.getElementById('shipLabel')?.value||'Shopify import';const orderC=document.getElementById('shipOrderId').value;const dateC=document.getElementById('shipDate').value;const skuC=document.getElementById('shipSku').value;const nameC=document.getElementById('shipName').value;const qtyC=document.getElementById('shipQty').value;const revC=document.getElementById('shipRev').value;if(!S.ship.parsedData){toast('⚠ Load file');return;}const rows=S.ship.parsedData.rows.map(r=>{const sku=colVal(r,skuC).toUpperCase();if(!sku)return null;return{import_label:label,order_id:colVal(r,orderC),order_date:colVal(r,dateC),sku,name:colVal(r,nameC),qty:parseInt(colVal(r,qtyC))||0,revenue:parseFloat(colVal(r,revC))||0,channel:'shopify'};}).filter(Boolean);if(!rows.length){toast('⚠ No valid rows');return;}try{for(let i=0;i<rows.length;i+=200)await sb('POST','shipments',rows.slice(i,i+200));toast('✓ '+rows.length+' saved');loadShipmentsDB();}catch(e){toast('⚠ '+e.message);}}
+
+async function loadShipmentsDB(){try{const rows=await sb('GET','shipments?order=order_date.desc&limit=10000');S.ship.dbRows=rows||[];if(S.ship.dbRows.length){let units=0,rev=0;const orders=new Set();S.ship.dbRows.forEach(r=>{units+=(r.qty||0);rev+=(r.revenue||0);if(r.order_id)orders.add(r.order_id);});document.getElementById('ss-orders').textContent=orders.size.toLocaleString();document.getElementById('ss-units').textContent=units.toLocaleString();document.getElementById('ss-rev').textContent='R '+rev.toFixed(2);document.getElementById('shipStats').style.display='grid';renderShipments();document.getElementById('shipTable').style.display='block';}}catch(e){console.error(e);}}
+
+function renderShipments(){const q=(document.getElementById('shipSearch')?.value||'').toUpperCase().trim();let rows=S.ship.dbRows.filter(r=>{if(q&&!(r.sku||'').includes(q)&&!(r.name||'').includes(q))return false;return true;});rows.sort((a,b)=>{const av=a[S.ship.sortCol],bv=b[S.ship.sortCol];if(av===null)return 1;if(bv===null)return-1;return(typeof av==='string'?av.localeCompare(bv):(av-bv))*S.ship.sortDir;});document.getElementById('shipBody').innerHTML=rows.slice(0,500).map(r=>`<tr><td>${r.order_date||'—'}</td><td>${escHtml(r.order_id)||'—'}</td><td>${escHtml(r.sku)||'—'}</td><td>${escHtml(r.name)||'—'}</td><td class="mono" style="text-align:right">${r.qty}</td><td class="mono" style="text-align:right">R ${(r.revenue||0).toFixed(2)}</td></tr>`).join('');
+
+// ── FAST MOVERS ──
+function renderFastMovers(){const groupBy=document.getElementById('fmGroupBy')?.value||'sku';const q=(document.getElementById('fmSearch')?.value||'').toUpperCase().trim();const map={};S.ship.dbRows.forEach(r=>{const key=(r[groupBy]||'unknown');if(!map[key])map[key]={key,units:0,orders:new Set(),revenue:0};map[key].units+=(r.qty||0);if(r.order_id)map[key].orders.add(r.order_id);map[key].revenue+=(r.revenue||0);});let ranked=Object.values(map).map(m=>({key:m.key,units:m.units,orders:m.orders.size,revenue:m.revenue})).sort((a,b)=>b.units-a.units);if(q)ranked=ranked.filter(r=>(r.key||'').toUpperCase().includes(q));if(!ranked.length){document.getElementById('fmBody').innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No shipments</td></tr>';return;}document.getElementById('fmBody').innerHTML=ranked.slice(0,100).map((r,i)=>`<tr><td class="mono ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}">#${i+1}</td><td>${escHtml(r.key)}</td><td class="mono" style="text-align:right">${r.units.toLocaleString()}</td><td class="mono" style="text-align:right">${r.orders.toLocaleString()}</td><td class="mono" style="text-align:right">R ${r.revenue.toFixed(2)}</td></tr>`).join('');}
+
+// ── FULFILLMENT TRACKER ──
+function loadShopifyFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('Invalid CSV');return;}S.fulfill.shopifyRaw=parsed;['shopOrderName','shopMonth','shopProduct','shopRevenue'].forEach((id,idx)=>{const sel=document.getElementById(id);if(sel){sel.innerHTML='<option value="">— select —</option>'+parsed.headers.map(h=>`<option value="${escAttr(h)}">${escHtml(h)}</option>`).join('');}});document.getElementById('shopMap').classList.add('show');document.getElementById('shopTag').textContent=f.name;document.getElementById('shopTag').classList.add('loaded');checkFulfillmentReady();};r.readAsText(f);}
+
+function loadScrubbilFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('Invalid CSV');return;}S.fulfill.scrubbilRaw=parsed;['scrubWaybill','scrubConfirmed'].forEach((id,idx)=>{const sel=document.getElementById(id);if(sel){sel.innerHTML='<option value="">— select —</option>'+parsed.headers.map(h=>`<option value="${escAttr(h)}">${escHtml(h)}</option>`).join('');}});document.getElementById('scrubMap').classList.add('show');document.getElementById('scrubTag').textContent=f.name;document.getElementById('scrubTag').classList.add('loaded');checkFulfillmentReady();};r.readAsText(f);}
+
+function checkFulfillmentReady(){if(S.fulfill.shopifyRaw&&S.fulfill.scrubbilRaw){parseFulfillmentData();document.getElementById('fulfillStats').style.display='grid';}}
+
+function parseFulfillmentData(){const shopOrderCol=document.getElementById('shopOrderName').value;const shopDateCol=document.getElementById('shopMonth').value;const shopProductCol=document.getElementById('shopProduct').value;const shopRevenueCol=document.getElementById('shopRevenue').value;const scrubWaybillCol=document.getElementById('scrubWaybill').value;if(!shopOrderCol||!scrubWaybillCol){toast('Select columns');return;}
+const shopifyOrders={};S.fulfill.shopifyRaw.rows.forEach(row=>{const orderId=(row[shopOrderCol]||'').trim();if(!orderId)return;if(!shopifyOrders[orderId]){shopifyOrders[orderId]={order_id:orderId,order_date:(row[shopDateCol]||'').split('T')[0],products:[],revenue:0};}if(shopProductCol){const product=(row[shopProductCol]||'').trim();if(product)shopifyOrders[orderId].products.push(product);}const rev=parseFloat(row[shopRevenueCol])||0;shopifyOrders[orderId].revenue+=rev;});
+const shippedOrders=new Set();S.fulfill.scrubbilRaw.rows.forEach(row=>{const waybill=(row[scrubWaybillCol]||'').trim();if(!waybill)return;shippedOrders.add(waybill);});
+const unfulfilled=[];const now=new Date();Object.values(shopifyOrders).forEach(order=>{if(!shippedOrders.has(order.order_id)){const orderDate=new Date(order.order_date);const daysPending=isNaN(orderDate.getTime())?0:Math.floor((now-orderDate)/(1000*60*60*24));unfulfilled.push({order_id:order.order_id,order_date:order.order_date,product:(order.products[0]||''),days_pending:daysPending,revenue:order.revenue});}});
+S.fulfill.comparison={totalOrders:Object.keys(shopifyOrders).length,shipped:shippedOrders.size,unfulfilled:unfulfilled.length,unfulfilledList:unfulfilled.sort((a,b)=>b.days_pending-a.days_pending)};
+renderFulfillmentStats();renderUnfulfilled();}
+
+function renderFulfillmentStats(){const c=S.fulfill.comparison;const rate=c.totalOrders>0?Math.round((c.shipped/c.totalOrders)*100):0;const riskRevenue=c.unfulfilledList.reduce((sum,o)=>sum+o.revenue,0);document.getElementById('fs-orders').textContent=c.totalOrders;document.getElementById('fs-shipped').textContent=c.shipped;document.getElementById('fs-pending').textContent=c.unfulfilled;document.getElementById('fs-rate').textContent=rate+'%';document.getElementById('fs-risk').textContent='R '+riskRevenue.toFixed(2);}
+
+function fulfillSort(col){S.fulfill.sortDir=(S.fulfill.sortCol===col)?S.fulfill.sortDir*-1:1;S.fulfill.sortCol=col;renderUnfulfilled();}
+
+function renderUnfulfilled(){const q=(document.getElementById('fulfillSearch').value||'').toUpperCase();const days=parseInt(document.getElementById('fulfillDaysF').value)||0;let rows=S.fulfill.comparison.unfulfilledList;if(q)rows=rows.filter(r=>(r.order_id+r.product).toUpperCase().includes(q));if(days>0)rows=rows.filter(r=>r.days_pending>=days);rows.sort((a,b)=>{let av=a[S.fulfill.sortCol],bv=b[S.fulfill.sortCol];return(av>bv?1:-1)*S.fulfill.sortDir;});const html=rows.map(r=>`<tr><td>${escHtml(r.order_id)}</td><td>${r.order_date||'—'}</td><td>${escHtml(r.product||'')}</td><td style="text-align:right"><strong>${r.days_pending}d</strong></td><td style="text-align:right">R ${r.revenue.toFixed(2)}</td><td><span class="badge missing">⚠ Pending</span></td></tr>`).join('');if(rows.length===0){if(S.fulfill.comparison.unfulfilled===0){document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">✓</div><p style="color:var(--text3)">All fulfilled!</p></div>';}else{document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">○</div><p style="color:var(--text3)">No results</p></div>';}document.getElementById('fulfillTable').style.display='block';}else{document.getElementById('fulfillBody').innerHTML=html;document.getElementById('fulfillTable').style.display='block';}}
+
+function exportFulfillment(){const rows=S.fulfill.comparison.unfulfilledList;const csv='Order ID,Order Date,Product,Days Pending,Revenue,Status\n'+rows.map(r=>[r.order_id,r.order_date,r.product,r.days_pending,r.revenue,'Pending'].map(csvEsc).join(',')).join('\n');dl2(csv,'unfulfilled-orders.csv');}
+
+// ── PICK & PACK ──
+async function savePPSession(){const packer=(document.getElementById('ppPacker')?.value||'').trim();const date=document.getElementById('ppDate')?.value;if(!packer||!date){toast('⚠ Enter data');return;}const start=document.getElementById('ppStart')?.value;const end=document.getElementById('ppEnd')?.value;const units=parseInt(document.getElementById('ppUnits')?.value)||0;const orders=parseInt(document.getElementById('ppOrders')?.value)||0;let mins=null;if(start&&end){const [sh,sm]=start.split(':').map(Number);const [eh,em]=end.split(':').map(Number);if(!isNaN(sh)&&!isNaN(eh)){mins=(eh*60+em)-(sh*60+sm);}}const hrs=mins?mins/60:null;const row={packer_name:packer,session_date:date,shift:'morning',store_channel:'General',orders_picked:orders,units_packed:units,start_time:start||null,end_time:end||null,duration_mins:mins,units_per_hour:hrs&&units?+(units/hrs).toFixed(2):null,orders_per_hour:hrs&&orders?+(orders/hrs).toFixed(2):null,errors:0,notes:''};try{await sb('POST','pick_pack_sessions',[row]);toast('✓ Saved');document.getElementById('ppPacker').value='';document.getElementById('ppOrders').value='';document.getElementById('ppUnits').value='';document.getElementById('ppStart').value='';document.getElementById('ppEnd').value='';loadPPData();}catch(e){toast('⚠ Save failed');console.error(e);}}
+
+async function loadPPData(){try{const rows=await sb('GET','pick_pack_sessions?order=session_date.desc&limit=5000');S.pp.dbRows=rows||[];renderPPHistory();}catch(e){console.error(e);}}
+
+function renderPPHistory(){const rows=S.pp.dbRows;document.getElementById('ppBody').innerHTML=rows.length?rows.map(r=>{const dur=r.duration_mins?Math.floor(r.duration_mins/60)+'h '+Math.round(r.duration_mins%60)+'m':'—';return`<tr><td>${r.session_date||'—'}</td><td>${escHtml(r.packer_name||'—')}</td><td style="text-align:right">${r.orders_picked??'—'}</td><td style="text-align:right">${r.units_packed??'—'}</td><td style="text-align:right">${r.units_per_hour??'—'}</td></tr>`;}).join(''):'<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No sessions</td></tr>';}
+
+// ── HISTORY ──
+async function loadHistory(){const grid=document.getElementById('histList');if(!grid)return;grid.innerHTML='<div class="empty"><div class="spin"></div></div>';try{const runs=await sb('GET','variance_runs?order=created_at.desc&limit=200');S.hist.all=runs||[];renderHistory();}catch(e){if(grid)grid.innerHTML='<div class="empty">Could not load</div>';}}
+
+function renderHistory(){const q=(document.getElementById('histSearch')?document.getElementById('histSearch').value:'').toUpperCase().trim();const grid=document.getElementById('histList');if(!grid)return;const runs=S.hist.all.filter(r=>{if(q&&!(r.label||'').toUpperCase().includes(q))return false;return true;});if(!runs.length){grid.innerHTML='<div class="empty"><div class="empty-icon">🕓</div><div>No runs</div></div>';return;}grid.innerHTML=runs.map(r=>{const dt=new Date(r.created_at).toLocaleString('en-ZA',{dateStyle:'medium',timeStyle:'short'});const issues=(r.short||0)+(r.missing||0)+(r.over||0)+(r.extra||0);return`<div class="hist-card" onclick="loadHistRun('${r.id}')\"><div><div class="hist-label">${escHtml(r.label||'Run')}</div><div class="hist-meta">${dt}</div></div><div class="hist-pills"><span class="pill ok">${r.matched||0}</span>${issues?`<span class="pill bad">${issues}</span>`:''}</div></div>`;}).join('');}
+
+async function loadHistRun(runId){toast('Loading…');try{const rows=await sb('GET',`variance_rows?run_id=eq.${runId}&limit=5000`);S.var.rows=(rows||[]).map(r=>({...r,variance:r.variance!==null?parseFloat(r.variance):null}));S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;const sg=document.getElementById('vStats');sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);document.getElementById('var-results').style.display='block';renderVar();nav('variance',document.querySelectorAll('.nav-item')[1]);toast('✓ Loaded');}catch(e){toast('⚠ Load failed');console.error(e);}}
+
+// ── AUDIT ──
+async function loadAudit(){try{const[runs,rows]=await Promise.all([sb('GET','variance_runs?order=created_at.asc&limit=500'),sb('GET','variance_rows?status=neq.match&limit=5000')]);S.audit.runs=runs||[];S.audit.rows=rows||[];renderAuditStats();renderAudit();}catch(e){console.error(e);}}
+
+function renderAuditStats(){const runs=S.audit.runs;document.getElementById('au-runs').textContent=runs.length;const avg=runs.length?runs.reduce((a,r)=>a+(1-((r.matched||0)/Math.max(r.total_skus||1,1))),0)/runs.length*100:0;document.getElementById('au-rate').textContent=avg.toFixed(1)+'%';const sm={};S.audit.rows.forEach(r=>{if(r.style)sm[r.style]=(sm[r.style]||0)+1;});const worst=Object.entries(sm).sort((a,b)=>b[1]-a[1])[0];document.getElementById('au-style').textContent=worst?worst[0]:'—';}
+
+function renderAudit(){const q=(document.getElementById('auSearch')?document.getElementById('auSearch').value:'').toUpperCase().trim();const rows=S.audit.rows.filter(r=>{if(q&&!(r.sku||'').toUpperCase().includes(q)&&!(r.style||'').toUpperCase().includes(q))return false;return true;});const runMap={};(S.audit.runs||[]).forEach(r=>runMap[r.id]=r);const body=document.getElementById('auBody');if(!body)return;body.innerHTML=rows.length?rows.slice(0,200).map(r=>{const run=runMap[r.run_id];const dt=run?new Date(run.created_at).toLocaleDateString('en-ZA',{dateStyle:'short'}):'—';return`<tr><td>${escHtml(run?.label||'—')}</td><td>${dt}</td><td>${escHtml(r.sku||'—')}</td><td>${escHtml(r.style||'—')}</td><td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td></tr>`;}).join(''):'<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text3)">No issues</td></tr>';}
+
+// ── DASHBOARD ──
+async function loadDashboard(){try{const[lastRun,shipRows,varRows,bulkRows,allRuns]=await Promise.all([sb('GET','variance_runs?order=created_at.desc&limit=1'),sb('GET','shipments?select=qty&limit=10000'),sb('GET','variance_rows?select=status&limit=10000'),sb('GET','bulk_movements?select=id&limit=2000'),sb('GET','variance_runs?select=id&limit=1000')]);const setText=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};setText('ds-runs',(allRuns||[]).length);setText('ds-ship',(shipRows||[]).length);setText('ds-var',(varRows||[]).filter(r=>r.status!=='match').length);setText('ds-bulk',(bulkRows||[]).length);}catch(e){console.error(e);}}
+
+const PALETTE=['rgba(201,168,76,0.85)','rgba(41,128,185,0.85)','rgba(61,153,112,0.85)'];function drawChart(id,type,labels,data,opts={}){if(typeof Chart==='undefined')return;const canvas=document.getElementById(id);if(!canvas||!labels.length)return;if(S.charts[id])try{S.charts[id].destroy();}catch(e){}S.charts[id]=new Chart(canvas,{type,data:{labels,datasets:[{label:opts.label||'',data,backgroundColor:opts.color||PALETTE[0],borderColor:'transparent',fill:false,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:type==='doughnut'}},scales:type!=='doughnut'?{x:{grid:{color:'rgba(255,255,255,0.03)'}},y:{grid:{color:'rgba(255,255,255,0.03)'}}}:{},animation:{duration:300}}});}
+
+let toastTimer;function toast(msg){const t=document.getElementById('toast');if(!t)return;t.textContent=msg;t.style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>{t.style.display='none';},4000);}
+
+window.addEventListener('load',()=>{document.getElementById('ppDate').value=new Date().toISOString().split('T')[0];initApp();});
 
 </script>
 </body>
