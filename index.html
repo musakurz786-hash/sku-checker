@@ -858,7 +858,7 @@ function parseFlexDate(raw){
   return null;
 }
 
-function parseFulfillmentData(){const shopOrderCol=document.getElementById('shopOrderName').value;const shopDateCol=document.getElementById('shopMonth').value;const shopProductCol=document.getElementById('shopProduct').value;const shopRevenueCol=document.getElementById('shopRevenue').value;const scrubWaybillCol=document.getElementById('scrubWaybill').value;if(!shopOrderCol||!scrubWaybillCol){toast('Select columns');return;}
+function parseFulfillmentData(){const shopOrderCol=document.getElementById('shopOrderName').value;const shopDateCol=document.getElementById('shopMonth').value;const shopProductCol=document.getElementById('shopProduct').value;const shopRevenueCol=document.getElementById('shopRevenue').value;const scrubWaybillCol=document.getElementById('scrubWaybill').value;const scrubConfirmedCol=document.getElementById('scrubConfirmed').value;if(!shopOrderCol||!scrubWaybillCol){toast('Select columns');return;}
 let idIssueCount=0,dateIssueCount=0;const idIssueExamples=[],dateIssueExamples=[];
 const shopifyOrders={};S.fulfill.shopifyRaw.rows.forEach(row=>{
   const rawId=(row[shopOrderCol]||'').trim();if(!rawId)return;
@@ -873,14 +873,22 @@ const shopifyOrders={};S.fulfill.shopifyRaw.rows.forEach(row=>{
   if(shopProductCol){const product=(row[shopProductCol]||'').trim();if(product)shopifyOrders[normId].products.push(product);}
   const rev=parseFloat(row[shopRevenueCol])||0;shopifyOrders[normId].revenue+=rev;
 });
-const shippedOrders=new Set();S.fulfill.scrubbilRaw.rows.forEach(row=>{const waybill=(row[scrubWaybillCol]||'').trim();if(!waybill)return;shippedOrders.add(normalizeOrderId(waybill));});
+const allWaybills=new Set();const confirmedWaybills=new Set();
+S.fulfill.scrubbilRaw.rows.forEach(row=>{
+  const waybill=(row[scrubWaybillCol]||'').trim();if(!waybill)return;
+  const norm=normalizeOrderId(waybill);
+  allWaybills.add(norm);
+  const confirmedVal=scrubConfirmedCol?(row[scrubConfirmedCol]||'').trim():'';
+  if(!scrubConfirmedCol||confirmedVal)confirmedWaybills.add(norm);
+});
 const unfulfilled=[];const now=new Date();Object.entries(shopifyOrders).forEach(([normId,order])=>{
-  if(!shippedOrders.has(normId)){
+  if(!confirmedWaybills.has(normId)){
+    const awaitingConfirmation=allWaybills.has(normId);
     const daysPending=order.order_date?Math.max(0,Math.floor((now-order.order_date)/(1000*60*60*24))):null;
-    unfulfilled.push({order_id:order.order_id,order_date:order.order_date?fmtLocalDate(order.order_date):(order.order_date_raw||''),date_unparsed:!order.order_date&&!!order.order_date_raw,product:(order.products[0]||''),days_pending:daysPending,revenue:order.revenue});
+    unfulfilled.push({order_id:order.order_id,order_date:order.order_date?fmtLocalDate(order.order_date):(order.order_date_raw||''),date_unparsed:!order.order_date&&!!order.order_date_raw,product:(order.products[0]||''),days_pending:daysPending,revenue:order.revenue,awaiting_confirmation:awaitingConfirmation});
   }
 });
-S.fulfill.comparison={totalOrders:Object.keys(shopifyOrders).length,shipped:shippedOrders.size,unfulfilled:unfulfilled.length,unfulfilledList:unfulfilled.sort((a,b)=>(b.days_pending??-1)-(a.days_pending??-1))};
+S.fulfill.comparison={totalOrders:Object.keys(shopifyOrders).length,shipped:confirmedWaybills.size,unfulfilled:unfulfilled.length,unfulfilledList:unfulfilled.sort((a,b)=>(b.days_pending??-1)-(a.days_pending??-1))};
 S.fulfill.dataQuality={idIssueCount,idIssueExamples,dateIssueCount,dateIssueExamples};
 renderFulfillmentStats();renderUnfulfilled();renderDataQualityAlerts();}
 
@@ -901,9 +909,9 @@ function renderFulfillmentStats(){const c=S.fulfill.comparison;const rate=c.tota
 
 function fulfillSort(col){S.fulfill.sortDir=(S.fulfill.sortCol===col)?S.fulfill.sortDir*-1:1;S.fulfill.sortCol=col;renderUnfulfilled();}
 
-function renderUnfulfilled(){const q=(document.getElementById('fulfillSearch').value||'').toUpperCase();const days=parseInt(document.getElementById('fulfillDaysF').value)||0;let rows=S.fulfill.comparison.unfulfilledList;if(q)rows=rows.filter(r=>(r.order_id+r.product).toUpperCase().includes(q));if(days>0)rows=rows.filter(r=>(r.days_pending??0)>=days);rows.sort((a,b)=>{let av=a[S.fulfill.sortCol],bv=b[S.fulfill.sortCol];if(av===null||av===undefined)av=-Infinity;if(bv===null||bv===undefined)bv=-Infinity;return(av>bv?1:-1)*S.fulfill.sortDir;});const html=rows.map(r=>`<tr><td>${escHtml(r.order_id)}</td><td>${r.date_unparsed?`<span style="color:var(--amber)" title="Could not parse date">${escHtml(r.order_date)||'—'} ⚠</span>`:(r.order_date||'—')}</td><td>${escHtml(r.product||'')}</td><td style="text-align:right">${r.days_pending===null?'<span style="color:var(--text3)">—</span>':`<strong>${r.days_pending}d</strong>`}</td><td style="text-align:right">R ${r.revenue.toFixed(2)}</td><td><span class="badge missing">⚠ Pending</span></td></tr>`).join('');if(rows.length===0){if(S.fulfill.comparison.unfulfilled===0){document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">✓</div><p style="color:var(--text3)">All fulfilled!</p></div>';}else{document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">○</div><p style="color:var(--text3)">No results</p></div>';}document.getElementById('fulfillTable').style.display='block';}else{document.getElementById('fulfillBody').innerHTML=html;document.getElementById('fulfillTable').style.display='block';}}
+function renderUnfulfilled(){const q=(document.getElementById('fulfillSearch').value||'').toUpperCase();const days=parseInt(document.getElementById('fulfillDaysF').value)||0;let rows=S.fulfill.comparison.unfulfilledList;if(q)rows=rows.filter(r=>(r.order_id+r.product).toUpperCase().includes(q));if(days>0)rows=rows.filter(r=>(r.days_pending??0)>=days);rows.sort((a,b)=>{let av=a[S.fulfill.sortCol],bv=b[S.fulfill.sortCol];if(av===null||av===undefined)av=-Infinity;if(bv===null||bv===undefined)bv=-Infinity;return(av>bv?1:-1)*S.fulfill.sortDir;});const html=rows.map(r=>`<tr><td>${escHtml(r.order_id)}</td><td>${r.date_unparsed?`<span style="color:var(--amber)" title="Could not parse date">${escHtml(r.order_date)||'—'} ⚠</span>`:(r.order_date||'—')}</td><td>${escHtml(r.product||'')}</td><td style="text-align:right">${r.days_pending===null?'<span style="color:var(--text3)">—</span>':`<strong>${r.days_pending}d</strong>`}</td><td style="text-align:right">R ${r.revenue.toFixed(2)}</td><td>${r.awaiting_confirmation?'<span class="badge over">⏳ Awaiting Confirmation</span>':'<span class="badge missing">⚠ Pending</span>'}</td></tr>`).join('');if(rows.length===0){if(S.fulfill.comparison.unfulfilled===0){document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">✓</div><p style="color:var(--text3)">All fulfilled!</p></div>';}else{document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">○</div><p style="color:var(--text3)">No results</p></div>';}document.getElementById('fulfillTable').style.display='block';}else{document.getElementById('fulfillBody').innerHTML=html;document.getElementById('fulfillTable').style.display='block';}}
 
-function exportFulfillment(){const rows=S.fulfill.comparison.unfulfilledList;const csv='Order ID,Order Date,Product,Days Pending,Revenue,Status\n'+rows.map(r=>[r.order_id,r.order_date,r.product,r.days_pending,r.revenue,'Pending'].map(csvEsc).join(',')).join('\n');dl2(csv,'unfulfilled-orders.csv');}
+function exportFulfillment(){const rows=S.fulfill.comparison.unfulfilledList;const csv='Order ID,Order Date,Product,Days Pending,Revenue,Status\n'+rows.map(r=>[r.order_id,r.order_date,r.product,r.days_pending,r.revenue,r.awaiting_confirmation?'Awaiting Confirmation':'Pending'].map(csvEsc).join(',')).join('\n');dl2(csv,'unfulfilled-orders.csv');}
 
 // ── PICK & PACK ──
 async function savePPSession(){const packer=(document.getElementById('ppPacker')?.value||'').trim();const date=document.getElementById('ppDate')?.value;if(!packer||!date){toast('⚠ Enter data');return;}const start=document.getElementById('ppStart')?.value;const end=document.getElementById('ppEnd')?.value;const units=parseInt(document.getElementById('ppUnits')?.value)||0;const orders=parseInt(document.getElementById('ppOrders')?.value)||0;let mins=null;if(start&&end){const [sh,sm]=start.split(':').map(Number);const [eh,em]=end.split(':').map(Number);if(!isNaN(sh)&&!isNaN(eh)){mins=(eh*60+em)-(sh*60+sm);}}const hrs=mins?mins/60:null;const row={packer_name:packer,session_date:date,shift:'morning',store_channel:'General',orders_picked:orders,units_packed:units,start_time:start||null,end_time:end||null,duration_mins:mins,units_per_hour:hrs&&units?+(units/hrs).toFixed(2):null,orders_per_hour:hrs&&orders?+(orders/hrs).toFixed(2):null,errors:0,notes:''};try{await sb('POST','pick_pack_sessions',[row]);toast('✓ Saved');document.getElementById('ppPacker').value='';document.getElementById('ppOrders').value='';document.getElementById('ppUnits').value='';document.getElementById('ppStart').value='';document.getElementById('ppEnd').value='';loadPPData();}catch(e){toast('⚠ Save failed');console.error(e);}}
