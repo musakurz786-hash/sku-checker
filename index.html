@@ -714,7 +714,7 @@ function colVal(row,col){if(!col||col==='(none)')return '';return(row[col]||'').
 
 function buildRows(poData,scanData,cfg){
   const poMap={};
-  poData.rows.forEach(r=>{const sku=colVal(r,cfg.poSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.poQty).replace(/[^0-9.\-]/g,''))||0;poMap[sku]={qty,name:colVal(r,cfg.poName),style:colVal(r,cfg.poStyle),colour:colVal(r,cfg.poColour),size:colVal(r,cfg.poSize),category:colVal(r,cfg.poCat)};});
+  poData.rows.forEach(r=>{const sku=colVal(r,cfg.poSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.poQty).replace(/[^0-9.\-]/g,''))||0;if(!poMap[sku])poMap[sku]={qty:0,name:colVal(r,cfg.poName),style:colVal(r,cfg.poStyle),colour:colVal(r,cfg.poColour),size:colVal(r,cfg.poSize),category:colVal(r,cfg.poCat)};poMap[sku].qty+=qty;});
   const scanMap={};scanData.rows.forEach(r=>{const sku=colVal(r,cfg.scSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.scQty).replace(/[^0-9.\-]/g,''))||0;scanMap[sku]=(scanMap[sku]||0)+qty;});
   if(!Object.keys(poMap).length){toast('⚠ No SKUs in ERP');return[];}
   if(!Object.keys(scanMap).length){toast('⚠ No SKUs in scan');return[];}
