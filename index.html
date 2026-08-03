@@ -290,6 +290,7 @@ tr:hover td{background:var(--bg3)}
     </div>
   </div>
   <div id="var-results" style="display:none">
+    <div id="vSkuDQ" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:16px;font-size:12px;line-height:1.6"></div>
     <div class="stat-grid cols5" id="vStats"></div>
     <div class="toolbar">
       <input type="text" class="search-box" id="vSearch" placeholder="Search SKU…" oninput="renderVar()">
@@ -339,6 +340,7 @@ tr:hover td{background:var(--bg3)}
     <button class="btn btn-gold" id="ccRunBtn" onclick="runCC()" disabled>Run</button>
   </div>
   <div id="cc-results" style="display:none">
+    <div id="ccSkuDQ" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:16px;font-size:12px;line-height:1.6"></div>
     <div class="stat-grid cols5" id="ccStats"></div>
     <div class="table-wrap"><table><thead><tr>
       <th>SKU</th><th>Name</th><th>Style</th><th style="text-align:right">ERP</th><th style="text-align:right">Count</th><th style="text-align:right">Var</th><th>Status</th>
@@ -382,6 +384,7 @@ tr:hover td{background:var(--bg3)}
     <button class="btn btn-gold" id="stRunBtn" onclick="runST()" disabled>Run</button>
   </div>
   <div id="st-results" style="display:none">
+    <div id="stSkuDQ" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:12px 16px;margin-bottom:16px;font-size:12px;line-height:1.6"></div>
     <div class="stat-grid cols5" id="stStats"></div>
     <div class="table-wrap"><table><thead><tr>
       <th>SKU</th><th>Name</th><th>Style</th><th style="text-align:right">ERP</th><th style="text-align:right">Count</th><th style="text-align:right">Var</th><th>Status</th>
@@ -714,19 +717,33 @@ function colVal(row,col){if(!col||col==='(none)')return '';return(row[col]||'').
 
 function buildRows(poData,scanData,cfg){
   const poMap={};
-  poData.rows.forEach(r=>{const sku=colVal(r,cfg.poSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.poQty).replace(/[^0-9.\-]/g,''))||0;if(!poMap[sku])poMap[sku]={qty:0,name:colVal(r,cfg.poName),style:colVal(r,cfg.poStyle),colour:colVal(r,cfg.poColour),size:colVal(r,cfg.poSize),category:colVal(r,cfg.poCat)};poMap[sku].qty+=qty;});
-  const scanMap={};scanData.rows.forEach(r=>{const sku=colVal(r,cfg.scSku).toUpperCase();if(!sku)return;const qty=parseFloat(colVal(r,cfg.scQty).replace(/[^0-9.\-]/g,''))||0;scanMap[sku]=(scanMap[sku]||0)+qty;});
-  if(!Object.keys(poMap).length){toast('⚠ No SKUs in ERP');return[];}
-  if(!Object.keys(scanMap).length){toast('⚠ No SKUs in scan');return[];}
+  const displaySku={};
+  const skuIssueSet=new Set();const skuIssueExamples=[];
+  const noteSku=(raw,norm)=>{
+    if(!displaySku[norm])displaySku[norm]=raw.toUpperCase().trim();
+    if(raw.toUpperCase().trim()!==norm&&!skuIssueSet.has(norm)){skuIssueSet.add(norm);if(skuIssueExamples.length<8)skuIssueExamples.push(raw.trim()+' → '+norm);}
+  };
+  poData.rows.forEach(r=>{const rawSku=colVal(r,cfg.poSku);if(!rawSku)return;const sku=normalizeOrderId(rawSku);noteSku(rawSku,sku);const qty=parseFloat(colVal(r,cfg.poQty).replace(/[^0-9.\-]/g,''))||0;if(!poMap[sku])poMap[sku]={qty:0,name:colVal(r,cfg.poName),style:colVal(r,cfg.poStyle),colour:colVal(r,cfg.poColour),size:colVal(r,cfg.poSize),category:colVal(r,cfg.poCat)};poMap[sku].qty+=qty;});
+  const scanMap={};scanData.rows.forEach(r=>{const rawSku=colVal(r,cfg.scSku);if(!rawSku)return;const sku=normalizeOrderId(rawSku);noteSku(rawSku,sku);const qty=parseFloat(colVal(r,cfg.scQty).replace(/[^0-9.\-]/g,''))||0;scanMap[sku]=(scanMap[sku]||0)+qty;});
+  const skuIssues={count:skuIssueSet.size,examples:skuIssueExamples};
+  if(!Object.keys(poMap).length){toast('⚠ No SKUs in ERP');return{rows:[],skuIssues};}
+  if(!Object.keys(scanMap).length){toast('⚠ No SKUs in scan');return{rows:[],skuIssues};}
   const allSkus=new Set([...Object.keys(poMap),...Object.keys(scanMap)]);
   const rows=[];
   allSkus.forEach(sku=>{
     const po=poMap[sku];const scanQty=scanMap.hasOwnProperty(sku)?scanMap[sku]:null;const poQty=po?po.qty:null;
     let status;if(poQty===null)status='extra';else if(scanQty===null)status='missing';else if(scanQty===poQty)status='match';else if(scanQty<poQty)status='short';else status='over';
     const variance=(poQty!==null&&scanQty!==null)?+(scanQty-poQty).toFixed(4):null;
-    rows.push({sku,name:po?.name||'',style:po?.style||'',colour:po?.colour||'',size:po?.size||'',category:po?.category||'',po_qty:poQty,scan_qty:scanQty,variance,status});
+    rows.push({sku:displaySku[sku]||sku,name:po?.name||'',style:po?.style||'',colour:po?.colour||'',size:po?.size||'',category:po?.category||'',po_qty:poQty,scan_qty:scanQty,variance,status});
   });
-  return rows;
+  return{rows,skuIssues};
+}
+
+function renderSkuQuality(elId,issues){
+  const el=document.getElementById(elId);if(!el)return;
+  if(!issues||!issues.count){el.style.display='none';return;}
+  el.innerHTML=`<strong style="color:var(--amber)">⚠ ${issues.count} SKU(s)</strong> needed fuzzy matching (spacing/dash/underscore/case differences)<div class="mono" style="color:var(--text3);margin-top:4px">${issues.examples.map(escHtml).join(', ')}${issues.count>issues.examples.length?' …':''}</div>`;
+  el.style.display='block';
 }
 
 function countS(rows){const c={match:0,short:0,over:0,missing:0,extra:0};rows.forEach(r=>{if(c[r.status]!==undefined)c[r.status]++;});return c;}
@@ -747,11 +764,12 @@ function dl2(content,filename){const a=document.createElement('a');a.href=URL.cr
 // ── VARIANCE ────
 function runVariance(){const pd=FILE_DATA['var_po'],sd=FILE_DATA['var_scan'];if(!pd||!sd){toast('⚠ Load both');return;}
 const cfg={poSku:document.getElementById('vPoSku').value,poQty:document.getElementById('vPoQty').value,poName:document.getElementById('vPoName').value,poStyle:document.getElementById('vPoStyle').value,poColour:document.getElementById('vPoColour').value,poSize:document.getElementById('vPoSize').value,poCat:document.getElementById('vPoCat').value,scSku:document.getElementById('vScSku').value,scQty:document.getElementById('vScQty').value};
-const rows=buildRows(pd,sd,cfg);if(!rows.length)return;
+const{rows,skuIssues}=buildRows(pd,sd,cfg);if(!rows.length)return;
 S.var.rows=rows;S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;
 const sg=document.getElementById('vStats');sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';
 buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);
 populateFilters(S.var.rows,{vStyleF:'style'});
+renderSkuQuality('vSkuDQ',skuIssues);
 document.getElementById('var-results').style.display='block';renderVar();saveVarRun();}
 
 async function saveVarRun(){const label=document.getElementById('vLabel').value.trim()||'Variance run';const c=countS(S.var.rows);try{const res=await sb('POST','variance_runs',{label,run_type:'variance',total_skus:S.var.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});const run=Array.isArray(res)?res[0]:res;S.var.runId=run.id;const chunk=S.var.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,colour:r.colour,size:r.size,category:r.category,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));toast('✓ Saved');}catch(e){toast('⚠ Save failed');console.error(e);}}
@@ -767,7 +785,7 @@ function exportVar(){if(!S.var.rows.length){toast('No data');return;}dl2('SKU,Na
 // ── CYCLE COUNT ──
 function runCC(){const pd=FILE_DATA['cc_po'],sd=FILE_DATA['cc_scan'];if(!pd||!sd){toast('⚠ Load both');return;}
 const cfg={poSku:document.getElementById('ccESku').value,poQty:document.getElementById('ccEQty').value,poName:document.getElementById('ccEName').value,poStyle:document.getElementById('ccEStyle').value,scSku:document.getElementById('ccSSku').value,scQty:document.getElementById('ccSQty').value,poCat:'',poColour:'',poSize:''};
-const rows=buildRows(pd,sd,cfg);if(!rows.length)return;S.cc.rows=rows;S.cc.filter='all';S.cc.sortCol='status';S.cc.sortDir=1;const sg=document.getElementById('ccStats');sg.innerHTML='<div class="stat-card" id="ccS0"></div><div class="stat-card" id="ccS1"></div><div class="stat-card" id="ccS2"></div><div class="stat-card" id="ccS3"></div><div class="stat-card" id="ccS4"></div>';buildStatHTML(S.cc.rows,['ccS0','ccS1','ccS2','ccS3','ccS4']);document.getElementById('cc-results').style.display='block';renderCC();saveCCRun();}
+const{rows,skuIssues}=buildRows(pd,sd,cfg);if(!rows.length)return;S.cc.rows=rows;S.cc.filter='all';S.cc.sortCol='status';S.cc.sortDir=1;const sg=document.getElementById('ccStats');sg.innerHTML='<div class="stat-card" id="ccS0"></div><div class="stat-card" id="ccS1"></div><div class="stat-card" id="ccS2"></div><div class="stat-card" id="ccS3"></div><div class="stat-card" id="ccS4"></div>';buildStatHTML(S.cc.rows,['ccS0','ccS1','ccS2','ccS3','ccS4']);renderSkuQuality('ccSkuDQ',skuIssues);document.getElementById('cc-results').style.display='block';renderCC();saveCCRun();}
 
 async function saveCCRun(){const label=document.getElementById('ccLabel').value.trim()||'Cycle count';const c=countS(S.cc.rows);try{const res=await sb('POST','variance_runs',{label,run_type:'cycle_count',total_skus:S.cc.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});const run=Array.isArray(res)?res[0]:res;const chunk=S.cc.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));toast('✓ Saved');}catch(e){toast('⚠ '+e.message);}}
 
@@ -776,7 +794,7 @@ function renderCC(){if(!S.cc.rows.length)return;const rows=sortRows(filterRows(S
 // ── BULK STOCKTAKE ──
 function runST(){const pd=FILE_DATA['st_po'],sd=FILE_DATA['st_scan'];if(!pd||!sd){toast('⚠ Load both');return;}
 const cfg={poSku:document.getElementById('stESku').value,poQty:document.getElementById('stEQty').value,poName:document.getElementById('stEName').value,poStyle:document.getElementById('stEStyle').value,scSku:document.getElementById('stSSku').value,scQty:document.getElementById('stSQty').value,poCat:'',poColour:'',poSize:''};
-const rows=buildRows(pd,sd,cfg);if(!rows.length)return;S.st.rows=rows;S.st.filter='all';S.st.sortCol='status';S.st.sortDir=1;const sg=document.getElementById('stStats');sg.innerHTML='<div class="stat-card" id="stS0"></div><div class="stat-card" id="stS1"></div><div class="stat-card" id="stS2"></div><div class="stat-card" id="stS3"></div><div class="stat-card" id="stS4"></div>';buildStatHTML(S.st.rows,['stS0','stS1','stS2','stS3','stS4']);document.getElementById('st-results').style.display='block';renderST();saveSTRun();}
+const{rows,skuIssues}=buildRows(pd,sd,cfg);if(!rows.length)return;S.st.rows=rows;S.st.filter='all';S.st.sortCol='status';S.st.sortDir=1;const sg=document.getElementById('stStats');sg.innerHTML='<div class="stat-card" id="stS0"></div><div class="stat-card" id="stS1"></div><div class="stat-card" id="stS2"></div><div class="stat-card" id="stS3"></div><div class="stat-card" id="stS4"></div>';buildStatHTML(S.st.rows,['stS0','stS1','stS2','stS3','stS4']);renderSkuQuality('stSkuDQ',skuIssues);document.getElementById('st-results').style.display='block';renderST();saveSTRun();}
 
 async function saveSTRun(){const label=document.getElementById('stLabel').value.trim()||'Stocktake';const c=countS(S.st.rows);try{const res=await sb('POST','variance_runs',{label,run_type:'bulk_stocktake',total_skus:S.st.rows.length,matched:c.match,short:c.short,over:c.over,missing:c.missing,extra:c.extra});const run=Array.isArray(res)?res[0]:res;const chunk=S.st.rows.map(r=>({run_id:run.id,sku:r.sku,name:r.name,style:r.style,po_qty:r.po_qty,scan_qty:r.scan_qty,variance:r.variance,status:r.status}));for(let i=0;i<chunk.length;i+=200)await sb('POST','variance_rows',chunk.slice(i,i+200));toast('✓ Saved');}catch(e){toast('⚠ '+e.message);}}
 
