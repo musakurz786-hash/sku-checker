@@ -257,10 +257,10 @@ tr:hover td{background:var(--bg3)}
     <div class="upload-grid">
       <div class="upload-card">
         <div class="upload-head"><span class="upload-label">PO / Cin7 Stock Report</span><span class="file-tag" id="vPOTag">no file</span></div>
-        <div class="upload-zone" id="vPOZone" onclick="document.getElementById('vPOFile').click()" ondragover="dv(event,'vPOZone')" ondragleave="dl('vPOZone')" ondrop="dd(event,'vPOFile','po')">
-          <div class="upload-icon">📋</div><div class="upload-hint">Click or drag CSV<br><strong>Cin7 export</strong></div>
+        <div class="upload-zone" id="vPOZone" onclick="document.getElementById('vPOFile').click()" ondragover="dv(event,'vPOZone')" ondragleave="dl('vPOZone')" ondrop="dd(event,'vPOFile','po','var')">
+          <div class="upload-icon">📋</div><div class="upload-hint">Click or drag CSV<br><strong>Cin7 export — multiple POs OK</strong></div>
         </div>
-        <input type="file" id="vPOFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','var')">
+        <input type="file" id="vPOFile" accept=".csv,.tsv,.txt" multiple onchange="loadF(event,'po','var')">
         <div class="col-mapper" id="vPOMap">
           <div class="map-field"><label>SKU</label><select id="vPoSku"></select></div>
           <div class="map-field"><label>Qty</label><select id="vPoQty"></select></div>
@@ -273,10 +273,10 @@ tr:hover td{background:var(--bg3)}
       </div>
       <div class="upload-card">
         <div class="upload-head"><span class="upload-label">Scan / Count Sheet</span><span class="file-tag" id="vScanTag">no file</span></div>
-        <div class="upload-zone" id="vScanZone" onclick="document.getElementById('vScanFile').click()" ondragover="dv(event,'vScanZone')" ondragleave="dl('vScanZone')" ondrop="dd(event,'vScanFile','scan')">
-          <div class="upload-icon">🔍</div><div class="upload-hint">Click or drag CSV<br><strong>Scan export</strong></div>
+        <div class="upload-zone" id="vScanZone" onclick="document.getElementById('vScanFile').click()" ondragover="dv(event,'vScanZone')" ondragleave="dl('vScanZone')" ondrop="dd(event,'vScanFile','scan','var')">
+          <div class="upload-icon">🔍</div><div class="upload-hint">Click or drag CSV<br><strong>Scan export — multiple OK</strong></div>
         </div>
-        <input type="file" id="vScanFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','var')">
+        <input type="file" id="vScanFile" accept=".csv,.tsv,.txt" multiple onchange="loadF(event,'scan','var')">
         <div class="col-mapper" id="vScanMap">
           <div class="map-field"><label>SKU</label><select id="vScSku"></select></div>
           <div class="map-field"><label>Qty</label><select id="vScQty"></select></div>
@@ -314,7 +314,7 @@ tr:hover td{background:var(--bg3)}
       <div class="upload-zone" onclick="document.getElementById('ccEFile').click()">
         <div class="upload-icon">📊</div><div class="upload-hint">Cin7 report<br><strong>CSV</strong></div>
       </div>
-      <input type="file" id="ccEFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','cc')">
+      <input type="file" id="ccEFile" accept=".csv,.tsv,.txt" multiple onchange="loadF(event,'po','cc')">
       <div class="col-mapper" id="ccEMap">
         <div class="map-field"><label>SKU</label><select id="ccESku"></select></div>
         <div class="map-field"><label>Qty</label><select id="ccEQty"></select></div>
@@ -327,7 +327,7 @@ tr:hover td{background:var(--bg3)}
       <div class="upload-zone" onclick="document.getElementById('ccSFile').click()">
         <div class="upload-icon">🔄</div><div class="upload-hint">Scanned count<br><strong>CSV</strong></div>
       </div>
-      <input type="file" id="ccSFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','cc')">
+      <input type="file" id="ccSFile" accept=".csv,.tsv,.txt" multiple onchange="loadF(event,'scan','cc')">
       <div class="col-mapper" id="ccSMap">
         <div class="map-field"><label>SKU</label><select id="ccSSku"></select></div>
         <div class="map-field"><label>Qty</label><select id="ccSQty"></select></div>
@@ -357,7 +357,7 @@ tr:hover td{background:var(--bg3)}
       <div class="upload-zone" onclick="document.getElementById('stEFile').click()">
         <div class="upload-icon">📋</div><div class="upload-hint">Cin7 full stock<br><strong>CSV</strong></div>
       </div>
-      <input type="file" id="stEFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'po','st')">
+      <input type="file" id="stEFile" accept=".csv,.tsv,.txt" multiple onchange="loadF(event,'po','st')">
       <div class="col-mapper" id="stEMap">
         <div class="map-field"><label>SKU</label><select id="stESku"></select></div>
         <div class="map-field"><label>Qty</label><select id="stEQty"></select></div>
@@ -370,7 +370,7 @@ tr:hover td{background:var(--bg3)}
       <div class="upload-zone" onclick="document.getElementById('stSFile').click()">
         <div class="upload-icon">📦</div><div class="upload-hint">Count results<br><strong>CSV</strong></div>
       </div>
-      <input type="file" id="stSFile" accept=".csv,.tsv,.txt" onchange="loadF(event,'scan','st')">
+      <input type="file" id="stSFile" accept=".csv,.tsv,.txt" multiple onchange="loadF(event,'scan','st')">
       <div class="col-mapper" id="stSMap">
         <div class="map-field"><label>SKU</label><select id="stSSku"></select></div>
         <div class="map-field"><label>Qty</label><select id="stSQty"></select></div>
@@ -397,9 +397,9 @@ tr:hover td{background:var(--bg3)}
   <div class="upload-card" style="margin-bottom:16px">
     <div class="upload-head"><span class="upload-label">Movement Sheet</span><span class="file-tag" id="movTag">no file</span></div>
     <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('movFile').click()">
-      <div class="upload-icon">↔️</div><div class="upload-hint">Movement export<br><strong>CSV</strong></div>
+      <div class="upload-icon">↔️</div><div class="upload-hint">Movement export<br><strong>CSV — multiple files OK</strong></div>
     </div>
-    <input type="file" id="movFile" accept=".csv,.tsv,.txt" onchange="loadMovFile(event)">
+    <input type="file" id="movFile" accept=".csv,.tsv,.txt" multiple onchange="loadMovFile(event)">
     <div class="col-mapper" id="movMap">
       <div class="map-field"><label>SKU</label><select id="movSku"></select></div>
       <div class="map-field"><label>Qty</label><select id="movQty"></select></div>
@@ -424,9 +424,9 @@ tr:hover td{background:var(--bg3)}
   <div class="upload-card" style="margin-bottom:16px">
     <div class="upload-head"><span class="upload-label">Shopify Orders</span><span class="file-tag" id="shipTag">no file</span></div>
     <div class="upload-zone" style="min-height:80px" onclick="document.getElementById('shipFile').click()">
-      <div class="upload-icon">🛒</div><div class="upload-hint">Shopify export<br><strong>CSV</strong></div>
+      <div class="upload-icon">🛒</div><div class="upload-hint">Shopify export<br><strong>CSV — multiple files OK</strong></div>
     </div>
-    <input type="file" id="shipFile" accept=".csv,.tsv,.txt" onchange="loadShipFile(event)">
+    <input type="file" id="shipFile" accept=".csv,.tsv,.txt" multiple onchange="loadShipFile(event)">
     <div class="col-mapper" id="shipMap">
       <div class="map-field"><label>Order ID</label><select id="shipOrderId"></select></div>
       <div class="map-field"><label>Date</label><select id="shipDate"></select></div>
@@ -477,9 +477,9 @@ tr:hover td{background:var(--bg3)}
     <div class="upload-card">
       <div class="upload-head"><span class="upload-label">Shopify Orders</span><span class="file-tag" id="shopTag">no file</span></div>
       <div class="upload-zone" onclick="document.getElementById('shopFile').click()">
-        <div class="upload-icon">🛒</div><div class="upload-hint">Sales by Order CSV<br><strong>Shopify export</strong></div>
+        <div class="upload-icon">🛒</div><div class="upload-hint">Sales by Order CSV<br><strong>Shopify export — multiple OK</strong></div>
       </div>
-      <input type="file" id="shopFile" accept=".csv,.tsv,.txt" onchange="loadShopifyFile(event)">
+      <input type="file" id="shopFile" accept=".csv,.tsv,.txt" multiple onchange="loadShopifyFile(event)">
       <div class="col-mapper" id="shopMap">
         <div class="map-field"><label>Order Name</label><select id="shopOrderName"></select></div>
         <div class="map-field"><label>Month</label><select id="shopMonth"></select></div>
@@ -490,15 +490,16 @@ tr:hover td{background:var(--bg3)}
     <div class="upload-card">
       <div class="upload-head"><span class="upload-label">Scrubbil Manifest</span><span class="file-tag" id="scrubTag">no file</span></div>
       <div class="upload-zone" onclick="document.getElementById('scrubFile').click()">
-        <div class="upload-icon">📦</div><div class="upload-hint">Waybills CSV<br><strong>Scrubbil export</strong></div>
+        <div class="upload-icon">📦</div><div class="upload-hint">Waybills CSV<br><strong>Scrubbil export — multiple OK</strong></div>
       </div>
-      <input type="file" id="scrubFile" accept=".csv,.tsv,.txt" onchange="loadScrubbilFile(event)">
+      <input type="file" id="scrubFile" accept=".csv,.tsv,.txt" multiple onchange="loadScrubbilFile(event)">
       <div class="col-mapper" id="scrubMap">
         <div class="map-field"><label>Waybill #</label><select id="scrubWaybill"></select></div>
         <div class="map-field"><label>Confirmed</label><select id="scrubConfirmed"></select></div>
       </div>
     </div>
   </div>
+  <div id="fulfillDataQuality" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;margin-bottom:16px;font-size:12px;line-height:1.6"></div>
   <div class="stat-grid cols5" id="fulfillStats" style="display:none">
     <div class="stat-card"><div class="stat-label">Orders Received</div><div class="stat-val blue" id="fs-orders">—</div></div>
     <div class="stat-card"><div class="stat-label">Shipped</div><div class="stat-val green" id="fs-shipped">—</div></div>
@@ -597,7 +598,7 @@ async function sb(method,path,body){
   return [];
 }
 
-const S={var:{rows:[],runId:null,filter:'all',sortCol:'status',sortDir:1},cc:{rows:[],filter:'all',sortCol:'status',sortDir:1},st:{rows:[],filter:'all',sortCol:'status',sortDir:1},mov:{dbRows:[]},ship:{dbRows:[],sortCol:'order_date',sortDir:-1},hist:{all:[]},audit:{runs:[],rows:[]},fulfill:{sortCol:'order_id',sortDir:1,comparison:{}},pp:{dbRows:[]},charts:{}};
+const S={var:{rows:[],runId:null,filter:'all',sortCol:'status',sortDir:1},cc:{rows:[],filter:'all',sortCol:'status',sortDir:1},st:{rows:[],filter:'all',sortCol:'status',sortDir:1},mov:{dbRows:[],parsed:null},ship:{dbRows:[],parsedData:null,sortCol:'order_date',sortDir:-1},hist:{all:[]},audit:{runs:[],rows:[]},fulfill:{sortCol:'order_id',sortDir:1,comparison:{}},pp:{dbRows:[]},charts:{}};
 const FILE_DATA={};
 
 async function initApp(){
@@ -651,24 +652,46 @@ function parseCSV(text){
   return{headers,rows};
 }
 
+function readFileAsText(file){return new Promise((resolve,reject)=>{const r=new FileReader();r.onload=e=>resolve(e.target.result);r.onerror=()=>reject(new Error('read error: '+file.name));r.readAsText(file);});}
+
+async function parseMultipleFiles(fileList){
+  const files=Array.from(fileList||[]);
+  const merged={headers:[],rows:[]};
+  const names=[];
+  let ok=0;
+  for(const file of files){
+    try{
+      const text=await readFileAsText(file);
+      const parsed=parseCSV(text);
+      if(!parsed.headers.length)continue;
+      if(!merged.headers.length)merged.headers=parsed.headers;
+      merged.rows.push(...parsed.rows);
+      names.push(file.name);
+      ok++;
+    }catch(e){console.error('parse failed:',file.name,e);}
+  }
+  return{merged,fileCount:files.length,okCount:ok,names};
+}
+
+function bulkTag(fileCount,okCount,names,rowCount){
+  if(fileCount<=1)return names[0]||'no file';
+  return`${okCount}/${fileCount} files (${rowCount} rows)`;
+}
+
 function guess(headers,pats){for(const p of pats){const h=headers.find(h=>h.toLowerCase().includes(p));if(h)return h;}return '';}
-function populateSel(selId,headers,gv){const el=document.getElementById(selId);if(!el)return;el.innerHTML=['(none)',...headers].map(h=>`<option value="${h}">${h}</option>`).join('');el.value=(gv&&headers.includes(gv))?gv:'(none)';}'
+function populateSel(selId,headers,gv){const el=document.getElementById(selId);if(!el)return;el.innerHTML=['(none)',...headers].map(h=>`<option value="${h}">${h}</option>`).join('');el.value=(gv&&headers.includes(gv))?gv:'(none)';}
 function dv(e,id){e.preventDefault();document.getElementById(id)?.classList.add('over');}
 function dl(id){document.getElementById(id)?.classList.remove('over');}
-function dd(e,fid,role,mod){e.preventDefault();document.getElementById(e.currentTarget.id)?.classList.remove('over');const file=e.dataTransfer?.files[0];if(!file)return;loadF({target:{files:[file]}},role,mod);}
+function dd(e,fid,role,mod){e.preventDefault();document.getElementById(e.currentTarget.id)?.classList.remove('over');const files=e.dataTransfer?.files;if(!files||!files.length)return;loadF({target:{files}},role,mod);}
 
-function loadF(event,role,mod){
-  const file=event.target.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    const parsed=parseCSV(ev.target.result);
-    if(!parsed.headers.length){toast('⚠ Could not parse');return;}
-    FILE_DATA[mod+'_'+role]=parsed;
-    setupMapper(mod,role,parsed.headers,file.name);
-    checkRunReady(mod);
-    toast('✓ '+file.name);
-  };
-  reader.readAsText(file);
+async function loadF(event,role,mod){
+  const files=event.target.files;if(!files||!files.length)return;
+  const{merged,fileCount,okCount,names}=await parseMultipleFiles(files);
+  if(!merged.headers.length){toast('⚠ Could not parse');return;}
+  FILE_DATA[mod+'_'+role]=merged;
+  setupMapper(mod,role,merged.headers,bulkTag(fileCount,okCount,names,merged.rows.length));
+  checkRunReady(mod);
+  toast(fileCount>1?`✓ ${okCount}/${fileCount} files — ${merged.rows.length} rows`:'✓ '+names[0]);
 }
 
 function setupMapper(mod,role,headers,fname){
@@ -760,45 +783,107 @@ async function saveSTRun(){const label=document.getElementById('stLabel').value.
 function renderST(){if(!S.st.rows.length)return;const rows=sortRows(filterRows(S.st.rows,S.st.filter,document.getElementById('stSearch')?document.getElementById('stSearch').value:'',{}),S.st.sortCol,S.st.sortDir);document.getElementById('stBody').innerHTML=rows.length?rows.map(r=>`<tr><td class="mono">${escHtml(r.sku)}</td><td>${escHtml(r.name)||'—'}</td><td>${escHtml(r.style)||'—'}</td><td class="mono" style="text-align:right">${qCell(r.po_qty)}</td><td class="mono" style="text-align:right">${qCell(r.scan_qty)}</td><td style="text-align:right">${varCell(r.variance)}</td><td>${BADGES[r.status]||r.status}</td></tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text3)">No results</td></tr>';}
 
 // ── BULK MOVEMENTS ──
-function loadMovFile(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('⚠ Parse error');return;}const h=parsed.headers;['movSku','movQty','movDate','movType'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');});document.getElementById('movTag').textContent=file.name;document.getElementById('movTag').className='file-tag loaded';document.getElementById('movMap').classList.add('show');document.getElementById('movRunBar').style.display='flex';toast('✓ Loaded');};reader.readAsText(file);}
+async function loadMovFile(event){const files=event.target.files;if(!files||!files.length)return;const{merged,fileCount,okCount,names}=await parseMultipleFiles(files);if(!merged.headers.length){toast('⚠ Parse error');return;}S.mov.parsed=merged;const h=merged.headers;['movSku','movQty','movDate','movType'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');});document.getElementById('movTag').textContent=bulkTag(fileCount,okCount,names,merged.rows.length);document.getElementById('movTag').className='file-tag loaded';document.getElementById('movMap').classList.add('show');document.getElementById('movRunBar').style.display='flex';toast(fileCount>1?`✓ ${okCount}/${fileCount} files loaded`:'✓ Loaded');}
 
-async function saveMovements(){const h=parsed.headers||[];const skuC=document.getElementById('movSku')?.value||'';const qtyC=document.getElementById('movQty')?.value||'';const dateC=document.getElementById('movDate')?.value||'';const typeC=document.getElementById('movType')?.value||'';const label=document.getElementById('movLabel')?.value||'Movement batch';if(!S.mov.parsed){toast('⚠ No file');return;}const rows=S.mov.parsed.rows.map(r=>{const sku=colVal(r,skuC).toUpperCase();if(!sku)return null;return{sku,qty:parseFloat(colVal(r,qtyC))||0,movement_date:colVal(r,dateC),movement_type:colVal(r,typeC)||'transfer',label};}).filter(Boolean);if(!rows.length){toast('⚠ No valid rows');return;}try{for(let i=0;i<rows.length;i+=200)await sb('POST','bulk_movements',rows.slice(i,i+200));toast('✓ '+rows.length+' saved');loadMovements();}catch(e){toast('⚠ '+e.message);}}
+async function saveMovements(){const skuC=document.getElementById('movSku')?.value||'';const qtyC=document.getElementById('movQty')?.value||'';const dateC=document.getElementById('movDate')?.value||'';const typeC=document.getElementById('movType')?.value||'';const label=document.getElementById('movLabel')?.value||'Movement batch';if(!S.mov.parsed){toast('⚠ No file');return;}const rows=S.mov.parsed.rows.map(r=>{const sku=colVal(r,skuC).toUpperCase();if(!sku)return null;return{sku,qty:parseFloat(colVal(r,qtyC))||0,movement_date:colVal(r,dateC),movement_type:colVal(r,typeC)||'transfer',label};}).filter(Boolean);if(!rows.length){toast('⚠ No valid rows');return;}try{for(let i=0;i<rows.length;i+=200)await sb('POST','bulk_movements',rows.slice(i,i+200));toast('✓ '+rows.length+' saved');loadMovements();}catch(e){toast('⚠ '+e.message);}}
 
 async function loadMovements(){try{const rows=await sb('GET','bulk_movements?order=movement_date.desc&limit=2000');S.mov.dbRows=rows||[];renderMovements();}catch(e){console.error(e);}}
 
 function renderMovements(){const rows=S.mov.dbRows;document.getElementById('movBody').innerHTML=rows.length?rows.map(r=>`<tr><td>${r.movement_date||'—'}</td><td>${escHtml(r.sku)||'—'}</td><td class="mono" style="text-align:right">${r.qty}</td><td>${escHtml(r.movement_type||'—')}</td></tr>`).join(''):'<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--text3)">No movements</td></tr>';}
 
 // ── SHIPMENTS ──
-function loadShipFile(event){const file=event.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('⚠ Parse error');return;}const h=parsed.headers;['shipOrderId','shipDate','shipSku','shipName','shipQty','shipRev'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');});document.getElementById('shipTag').textContent=file.name;document.getElementById('shipTag').className='file-tag loaded';document.getElementById('shipMap').classList.add('show');document.getElementById('shipRunBar').style.display='flex';toast('✓ Loaded');};reader.readAsText(file);}
+async function loadShipFile(event){const files=event.target.files;if(!files||!files.length)return;const{merged,fileCount,okCount,names}=await parseMultipleFiles(files);if(!merged.headers.length){toast('⚠ Parse error');return;}S.ship.parsedData=merged;const h=merged.headers;['shipOrderId','shipDate','shipSku','shipName','shipQty','shipRev'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=['(none)',...h].map(hh=>`<option value="${hh}">${hh}</option>`).join('');});document.getElementById('shipTag').textContent=bulkTag(fileCount,okCount,names,merged.rows.length);document.getElementById('shipTag').className='file-tag loaded';document.getElementById('shipMap').classList.add('show');document.getElementById('shipRunBar').style.display='flex';toast(fileCount>1?`✓ ${okCount}/${fileCount} files loaded`:'✓ Loaded');}
 
 async function saveShipments(){if(!document.getElementById('shipOrderId').value){toast('⚠ Select columns');return;}const label=document.getElementById('shipLabel')?.value||'Shopify import';const orderC=document.getElementById('shipOrderId').value;const dateC=document.getElementById('shipDate').value;const skuC=document.getElementById('shipSku').value;const nameC=document.getElementById('shipName').value;const qtyC=document.getElementById('shipQty').value;const revC=document.getElementById('shipRev').value;if(!S.ship.parsedData){toast('⚠ Load file');return;}const rows=S.ship.parsedData.rows.map(r=>{const sku=colVal(r,skuC).toUpperCase();if(!sku)return null;return{import_label:label,order_id:colVal(r,orderC),order_date:colVal(r,dateC),sku,name:colVal(r,nameC),qty:parseInt(colVal(r,qtyC))||0,revenue:parseFloat(colVal(r,revC))||0,channel:'shopify'};}).filter(Boolean);if(!rows.length){toast('⚠ No valid rows');return;}try{for(let i=0;i<rows.length;i+=200)await sb('POST','shipments',rows.slice(i,i+200));toast('✓ '+rows.length+' saved');loadShipmentsDB();}catch(e){toast('⚠ '+e.message);}}
 
 async function loadShipmentsDB(){try{const rows=await sb('GET','shipments?order=order_date.desc&limit=10000');S.ship.dbRows=rows||[];if(S.ship.dbRows.length){let units=0,rev=0;const orders=new Set();S.ship.dbRows.forEach(r=>{units+=(r.qty||0);rev+=(r.revenue||0);if(r.order_id)orders.add(r.order_id);});document.getElementById('ss-orders').textContent=orders.size.toLocaleString();document.getElementById('ss-units').textContent=units.toLocaleString();document.getElementById('ss-rev').textContent='R '+rev.toFixed(2);document.getElementById('shipStats').style.display='grid';renderShipments();document.getElementById('shipTable').style.display='block';}}catch(e){console.error(e);}}
 
-function renderShipments(){const q=(document.getElementById('shipSearch')?.value||'').toUpperCase().trim();let rows=S.ship.dbRows.filter(r=>{if(q&&!(r.sku||'').includes(q)&&!(r.name||'').includes(q))return false;return true;});rows.sort((a,b)=>{const av=a[S.ship.sortCol],bv=b[S.ship.sortCol];if(av===null)return 1;if(bv===null)return-1;return(typeof av==='string'?av.localeCompare(bv):(av-bv))*S.ship.sortDir;});document.getElementById('shipBody').innerHTML=rows.slice(0,500).map(r=>`<tr><td>${r.order_date||'—'}</td><td>${escHtml(r.order_id)||'—'}</td><td>${escHtml(r.sku)||'—'}</td><td>${escHtml(r.name)||'—'}</td><td class="mono" style="text-align:right">${r.qty}</td><td class="mono" style="text-align:right">R ${(r.revenue||0).toFixed(2)}</td></tr>`).join('');
+function renderShipments(){const q=(document.getElementById('shipSearch')?.value||'').toUpperCase().trim();let rows=S.ship.dbRows.filter(r=>{if(q&&!(r.sku||'').includes(q)&&!(r.name||'').includes(q))return false;return true;});rows.sort((a,b)=>{const av=a[S.ship.sortCol],bv=b[S.ship.sortCol];if(av===null)return 1;if(bv===null)return-1;return(typeof av==='string'?av.localeCompare(bv):(av-bv))*S.ship.sortDir;});document.getElementById('shipBody').innerHTML=rows.slice(0,500).map(r=>`<tr><td>${r.order_date||'—'}</td><td>${escHtml(r.order_id)||'—'}</td><td>${escHtml(r.sku)||'—'}</td><td>${escHtml(r.name)||'—'}</td><td class="mono" style="text-align:right">${r.qty}</td><td class="mono" style="text-align:right">R ${(r.revenue||0).toFixed(2)}</td></tr>`).join('');}
 
 // ── FAST MOVERS ──
 function renderFastMovers(){const groupBy=document.getElementById('fmGroupBy')?.value||'sku';const q=(document.getElementById('fmSearch')?.value||'').toUpperCase().trim();const map={};S.ship.dbRows.forEach(r=>{const key=(r[groupBy]||'unknown');if(!map[key])map[key]={key,units:0,orders:new Set(),revenue:0};map[key].units+=(r.qty||0);if(r.order_id)map[key].orders.add(r.order_id);map[key].revenue+=(r.revenue||0);});let ranked=Object.values(map).map(m=>({key:m.key,units:m.units,orders:m.orders.size,revenue:m.revenue})).sort((a,b)=>b.units-a.units);if(q)ranked=ranked.filter(r=>(r.key||'').toUpperCase().includes(q));if(!ranked.length){document.getElementById('fmBody').innerHTML='<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text3)">No shipments</td></tr>';return;}document.getElementById('fmBody').innerHTML=ranked.slice(0,100).map((r,i)=>`<tr><td class="mono ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':''}">#${i+1}</td><td>${escHtml(r.key)}</td><td class="mono" style="text-align:right">${r.units.toLocaleString()}</td><td class="mono" style="text-align:right">${r.orders.toLocaleString()}</td><td class="mono" style="text-align:right">R ${r.revenue.toFixed(2)}</td></tr>`).join('');}
 
 // ── FULFILLMENT TRACKER ──
-function loadShopifyFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('Invalid CSV');return;}S.fulfill.shopifyRaw=parsed;['shopOrderName','shopMonth','shopProduct','shopRevenue'].forEach((id,idx)=>{const sel=document.getElementById(id);if(sel){sel.innerHTML='<option value="">— select —</option>'+parsed.headers.map(h=>`<option value="${escAttr(h)}">${escHtml(h)}</option>`).join('');}});document.getElementById('shopMap').classList.add('show');document.getElementById('shopTag').textContent=f.name;document.getElementById('shopTag').classList.add('loaded');checkFulfillmentReady();};r.readAsText(f);}
+async function loadShopifyFile(e){const files=e.target.files;if(!files||!files.length)return;const{merged,fileCount,okCount,names}=await parseMultipleFiles(files);if(!merged.headers.length){toast('Invalid CSV');return;}S.fulfill.shopifyRaw=merged;['shopOrderName','shopMonth','shopProduct','shopRevenue'].forEach((id,idx)=>{const sel=document.getElementById(id);if(sel){sel.innerHTML='<option value="">— select —</option>'+merged.headers.map(h=>`<option value="${escAttr(h)}">${escHtml(h)}</option>`).join('');}});document.getElementById('shopMap').classList.add('show');document.getElementById('shopTag').textContent=bulkTag(fileCount,okCount,names,merged.rows.length);document.getElementById('shopTag').classList.add('loaded');checkFulfillmentReady();}
 
-function loadScrubbilFile(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const parsed=parseCSV(ev.target.result);if(!parsed.headers.length){toast('Invalid CSV');return;}S.fulfill.scrubbilRaw=parsed;['scrubWaybill','scrubConfirmed'].forEach((id,idx)=>{const sel=document.getElementById(id);if(sel){sel.innerHTML='<option value="">— select —</option>'+parsed.headers.map(h=>`<option value="${escAttr(h)}">${escHtml(h)}</option>`).join('');}});document.getElementById('scrubMap').classList.add('show');document.getElementById('scrubTag').textContent=f.name;document.getElementById('scrubTag').classList.add('loaded');checkFulfillmentReady();};r.readAsText(f);}
+async function loadScrubbilFile(e){const files=e.target.files;if(!files||!files.length)return;const{merged,fileCount,okCount,names}=await parseMultipleFiles(files);if(!merged.headers.length){toast('Invalid CSV');return;}S.fulfill.scrubbilRaw=merged;['scrubWaybill','scrubConfirmed'].forEach((id,idx)=>{const sel=document.getElementById(id);if(sel){sel.innerHTML='<option value="">— select —</option>'+merged.headers.map(h=>`<option value="${escAttr(h)}">${escHtml(h)}</option>`).join('');}});document.getElementById('scrubMap').classList.add('show');document.getElementById('scrubTag').textContent=bulkTag(fileCount,okCount,names,merged.rows.length);document.getElementById('scrubTag').classList.add('loaded');checkFulfillmentReady();}
 
 function checkFulfillmentReady(){if(S.fulfill.shopifyRaw&&S.fulfill.scrubbilRaw){parseFulfillmentData();document.getElementById('fulfillStats').style.display='grid';}}
 
+function normalizeOrderId(id){return(id||'').toString().trim().toUpperCase().replace(/[\s\-_]/g,'');}
+function fmtLocalDate(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+const MONTH_MAP={jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11};
+
+function parseFlexDate(raw){
+  if(!raw)return null;
+  const str=raw.toString().trim();
+  if(!str)return null;
+  let m;
+  const iso=str.split('T')[0];
+  if(m=iso.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/)){const d=new Date(+m[1],+m[2]-1,+m[3]);if(!isNaN(d.getTime()))return d;}
+  if(m=str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/)){
+    let a=+m[1],b=+m[2],y=+m[3],day,month;
+    if(a>12){day=a;month=b;}else if(b>12){day=b;month=a;}else{day=a;month=b;}
+    const d=new Date(y,month-1,day);if(!isNaN(d.getTime()))return d;
+  }
+  if(m=str.match(/^(\d{1,2})[\s\-](\w{3,9})[\s\-,]+(\d{4})$/)){
+    const mo=MONTH_MAP[m[2].slice(0,3).toLowerCase()];
+    if(mo!==undefined){const d=new Date(+m[3],mo,+m[1]);if(!isNaN(d.getTime()))return d;}
+  }
+  if(m=str.match(/^(\w{3,9})[\s\-](\d{1,2}),?[\s\-]+(\d{4})$/)){
+    const mo=MONTH_MAP[m[1].slice(0,3).toLowerCase()];
+    if(mo!==undefined){const d=new Date(+m[3],mo,+m[2]);if(!isNaN(d.getTime()))return d;}
+  }
+  const d=new Date(str);
+  if(!isNaN(d.getTime()))return d;
+  return null;
+}
+
 function parseFulfillmentData(){const shopOrderCol=document.getElementById('shopOrderName').value;const shopDateCol=document.getElementById('shopMonth').value;const shopProductCol=document.getElementById('shopProduct').value;const shopRevenueCol=document.getElementById('shopRevenue').value;const scrubWaybillCol=document.getElementById('scrubWaybill').value;if(!shopOrderCol||!scrubWaybillCol){toast('Select columns');return;}
-const shopifyOrders={};S.fulfill.shopifyRaw.rows.forEach(row=>{const orderId=(row[shopOrderCol]||'').trim();if(!orderId)return;if(!shopifyOrders[orderId]){shopifyOrders[orderId]={order_id:orderId,order_date:(row[shopDateCol]||'').split('T')[0],products:[],revenue:0};}if(shopProductCol){const product=(row[shopProductCol]||'').trim();if(product)shopifyOrders[orderId].products.push(product);}const rev=parseFloat(row[shopRevenueCol])||0;shopifyOrders[orderId].revenue+=rev;});
-const shippedOrders=new Set();S.fulfill.scrubbilRaw.rows.forEach(row=>{const waybill=(row[scrubWaybillCol]||'').trim();if(!waybill)return;shippedOrders.add(waybill);});
-const unfulfilled=[];const now=new Date();Object.values(shopifyOrders).forEach(order=>{if(!shippedOrders.has(order.order_id)){const orderDate=new Date(order.order_date);const daysPending=isNaN(orderDate.getTime())?0:Math.floor((now-orderDate)/(1000*60*60*24));unfulfilled.push({order_id:order.order_id,order_date:order.order_date,product:(order.products[0]||''),days_pending:daysPending,revenue:order.revenue});}});
-S.fulfill.comparison={totalOrders:Object.keys(shopifyOrders).length,shipped:shippedOrders.size,unfulfilled:unfulfilled.length,unfulfilledList:unfulfilled.sort((a,b)=>b.days_pending-a.days_pending)};
-renderFulfillmentStats();renderUnfulfilled();}
+let idIssueCount=0,dateIssueCount=0;const idIssueExamples=[],dateIssueExamples=[];
+const shopifyOrders={};S.fulfill.shopifyRaw.rows.forEach(row=>{
+  const rawId=(row[shopOrderCol]||'').trim();if(!rawId)return;
+  const normId=normalizeOrderId(rawId);
+  if(!shopifyOrders[normId]){
+    const rawDate=(row[shopDateCol]||'').trim();
+    const parsedDate=parseFlexDate(rawDate);
+    if(rawDate&&!parsedDate){dateIssueCount++;if(dateIssueExamples.length<8)dateIssueExamples.push(rawId+': "'+rawDate+'"');}
+    if(rawId.toUpperCase()!==normId){idIssueCount++;if(idIssueExamples.length<8)idIssueExamples.push(rawId+' → '+normId);}
+    shopifyOrders[normId]={order_id:rawId,order_date:parsedDate,order_date_raw:rawDate,products:[],revenue:0};
+  }
+  if(shopProductCol){const product=(row[shopProductCol]||'').trim();if(product)shopifyOrders[normId].products.push(product);}
+  const rev=parseFloat(row[shopRevenueCol])||0;shopifyOrders[normId].revenue+=rev;
+});
+const shippedOrders=new Set();S.fulfill.scrubbilRaw.rows.forEach(row=>{const waybill=(row[scrubWaybillCol]||'').trim();if(!waybill)return;shippedOrders.add(normalizeOrderId(waybill));});
+const unfulfilled=[];const now=new Date();Object.entries(shopifyOrders).forEach(([normId,order])=>{
+  if(!shippedOrders.has(normId)){
+    const daysPending=order.order_date?Math.max(0,Math.floor((now-order.order_date)/(1000*60*60*24))):null;
+    unfulfilled.push({order_id:order.order_id,order_date:order.order_date?fmtLocalDate(order.order_date):(order.order_date_raw||''),date_unparsed:!order.order_date&&!!order.order_date_raw,product:(order.products[0]||''),days_pending:daysPending,revenue:order.revenue});
+  }
+});
+S.fulfill.comparison={totalOrders:Object.keys(shopifyOrders).length,shipped:shippedOrders.size,unfulfilled:unfulfilled.length,unfulfilledList:unfulfilled.sort((a,b)=>(b.days_pending??-1)-(a.days_pending??-1))};
+S.fulfill.dataQuality={idIssueCount,idIssueExamples,dateIssueCount,dateIssueExamples};
+renderFulfillmentStats();renderUnfulfilled();renderDataQualityAlerts();}
+
+function renderDataQualityAlerts(){
+  const el=document.getElementById('fulfillDataQuality');if(!el)return;
+  const dq=S.fulfill.dataQuality;if(!dq){el.style.display='none';return;}
+  if(!dq.idIssueCount&&!dq.dateIssueCount){
+    el.innerHTML='<span style="color:var(--green);font-weight:700">✓ Clean data</span> — no ID formatting or date parsing issues detected';
+    el.style.display='block';return;
+  }
+  let html='';
+  if(dq.idIssueCount){html+=`<div style="margin-bottom:${dq.dateIssueCount?'8px':'0'}"><strong style="color:var(--amber)">⚠ ${dq.idIssueCount} order ID(s)</strong> needed fuzzy matching (spacing/dash/underscore/case differences between Shopify and Scrubbil)<div class="mono" style="color:var(--text3);margin-top:4px">${dq.idIssueExamples.map(escHtml).join(', ')}${dq.idIssueCount>dq.idIssueExamples.length?' …':''}</div></div>`;}
+  if(dq.dateIssueCount){html+=`<div><strong style="color:var(--red)">⚠ ${dq.dateIssueCount} order date(s)</strong> could not be parsed<div class="mono" style="color:var(--text3);margin-top:4px">${dq.dateIssueExamples.map(escHtml).join(', ')}${dq.dateIssueCount>dq.dateIssueExamples.length?' …':''}</div></div>`;}
+  el.innerHTML=html;el.style.display='block';
+}
 
 function renderFulfillmentStats(){const c=S.fulfill.comparison;const rate=c.totalOrders>0?Math.round((c.shipped/c.totalOrders)*100):0;const riskRevenue=c.unfulfilledList.reduce((sum,o)=>sum+o.revenue,0);document.getElementById('fs-orders').textContent=c.totalOrders;document.getElementById('fs-shipped').textContent=c.shipped;document.getElementById('fs-pending').textContent=c.unfulfilled;document.getElementById('fs-rate').textContent=rate+'%';document.getElementById('fs-risk').textContent='R '+riskRevenue.toFixed(2);}
 
 function fulfillSort(col){S.fulfill.sortDir=(S.fulfill.sortCol===col)?S.fulfill.sortDir*-1:1;S.fulfill.sortCol=col;renderUnfulfilled();}
 
-function renderUnfulfilled(){const q=(document.getElementById('fulfillSearch').value||'').toUpperCase();const days=parseInt(document.getElementById('fulfillDaysF').value)||0;let rows=S.fulfill.comparison.unfulfilledList;if(q)rows=rows.filter(r=>(r.order_id+r.product).toUpperCase().includes(q));if(days>0)rows=rows.filter(r=>r.days_pending>=days);rows.sort((a,b)=>{let av=a[S.fulfill.sortCol],bv=b[S.fulfill.sortCol];return(av>bv?1:-1)*S.fulfill.sortDir;});const html=rows.map(r=>`<tr><td>${escHtml(r.order_id)}</td><td>${r.order_date||'—'}</td><td>${escHtml(r.product||'')}</td><td style="text-align:right"><strong>${r.days_pending}d</strong></td><td style="text-align:right">R ${r.revenue.toFixed(2)}</td><td><span class="badge missing">⚠ Pending</span></td></tr>`).join('');if(rows.length===0){if(S.fulfill.comparison.unfulfilled===0){document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">✓</div><p style="color:var(--text3)">All fulfilled!</p></div>';}else{document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">○</div><p style="color:var(--text3)">No results</p></div>';}document.getElementById('fulfillTable').style.display='block';}else{document.getElementById('fulfillBody').innerHTML=html;document.getElementById('fulfillTable').style.display='block';}}
+function renderUnfulfilled(){const q=(document.getElementById('fulfillSearch').value||'').toUpperCase();const days=parseInt(document.getElementById('fulfillDaysF').value)||0;let rows=S.fulfill.comparison.unfulfilledList;if(q)rows=rows.filter(r=>(r.order_id+r.product).toUpperCase().includes(q));if(days>0)rows=rows.filter(r=>(r.days_pending??0)>=days);rows.sort((a,b)=>{let av=a[S.fulfill.sortCol],bv=b[S.fulfill.sortCol];if(av===null||av===undefined)av=-Infinity;if(bv===null||bv===undefined)bv=-Infinity;return(av>bv?1:-1)*S.fulfill.sortDir;});const html=rows.map(r=>`<tr><td>${escHtml(r.order_id)}</td><td>${r.date_unparsed?`<span style="color:var(--amber)" title="Could not parse date">${escHtml(r.order_date)||'—'} ⚠</span>`:(r.order_date||'—')}</td><td>${escHtml(r.product||'')}</td><td style="text-align:right">${r.days_pending===null?'<span style="color:var(--text3)">—</span>':`<strong>${r.days_pending}d</strong>`}</td><td style="text-align:right">R ${r.revenue.toFixed(2)}</td><td><span class="badge missing">⚠ Pending</span></td></tr>`).join('');if(rows.length===0){if(S.fulfill.comparison.unfulfilled===0){document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">✓</div><p style="color:var(--text3)">All fulfilled!</p></div>';}else{document.getElementById('fulfillTable').innerHTML='<div class="empty"><div class="empty-icon">○</div><p style="color:var(--text3)">No results</p></div>';}document.getElementById('fulfillTable').style.display='block';}else{document.getElementById('fulfillBody').innerHTML=html;document.getElementById('fulfillTable').style.display='block';}}
 
 function exportFulfillment(){const rows=S.fulfill.comparison.unfulfilledList;const csv='Order ID,Order Date,Product,Days Pending,Revenue,Status\n'+rows.map(r=>[r.order_id,r.order_date,r.product,r.days_pending,r.revenue,'Pending'].map(csvEsc).join(',')).join('\n');dl2(csv,'unfulfilled-orders.csv');}
 
@@ -812,7 +897,7 @@ function renderPPHistory(){const rows=S.pp.dbRows;document.getElementById('ppBod
 // ── HISTORY ──
 async function loadHistory(){const grid=document.getElementById('histList');if(!grid)return;grid.innerHTML='<div class="empty"><div class="spin"></div></div>';try{const runs=await sb('GET','variance_runs?order=created_at.desc&limit=200');S.hist.all=runs||[];renderHistory();}catch(e){if(grid)grid.innerHTML='<div class="empty">Could not load</div>';}}
 
-function renderHistory(){const q=(document.getElementById('histSearch')?document.getElementById('histSearch').value:'').toUpperCase().trim();const grid=document.getElementById('histList');if(!grid)return;const runs=S.hist.all.filter(r=>{if(q&&!(r.label||'').toUpperCase().includes(q))return false;return true;});if(!runs.length){grid.innerHTML='<div class="empty"><div class="empty-icon">🕓</div><div>No runs</div></div>';return;}grid.innerHTML=runs.map(r=>{const dt=new Date(r.created_at).toLocaleString('en-ZA',{dateStyle:'medium',timeStyle:'short'});const issues=(r.short||0)+(r.missing||0)+(r.over||0)+(r.extra||0);return`<div class="hist-card" onclick="loadHistRun('${r.id}')\"><div><div class="hist-label">${escHtml(r.label||'Run')}</div><div class="hist-meta">${dt}</div></div><div class="hist-pills"><span class="pill ok">${r.matched||0}</span>${issues?`<span class="pill bad">${issues}</span>`:''}</div></div>`;}).join('');}
+function renderHistory(){const q=(document.getElementById('histSearch')?document.getElementById('histSearch').value:'').toUpperCase().trim();const grid=document.getElementById('histList');if(!grid)return;const runs=S.hist.all.filter(r=>{if(q&&!(r.label||'').toUpperCase().includes(q))return false;return true;});if(!runs.length){grid.innerHTML='<div class="empty"><div class="empty-icon">🕓</div><div>No runs</div></div>';return;}grid.innerHTML=runs.map(r=>{const dt=new Date(r.created_at).toLocaleString('en-ZA',{dateStyle:'medium',timeStyle:'short'});const issues=(r.short||0)+(r.missing||0)+(r.over||0)+(r.extra||0);return`<div class="hist-card" onclick="loadHistRun('${r.id}')"><div><div class="hist-label">${escHtml(r.label||'Run')}</div><div class="hist-meta">${dt}</div></div><div class="hist-pills"><span class="pill ok">${r.matched||0}</span>${issues?`<span class="pill bad">${issues}</span>`:''}</div></div>`;}).join('');}
 
 async function loadHistRun(runId){toast('Loading…');try{const rows=await sb('GET',`variance_rows?run_id=eq.${runId}&limit=5000`);S.var.rows=(rows||[]).map(r=>({...r,variance:r.variance!==null?parseFloat(r.variance):null}));S.var.filter='all';S.var.sortCol='status';S.var.sortDir=1;const sg=document.getElementById('vStats');sg.innerHTML='<div class="stat-card" id="vS0"></div><div class="stat-card" id="vS1"></div><div class="stat-card" id="vS2"></div><div class="stat-card" id="vS3"></div><div class="stat-card" id="vS4"></div>';buildStatHTML(S.var.rows,['vS0','vS1','vS2','vS3','vS4']);document.getElementById('var-results').style.display='block';renderVar();nav('variance',document.querySelectorAll('.nav-item')[1]);toast('✓ Loaded');}catch(e){toast('⚠ Load failed');console.error(e);}}
 
